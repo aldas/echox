@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guides on Echo - High performance, minimalist Go web framework</title>
+    <link>https://echo.labstack.com/guide/</link>
+    <description>Recent content in Guides on Echo - High performance, minimalist Go web framework</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://echo.labstack.com/guide/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Binding Request Data</title>
+      <link>https://echo.labstack.com/guide/binding/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/binding/</guid>
+      <description>Bind using struct tags Echo provides following method to bind data from different sources (path params, query params, request body) to structure using Context#Bind(i interface{}) method. The default binder supports decoding application/json, application/xml and application/x-www-form-urlencoded data based on the Content-Type header.
+In the struct definitions each field can be tagged to restrict binding to specific source.
+ query - source is request query parameters. param - source is route path parameter.</description>
+    </item>
+    
+    <item>
+      <title>Context</title>
+      <link>https://echo.labstack.com/guide/context/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/context/</guid>
+      <description>echo.Context represents the context of the current HTTP request. It holds request and response reference, path, path parameters, data, registered handler and APIs to read request and write response. As Context is an interface, it is easy to extend it with custom APIs.
+Extending Context Define a custom context
+type CustomContext struct { echo.Context } func (c *CustomContext) Foo() { println(&amp;#34;foo&amp;#34;) } func (c *CustomContext) Bar() { println(&amp;#34;bar&amp;#34;) } Create a middleware to extend default context</description>
+    </item>
+    
+    <item>
+      <title>Cookies</title>
+      <link>https://echo.labstack.com/guide/cookies/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/cookies/</guid>
+      <description>Cookie is a small piece of data sent from a website server and stored in the user&amp;rsquo;s web browser while browsing. Every time the user loads the website, the browser sends the cookies back to the server to notify the server of user&amp;rsquo;s latest activity. Cookies were designed to be a reliable mechanism for websites to remember stateful information (e.g. items added to the shopping cart in an online store) or to record the user&amp;rsquo;s browsing activity (such as clicking particular buttons, logging in, or user previously visited pages of the website).</description>
+    </item>
+    
+    <item>
+      <title>Customization</title>
+      <link>https://echo.labstack.com/guide/customization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/customization/</guid>
+      <description>Debug Echo#Debug can be used to enable / disable debug mode. Debug mode sets the log level to DEBUG.
+Logging The default format for logging is JSON, which can be changed by modifying the header.
+Log Header Echo#Logger.SetHeader(string) can be used to set the header for the logger. Default value:
+{&amp;#34;time&amp;#34;:&amp;#34;${time_rfc3339_nano}&amp;#34;,&amp;#34;level&amp;#34;:&amp;#34;${level}&amp;#34;,&amp;#34;prefix&amp;#34;:&amp;#34;${prefix}&amp;#34;,&amp;#34;file&amp;#34;:&amp;#34;${short_file}&amp;#34;,&amp;#34;line&amp;#34;:&amp;#34;${line}&amp;#34;} Example
+import &amp;#34;github.com/labstack/gommon/log&amp;#34; /* ... */ if l, ok := e.Logger.(*log.Logger); ok { l.SetHeader(&amp;#34;${time_rfc3339} ${level}&amp;#34;) } 2018-05-08T20:30:06-07:00 INFO info Available Tags  time_rfc3339 time_rfc3339_nano level prefix long_file short_file line  Log Output Echo#Logger.</description>
+    </item>
+    
+    <item>
+      <title>Error Handling</title>
+      <link>https://echo.labstack.com/guide/error-handling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/error-handling/</guid>
+      <description>Echo advocates for centralized HTTP error handling by returning error from middleware and handlers. Centralized error handler allows us to log errors to external services from a unified location and send a customized HTTP response to the client.
+You can return a standard error or echo.*HTTPError.
+For example, when basic auth middleware finds invalid credentials it returns 401 - Unauthorized error, aborting the current HTTP request.
+e.Use(func(next echo.HandlerFunc) echo.HandlerFunc { return func(c echo.</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>https://echo.labstack.com/guide/installation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/installation/</guid>
+      <description>Prerequisites  Install Go Set GOPATH  Using go get $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ go get -u github.com/labstack/echo/... Using dep $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ dep ensure -add github.com/labstack/echo@^3.1 Using glide $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ glide get github.com/labstack/echo#~3.1 Using govendor $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ govendor fetch github.com/labstack/echo@v3.1 Echo follows semantic versioning managed through GitHub releases, specific version of Echo can be installed using a package manager.</description>
+    </item>
+    
+    <item>
+      <title>IP Address</title>
+      <link>https://echo.labstack.com/guide/ip-address/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/ip-address/</guid>
+      <description>IP address plays fundamental role in HTTP; it&amp;rsquo;s used for access control, auditting, geo-based access analysis and more. Echo provides handy method Context#RealIP() for that.
+However, it is not trivial to retrieve the real IP address from requests especially when you put L7 proxies before the application. In such situation, real IP needs to be relayed on HTTP layer from proxies to your app, but you must not trust HTTP headers unconditionally.</description>
+    </item>
+    
+    <item>
+      <title>Migration</title>
+      <link>https://echo.labstack.com/guide/migration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/migration/</guid>
+      <description>Change Log  Automatic TLS certificates via Let&amp;rsquo;s Encrypt Built-in support for graceful shutdown Utility functions to wrap standard handler and middleware Map type as shorthand for map[string]interface{} Context now wraps standard net/http Request and Response New configuration  Echo#ShutdownTimeout Echo#DisableHTTP2   New API  Echo#Start() Echo#StartTLS() Echo#StartAutoTLS() Echo#StartServer() Echo#Shutdown() Echo#ShutdownTLS() Context#Scheme() Context#RealIP() Context#IsTLS()   Exposed the following properties instead of setter / getter functions on Echo instance:  Binder Renderer HTTPErrorHandler Debug Logger   Enhanced redirect and CORS middleware Dropped static middleware in favor of Echo#Static Dropped API  Echo#Run() Context#P()   Dropped standard Context support Dropped support for fasthttp Dropped deprecated API Moved Logger interface to root level Moved website and examples to the main repo Updated docs and fixed numerous issues  Cookbook </description>
+    </item>
+    
+    <item>
+      <title>Request</title>
+      <link>https://echo.labstack.com/guide/request/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/request/</guid>
+      <description>Retrieve Data Form Data Form data can be retrieved by name using Context#FormValue(name string).
+// Handler func(c echo.Context) error { name := c.FormValue(&amp;#34;name&amp;#34;) return c.String(http.StatusOK, name) } curl -X POST http://localhost:1323 -d &amp;#39;name=Joe&amp;#39; To bind a custom data type, you can implement Echo#BindUnmarshaler interface.
+type Timestamp time.Time func (t *Timestamp) UnmarshalParam(src string) error { ts, err := time.Parse(time.RFC3339, src) *t = Timestamp(ts) return err } Query Parameters Query parameters can be retrieved by name using Context#QueryParam(name string).</description>
+    </item>
+    
+    <item>
+      <title>Response</title>
+      <link>https://echo.labstack.com/guide/response/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/response/</guid>
+      <description>Send String Context#String(code int, s string) can be used to send plain text response with status code.
+Example
+func(c echo.Context) error { return c.String(http.StatusOK, &amp;#34;Hello, World!&amp;#34;) } Send HTML (Reference to templates) Context#HTML(code int, html string) can be used to send simple HTML response with status code. If you are looking to send dynamically generate HTML see templates.
+Example
+func(c echo.Context) error { return c.HTML(http.StatusOK, &amp;#34;&amp;lt;strong&amp;gt;Hello, World!&amp;lt;/strong&amp;gt;&amp;#34;) } Send HTML Blob Context#HTMLBlob(code int, b []byte) can be used to send HTML blob with status code.</description>
+    </item>
+    
+    <item>
+      <title>Routing</title>
+      <link>https://echo.labstack.com/guide/routing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/routing/</guid>
+      <description>Echo&amp;rsquo;s router is based on radix tree, making route lookup really fast. It leverages sync pool to reuse memory and achieve zero dynamic memory allocation with no GC overhead.
+Routes can be registered by specifying HTTP method, path and a matching handler. For example, code below registers a route for method GET, path /hello and a handler which sends Hello, World! HTTP response.
+// Handler func hello(c echo.Context) error { return c.</description>
+    </item>
+    
+    <item>
+      <title>Static Files</title>
+      <link>https://echo.labstack.com/guide/static-files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/static-files/</guid>
+      <description>Images, JavaScript, CSS, PDF, Fonts and so on&amp;hellip;
+Using Static Middleware Using Echo#Static() Echo#Static(prefix, root string) registers a new route with path prefix to serve static files from the provided root directory.
+Usage 1
+e := echo.New() e.Static(&amp;#34;/static&amp;#34;, &amp;#34;assets&amp;#34;) Example above will serve any file from the assets directory for path /static/*. For example, a request to /static/js/main.js will fetch and serve assets/js/main.js file.
+Usage 2
+e := echo.New() e.Static(&amp;#34;/&amp;#34;, &amp;#34;assets&amp;#34;) Example above will serve any file from the assets directory for path /*.</description>
+    </item>
+    
+    <item>
+      <title>Templates</title>
+      <link>https://echo.labstack.com/guide/templates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/templates/</guid>
+      <description>Template Rendering Context#Render(code int, name string, data interface{}) error renders a template with data and sends a text/html response with status code. Templates can be registered by setting Echo.Renderer, allowing us to use any template engine.
+Example below shows how to use Go html/template:
+  Implement echo.Renderer interface
+type Template struct { templates *template.Template } func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error { return t.</description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>https://echo.labstack.com/guide/testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/testing/</guid>
+      <description>Testing Handler GET /users/:id
+Handler below retrieves user by id from the database. If user is not found it returns 404 error with a message.
+CreateUser POST /users
+ Accepts JSON payload On success 201 - Created On error 500 - Internal Server Error  GetUser GET /users/:email
+ On success 200 - OK On error 404 - Not Found if user is not found otherwise 500 - Internal Server Error  handler.</description>
+    </item>
+    
+  </channel>
+</rss>

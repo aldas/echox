@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content="Binding request data | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@echo">
+  <meta name="twitter:creator" content="@labstack">
+  <meta name="twitter:title" content="Binding Request Data | Echo - High performance, minimalist Go web framework">
+  <meta name="twitter:description" content="Binding request data | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+  <meta name="twitter:image" content="https://echo.labstack.com/images/share.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Binding Request Data">
+  <meta property="og:title" content="Binding Request Data | Echo - High performance, minimalist Go web framework">
+  <meta property="og:description" content="Binding request data | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+  <meta property="og:url" content="https://echo.labstack.com/">
+  <meta property="og:image" content="https://echo.labstack.com/images/share.png">
+  <title>
+    Binding Request Data | Echo - High performance, minimalist Go web framework
+  </title>
+  <link rel="stylesheet"
+    href="https://cdn.labstack.com/styles/icomoon.css">
+  <link rel="stylesheet"
+    href="https://unpkg.com/docsearch.js@2.2.1/dist/cdn/docsearch.min.css">
+  <link rel="stylesheet" href="https://cdn.labstack.com/styles/w3.css">
+  <link rel="stylesheet" href="https://cdn.labstack.com/styles/prism.css">
+  <link rel="stylesheet" href="https://cdn.labstack.com/styles/base.css">
+  <link rel="icon"
+    type="image/png"
+    href="https://cdn.labstack.com/images/labstack-icon.png">
+</head>
+
+<body class="docs">
+	<div class="topnav">
+  <nav class="w3-content">
+    <a href="/"><img class="logo" src="https://cdn.labstack.com/images/echo-logo.svg" alt="Echo"></a>
+    <span class="hide-small">
+      <i class="fa fa-search w3-text-gray"></i>
+      <input id="search-box" type="text" class="w3-input">
+    </span>
+    <span class="menu hide-small hide-medium">
+      <a href="https://github.com/labstack/echo/discussions">Forum</a>
+      <a href="https://gitter.im/labstack/echo">Chat</a>
+    </span>
+    <button class="hamburger hide-large" onclick="toggleSidenav()">
+      <span></span>
+    </button>
+  </nav>
+</div>
+
+  <div class="w3-content">
+    <nav class="sidenav2">
+  <div class="w3-container">
+    <ul class="menu-top menu-l1 hide-large">
+      <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
+      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
+    </ul>
+    
+    <ul class="menu-l1">
+      
+      <a href="/guide"><i class='fas fa-book'></i> Guide</a>
+      <ul class="menu-l2">
+        
+        <li>
+          <a href="/guide/installation">
+             Installation
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/customization">
+             Customization
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a class="active" href="/guide/binding">
+             Binding
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/context">
+             Context
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/cookies">
+             Cookies
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/error-handling">
+             Error Handling
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/ip-address">
+             IP Address
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/migration">
+             Migration
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/request">
+             Request
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/response">
+             Response
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/routing">
+             Routing
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/static-files">
+             Static Files
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/templates">
+             Templates
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/guide/testing">
+             Testing
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+      </ul>
+      
+      <a href="/middleware"><i class='fas fa-filter'></i> Middleware</a>
+      <ul class="menu-l2">
+        
+        <li>
+          <a href="/middleware/basic-auth">
+             Basic Auth
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/body-dump">
+             Body Dump
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/body-limit">
+             Body Limit
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/casbin-auth">
+             Casbin Auth
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/cors">
+             CORS
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/csrf">
+             CSRF
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/decompress">
+             Decompress
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/gzip">
+             Gzip
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/jaegertracing">
+             Jaeger
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/jwt">
+             JWT
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/key-auth">
+             Key Auth
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/logger">
+             Logger
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/method-override">
+             Method Override
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/prometheus">
+             Prometheus
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/proxy">
+             Proxy
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/rate-limiter">
+             Rate Limiter
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/recover">
+             Recover
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/redirect">
+             Redirect
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/request-id">
+             Request ID
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/rewrite">
+             Rewrite
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/secure">
+             Secure
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/session">
+             Session
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/static">
+             Static
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/timeout">
+             Timeout
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/middleware/trailing-slash">
+             Trailing Slash
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+      </ul>
+      
+      <a href="/cookbook"><i class='fas fa-code'></i> Cookbook</a>
+      <ul class="menu-l2">
+        
+        <li>
+          <a href="/cookbook/auto-tls">
+             Auto TLS
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/cors">
+             CORS
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/crud">
+             CRUD
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/embed-resources">
+             Embed Resources
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/file-download">
+             File Download
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/file-upload">
+             File Upload
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/google-app-engine">
+             Google App Engine
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/graceful-shutdown">
+             Graceful Shutdown
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/hello-world">
+             Hello World
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/http2">
+             HTTP/2
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/http2-server-push">
+             HTTP/2 Server Push
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/jsonp">
+             JSONP
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/jwt">
+             JWT
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/load-balancing">
+             Load Balancing
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/middleware">
+             Middleware
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/reverse-proxy">
+             Reverse Proxy
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/streaming-response">
+             Streaming Response
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/subdomains">
+             Subdomains
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/timeouts">
+             Timeouts
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/twitter">
+             Twitter
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
+          <a href="/cookbook/websocket">
+             WebSocket
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+      </ul>
+      
+    </ul>
+  </div>
+</nav>
+    <div class="main">
+      <div class="w3-container ad">
+  <a href="https://code.labstack.com/program">
+    <img
+      style="margin-bottom: 8px;"
+      src="https://echo.labstack.com//images/code.png"
+      alt="Code - Multi-programming language playground"
+    />
+  </a>
+  
+</div>
+
+      <div class="w3-row-padding">
+        <div class="w3-col s12 m10 l10">
+          
+
+
+
+          <article class="content">
+            <section>
+              
+              
+              <ul class="breadcrumb">
+                
+                
+                
+                
+                <li><a href='https://echo.labstack.com/guide'>guide</a></li>
+                
+                
+                
+                
+                
+                <li><a href='https://echo.labstack.com/guide/binding'>binding</a></li>
+                
+                
+                
+                
+                
+                
+              </ul>
+              <h1>Binding Request Data</h1>
+              <h2 id="bind-using-struct-tags">Bind using struct tags</h2>
+<p>Echo provides following method to bind data from different sources (path params, query params, request body) to structure using
+<code>Context#Bind(i interface{})</code> method.
+The default binder supports decoding application/json, application/xml and
+application/x-www-form-urlencoded data based on the Content-Type header.</p>
+<p>In the struct definitions each field can be tagged to restrict binding to specific source.</p>
+<ul>
+<li><code>query</code> - source is request query parameters.</li>
+<li><code>param</code> - source is route path parameter.</li>
+<li><code>form</code> - source is form. Values are taken from query and request body. Uses Go standard library form parsing.</li>
+<li><code>json</code> - source is request body. Uses Go <a href="https://golang.org/pkg/encoding/json/">json</a> package for unmarshalling.</li>
+<li><code>xml</code> - source is request body. Uses Go <a href="https://golang.org/pkg/encoding/xml/">xml</a> package for unmarshalling.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">ID</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`param:&#34;id&#34; query:&#34;id&#34; form:&#34;id&#34; json:&#34;id&#34; xml:&#34;id&#34;`</span>
+}
+</code></pre></div><p>Request data is binded to the struct in given order:</p>
+<ol>
+<li>Path parameters</li>
+<li>Query parameters (only for GET/DELETE methods)</li>
+<li>Request body</li>
+</ol>
+<p>Notes:</p>
+<ul>
+<li>For <code>query</code>, <code>param</code>, <code>form</code> <strong>only</strong> fields <strong>with</strong> tags are bound.</li>
+<li>For <code>json</code> and <code>xml</code> can bind to <em>public</em> fields without tags but this is by their standard library implementation.</li>
+<li>Each step can overwrite binded fields from the previous step. This means if your json request has query param
+<code>&amp;name=query</code> and body is <code>{&quot;name&quot;: &quot;body&quot;}</code> then the result will be <code>User{Name: &quot;body&quot;}</code>.</li>
+<li>To avoid security flaws try to avoid passing binded structs directly to other methods if
+these structs contain fields that should not be bindable. It is advisable to have separate struct for binding and map it
+explicitly to your business struct. Consider what will happen if your binded struct has public
+field <code>IsAdmin bool</code> and request body would contain <code>{IsAdmin: true, Name: &quot;hacker&quot;}</code>.</li>
+<li>When binding forms take note that Echo implementation uses standard library form parsing which parses form data
+from BOTH URL and BODY if content type is not MIMEMultipartForm. See documentation for <a href="https://golang.org/pkg/net/http/#Request.ParseForm">non-MIMEMultipartForm</a>
+and <a href="https://golang.org/pkg/net/http/#Request.ParseMultipartForm">MIMEMultipartForm</a></li>
+<li>To bind data only from request body use following code
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindBody</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+}
+</code></pre></div></li>
+<li>To bind data only from query parameters use following code
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindQueryParams</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+}
+</code></pre></div></li>
+<li>To bind data only from path parameters use following code
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindPathParams</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+}
+</code></pre></div></li>
+</ul>
+<h3 id="example">Example</h3>
+<p>Example below binds the request payload into <code>User</code> struct based on tags:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// User
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34; form:&#34;name&#34; query:&#34;name&#34;`</span>
+  <span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;email&#34; form:&#34;email&#34; query:&#34;email&#34;`</span>
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+  <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">User</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">u</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+    <span style="color:#66d9ef">return</span>
+  }
+  <span style="color:#75715e">// To avoid security flaws try to avoid passing binded structs directly to other methods 
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// if these structs contain fields that should not be bindable. 
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">UserDTO</span>{
+    <span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Name</span>,
+    <span style="color:#a6e22e">Email</span>: <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Email</span>,
+    <span style="color:#a6e22e">IsAdmin</span>: <span style="color:#66d9ef">false</span> <span style="color:#75715e">// because you could accidentally expose fields that should not be bind
+</span><span style="color:#75715e"></span>  }
+  <span style="color:#a6e22e">executeSomeBusinessLogic</span>(<span style="color:#a6e22e">user</span>)
+  
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">u</span>)
+}
+</code></pre></div><h3 id="json-data">JSON Data</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#39;Content-Type: application/json&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Joe&#34;,&#34;email&#34;:&#34;joe@labstack&#34;}&#39;</span>
+</code></pre></div><h3 id="form-data">Form Data</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;name=Joe&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;email=joe@labstack.com&#39;</span>
+</code></pre></div><h3 id="query-parameters">Query Parameters</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X GET http://localhost:1323/users<span style="color:#ae81ff">\?</span>name<span style="color:#ae81ff">\=</span>Joe<span style="color:#ae81ff">\&amp;</span>email<span style="color:#ae81ff">\=</span>joe@labstack.com
+</code></pre></div><h2 id="fast-binding-with-dedicated-helpers">Fast binding with dedicated helpers</h2>
+<p>For binding data found in a request a handful of helper functions are provided. This will allow binding of query parameters, path parameters or data found in the body like forms or JSON data.</p>
+<p>Following functions provide a handful of methods for binding to Go native types from request query or path parameters. These binders offer a fluent syntax and can be chained to configure, execute binding and handle errors.</p>
+<ul>
+<li><code>echo.QueryParamsBinder(c)</code> - binds query parameters (source URL)</li>
+<li><code>echo.PathParamsBinder(c)</code> - binds path parameters (source URL)</li>
+<li><code>echo.FormFieldBinder(c)</code> - binds form fields (source URL + body). See also <a href="https://golang.org/pkg/net/http/#Request.ParseForm">Request.ParseForm</a>.</li>
+</ul>
+<p>A binder is usually completed by <code>BindError()</code> or <code>BindErrors()</code> which returns errors if binding fails.
+With <code>FailFast()</code> the binder can be configured stop binding on the first error or continue binding for
+the binder call chain. Fail fast is enabled by default and should be disabled when using <code>BindErrors()</code>.</p>
+<p><code>BindError()</code> returns the first bind error from binder and resets all errors in this binder.
+<code>BindErrors()</code> returns all bind errors from binder and resets errors in binder.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// url =  &#34;/api/search?active=true&amp;id=1&amp;id=2&amp;id=3&amp;length=25&#34;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">opts</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">IDs</span> []<span style="color:#66d9ef">int64</span>
+  <span style="color:#a6e22e">Active</span> <span style="color:#66d9ef">bool</span>
+}
+<span style="color:#a6e22e">length</span> <span style="color:#f92672">:=</span> int64(<span style="color:#ae81ff">50</span>) <span style="color:#75715e">// default length is 50
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// creates query params binder that stops binding at first error
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">QueryParamsBinder</span>(<span style="color:#a6e22e">c</span>).
+  <span style="color:#a6e22e">Int64</span>(<span style="color:#e6db74">&#34;length&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">length</span>).
+  <span style="color:#a6e22e">Int64s</span>(<span style="color:#e6db74">&#34;ids&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">IDs</span>).
+  <span style="color:#a6e22e">Bool</span>(<span style="color:#e6db74">&#34;active&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">Active</span>).
+  <span style="color:#a6e22e">BindError</span>() <span style="color:#75715e">// returns first binding error
+</span></code></pre></div><h3 id="supported-types">Supported types</h3>
+<p>Types that are supported:</p>
+<ul>
+<li>bool</li>
+<li>float32</li>
+<li>float64</li>
+<li>int</li>
+<li>int8</li>
+<li>int16</li>
+<li>int32</li>
+<li>int64</li>
+<li>uint</li>
+<li>uint8/byte (does not support <code>bytes()</code>. Use BindUnmarshaler/CustomFunc to convert value from base64 etc to []byte{})</li>
+<li>uint16</li>
+<li>uint32</li>
+<li>uint64</li>
+<li>string</li>
+<li>time</li>
+<li>duration</li>
+<li>BindUnmarshaler() interface</li>
+<li>UnixTime() - converts unix time (integer) to time.Time</li>
+<li>UnixTimeNano() - converts unix time with nano second precision (integer) to time.Time</li>
+<li>CustomFunc() - callback function for your custom conversion logic</li>
+</ul>
+<p>For every supported type there are following methods:</p>
+<ul>
+<li><code>&lt;Type&gt;(&quot;param&quot;, &amp;destination)</code> - if parameter value exists then binds it to given destination of that type i.e <code>Int64(...)</code>.</li>
+<li><code>Must&lt;Type&gt;(&quot;param&quot;, &amp;destination)</code> - parameter value is required to exist, binds it to given destination of that type i.e <code>MustInt64(...)</code>.</li>
+<li><code>&lt;Type&gt;s(&quot;param&quot;, &amp;destination)</code> - (for slices) if parameter values exists then binds it to given destination of that type i.e <code>Int64s(...)</code>.</li>
+<li><code>Must&lt;Type&gt;s(&quot;param&quot;, &amp;destination)</code> - (for slices) parameter value is required to exist, binds it to given destination of that type i.e <code>MustInt64s(...)</code>.</li>
+</ul>
+<p>for some slice types <code>BindWithDelimiter(&quot;param&quot;, &amp;dest, &quot;,&quot;)</code> supports splitting parameter values before type conversion is done. For example URL <code>/api/search?id=1,2,3&amp;id=1</code> can be bind to <code>[]int64{1,2,3,1}</code></p>
+<h2 id="custom-binder">Custom Binder</h2>
+<p>Custom binder can be registered using <code>Echo#Binder</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CustomBinder</span> <span style="color:#66d9ef">struct</span> {}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">cb</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CustomBinder</span>) <span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+  <span style="color:#75715e">// You may use default binder
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">DefaultBinder</span>)
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ErrUnsupportedMediaType</span> {
+    <span style="color:#66d9ef">return</span>
+  }
+
+  <span style="color:#75715e">// Define your custom implementation here
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span>
+}
+</code></pre></div>
+            </section>
+            <footer>
+              Caught a mistake?
+              <a 
+                href="https://github.com/labstack/echox/blob/master/website/content/guide/binding.md">
+                <i class="far fa-edit"></i> Edit this page on GitHub!
+              </a>
+              <hr>
+              <h2>
+                <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
+                <a href="https://gitter.im/labstack/echo">Chat</a>
+              </h2>
+            </footer>
+          </article>
+        </div>
+      </div>
+	    <footer class="w3-content w3-container w3-padding-48 w3-center footer">
+  <p>
+    <strong>Echo</strong> by <a href="https://labstack.com">LabStack</a> © 2021 LabStack
+  </p>
+  <p>
+    <a class="icon" href="https://labstack.com/blog">
+      <i class="fas fa-rss"></i>
+    </a>
+    <a class="icon" href="https://github.com/labstack">
+      <i class="fab fa-github"></i>
+    </a>
+    <a class="icon" href="https://facebook.com/labstack">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a class="icon" href="https://twitter.com/labstack">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a class="icon" href="mailto:hello@labstack.com?Subject=Hello" target="_top">
+      <i class="far fa-envelope"></i>
+    </a>
+  </p>
+</footer>
+<script type="text/javascript" src="https://unpkg.com/docsearch.js@2.2.1/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript">
+docsearch({
+  apiKey: '69dfc65b57ccba29ec34b68aa5b274ed',
+  indexName: 'labstack',
+  inputSelector: '#search-box'
+});
+</script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script src="https://cdn.labstack.com/scripts/prism.js"></script>
+<script src="https://cdn.labstack.com/scripts/base.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-85059636-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </div>
+  </div>
+</body>
+</html>
