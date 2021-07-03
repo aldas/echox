@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Jaeger Tracing Middleware</h1>
-              <p>Trace requests on Echo framework with Jaeger Tracing Middleware.</p>
+                <p>Trace requests on Echo framework with Jaeger Tracing Middleware.</p>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 <span style="color:#f92672">import</span> (
@@ -676,7 +695,7 @@
     <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>))
 }
 </code></pre></div><p>Enabling the tracing middleware creates a tracer and a root tracing span for every request.</p>
-<h2 id="custom-configuration">Custom Configuration</h2>
+<h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>By default, traces are sent to <code>localhost</code> Jaeger agent instance. To configure an external Jaeger, start your application with environment variables.</p>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ JAEGER_AGENT_HOST<span style="color:#f92672">=</span>192.168.1.10 JAEGER_AGENT_PORT<span style="color:#f92672">=</span><span style="color:#ae81ff">6831</span> ./myserver
@@ -765,7 +784,7 @@ and all of them can be overriden via direct setting of the property on the confi
 to the endpoint via <code>HTTP</code>, making the <code>JAEGER_AGENT_HOST</code> and <code>JAEGER_AGENT_PORT</code> unused. If <code>JAEGER_ENDPOINT</code> is
 secured, HTTP basic authentication can be performed by setting the <code>JAEGER_USER</code> and <code>JAEGER_PASSWORD</code> environment
 variables.</p>
-<h3 id="middleware-skipper">Middleware Skipper</h3>
+<h3 id="middleware-skipper">Middleware Skipper<a href="#middleware-skipper" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>A middleware skipper can be passed to avoid tracing spans to certain URLs:</p>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
@@ -791,7 +810,7 @@ variables.</p>
 
     <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>))
 }
-</code></pre></div><h3 id="tracefunction">TraceFunction</h3>
+</code></pre></div><h3 id="tracefunction">TraceFunction<a href="#tracefunction" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>This is a wrapper function that can be used to seamlessly add a span for
 the duration of the invoked function. There is no need to change function arguments.</p>
 <p><em>Usage</em></p>
@@ -820,7 +839,7 @@ the duration of the invoked function. There is no need to change function argume
 	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
 	<span style="color:#66d9ef">return</span>
 }
-</code></pre></div><h3 id="createchildspan">CreateChildSpan</h3>
+</code></pre></div><h3 id="createchildspan">CreateChildSpan<a href="#createchildspan" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>For more control over the Span, the function <code>CreateChildSpan</code> can be called
 giving control on data to be appended to the span like log messages, baggages and tags.</p>
 <p><em>Usage</em></p>

@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,11 +679,11 @@
                 
               </ul>
               <h1>CORS Recipe</h1>
-              <h2 id="server-using-a-list-of-allowed-origins">Server using a list of allowed origins</h2>
+                <h2 id="server-using-a-list-of-allowed-origins">Server using a list of allowed origins<a href="#server-using-a-list-of-allowed-origins" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>server.go</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/cors/origin-list/server.go"></pre>
 
-<h2 id="server-using-a-custom-function-to-allow-origins">Server using a custom function to allow origins</h2>
+<h2 id="server-using-a-custom-function-to-allow-origins">Server using a custom function to allow origins<a href="#server-using-a-custom-function-to-allow-origins" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>server.go</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/cors/origin-func/server.go"></pre>
 

@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,9 +679,9 @@
                 
               </ul>
               <h1>Static Files</h1>
-              <p>Images, JavaScript, CSS, PDF, Fonts and so on&hellip;</p>
-<h2 id="using-static-middlewarehahahugoshortcode-s0-hbhb"><a href="https://echo.labstack.com/middleware/static/">Using Static Middleware</a></h2>
-<h2 id="using-echostatic">Using <code>Echo#Static()</code></h2>
+                <p>Images, JavaScript, CSS, PDF, Fonts and so on&hellip;</p>
+<h2 id="using-static-middlewarehahahugoshortcode-s0-hbhb"><a href="https://echo.labstack.com/middleware/static/">Using Static Middleware</a><a href="#using-static-middlewarehahahugoshortcode-s0-hbhb" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h2 id="using-echostatic">Using <code>Echo#Static()</code><a href="#using-echostatic" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Static(prefix, root string)</code> registers a new route with path prefix to serve
 static files from the provided root directory.</p>
 <p><em>Usage 1</em></p>
@@ -675,7 +694,7 @@ a request to <code>/static/js/main.js</code> will fetch and serve <code>assets/j
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Static</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;assets&#34;</span>)
 </code></pre></div><p>Example above will serve any file from the assets directory for path <code>/*</code>. For example,
 a request to <code>/js/main.js</code> will fetch and serve <code>assets/js/main.js</code> file.</p>
-<h2 id="using-echofile">Using <code>Echo#File()</code></h2>
+<h2 id="using-echofile">Using <code>Echo#File()</code><a href="#using-echofile" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#File(path, file string)</code> registers a new route with path to serve a static
 file.</p>
 <p><em>Usage 1</em></p>

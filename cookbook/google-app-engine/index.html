@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,13 +679,13 @@
                 
               </ul>
               <h1>Google App Engine Recipe</h1>
-              <p>Google App Engine (GAE) provides a range of hosting options from pure PaaS (App Engine Classic)
+                <p>Google App Engine (GAE) provides a range of hosting options from pure PaaS (App Engine Classic)
 through Managed VMs to fully self-managed or container-driven Compute Engine instances. Echo
 works great with all of these but requires a few changes to the usual examples to run on the
 AppEngine Classic and Managed VM options. With a small amount of effort though it&rsquo;s possible
 to produce a codebase that will run on these and also non-managed platforms automatically.</p>
 <p>We&rsquo;ll walk through the changes needed to support each option.</p>
-<h2 id="standalone">Standalone</h2>
+<h2 id="standalone">Standalone<a href="#standalone" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Wait? What? I thought this was about AppEngine! Bear with me - the easiest way to show the changes
 required is to start with a setup for standalone and work from there plus there&rsquo;s no reason we
 wouldn&rsquo;t want to retain the ability to run our app anywhere, right?</p>
@@ -698,13 +717,13 @@ Echo instance directly (so things like CORS middleware can be added at this high
 
 <p>If we run our app it should execute as it did before when everything was in one file although we have
 at least gained the ability to organize our handlers a little more cleanly.</p>
-<h2 id="appengine-classic-and-managed-vms">AppEngine Classic and Managed VMs</h2>
+<h2 id="appengine-classic-and-managed-vms">AppEngine Classic and Managed VMs<a href="#appengine-classic-and-managed-vms" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>So far we&rsquo;ve seen how to split apart the Echo creation and setup but still have the same app that
 still only runs standalone. Now we&rsquo;ll see how those changes allow us to add support for AppEngine
 hosting.</p>
 <p>Refer to the <a href="https://cloud.google.com/appengine/docs/go/">AppEngine site</a> for full configuration
 and deployment information.</p>
-<h3 id="appyaml-configuration-file">app.yaml configuration file</h3>
+<h3 id="appyaml-configuration-file">app.yaml configuration file<a href="#appyaml-configuration-file" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Both of these are Platform as as Service options running on either sandboxed micro-containers
 or managed Compute Engine instances. Both require an <code>app.yaml</code> file to describe the app to
 the service. While the app <em>could</em> still serve all it&rsquo;s static files itself, one of the benefits
@@ -717,7 +736,7 @@ this can help when making the transition from AppEngine Classic to Managed VMs.<
 <p><code>app-engine.yaml</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/google-app-engine/app-engine.yaml"></pre>
 
-<h3 id="router-configuration">Router configuration</h3>
+<h3 id="router-configuration">Router configuration<a href="#router-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>We&rsquo;ll now use the <a href="http://golang.org/pkg/go/build/">build constraints</a> again like we did when creating
 our <code>app-standalone.go</code> instance but this time with the opposite tags to use this file <em>if</em> the build has
 the appengine or appenginevm tags (added automatically when deploying to these platforms).</p>

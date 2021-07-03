@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,12 +679,12 @@
                 
               </ul>
               <h1>Customization</h1>
-              <h2 id="debug">Debug</h2>
+                <h2 id="debug">Debug<a href="#debug" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Debug</code> can be used to enable / disable debug mode. Debug mode sets the log level
 to <code>DEBUG</code>.</p>
-<h2 id="logging">Logging</h2>
+<h2 id="logging">Logging<a href="#logging" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>The default format for logging is JSON, which can be changed by modifying the header.</p>
-<h3 id="log-header">Log Header</h3>
+<h3 id="log-header">Log Header<a href="#log-header" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Echo#Logger.SetHeader(string)</code> can be used to set the header for
 the logger. Default value:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;${time_rfc3339_nano}&#34;</span>,<span style="color:#f92672">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;${level}&#34;</span>,<span style="color:#f92672">&#34;prefix&#34;</span>:<span style="color:#e6db74">&#34;${prefix}&#34;</span>,<span style="color:#f92672">&#34;file&#34;</span>:<span style="color:#e6db74">&#34;${short_file}&#34;</span>,<span style="color:#f92672">&#34;line&#34;</span>:<span style="color:#e6db74">&#34;${line}&#34;</span>}
@@ -678,7 +697,7 @@ the logger. Default value:</p>
   <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">SetHeader</span>(<span style="color:#e6db74">&#34;${time_rfc3339} ${level}&#34;</span>)
 }
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">2018-05-08T20:30:06-07:00 INFO info
-</code></pre></div><h4 id="available-tags">Available Tags</h4>
+</code></pre></div><h4 id="available-tags">Available Tags<a href="#available-tags" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h4>
 <ul>
 <li><code>time_rfc3339</code></li>
 <li><code>time_rfc3339_nano</code></li>
@@ -688,11 +707,11 @@ the logger. Default value:</p>
 <li><code>short_file</code></li>
 <li><code>line</code></li>
 </ul>
-<h3 id="log-output">Log Output</h3>
+<h3 id="log-output">Log Output<a href="#log-output" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Echo#Logger.SetOutput(io.Writer)</code> can be used to set the output destination for
 the logger. Default value is <code>os.Stdout</code></p>
 <p>To completely disable logs use <code>Echo#Logger.SetOutput(ioutil.Discard)</code> or <code>Echo#Logger.SetLevel(log.OFF)</code></p>
-<h3 id="log-level">Log Level</h3>
+<h3 id="log-level">Log Level<a href="#log-level" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Echo#Logger.SetLevel(log.Lvl)</code> can be used to set the log level for the logger.
 Default value is <code>ERROR</code>. Possible values:</p>
 <ul>
@@ -702,32 +721,12 @@ Default value is <code>ERROR</code>. Possible values:</p>
 <li><code>ERROR</code></li>
 <li><code>OFF</code></li>
 </ul>
-<h3 id="custom-logger">Custom Logger</h3>
+<h3 id="custom-logger">Custom Logger<a href="#custom-logger" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Logging is implemented using <code>echo.Logger</code> interface which allows you to register
 a custom logger using <code>Echo#Logger</code>.</p>
-<h2 id="custom-server">Custom Server</h2>
-<p><code>Echo#StartServer()</code> can be used to run a custom server.</p>
-<p><em>Example</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
-  <span style="color:#a6e22e">Addr</span>:         <span style="color:#e6db74">&#34;:1323&#34;</span>,
-  <span style="color:#a6e22e">ReadTimeout</span>:  <span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>,
-  <span style="color:#a6e22e">WriteTimeout</span>: <span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>,
-}
-<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartServer</span>(<span style="color:#a6e22e">s</span>))
-</code></pre></div><h2 id="custom-http2-cleartext-server">Custom HTTP/2 Cleartext Server</h2>
-<p><code>Echo#StartH2CServer()</code> can be used to run a custom HTTP/2 cleartext server.</p>
-<p><em>Example</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;golang.org/x/net/http2&#34;</span>
-
-<span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http2</span>.<span style="color:#a6e22e">Server</span>{
-  <span style="color:#a6e22e">MaxConcurrentStreams</span>: <span style="color:#ae81ff">250</span>,
-  <span style="color:#a6e22e">MaxReadFrameSize</span>:     <span style="color:#ae81ff">1048576</span>,
-  <span style="color:#a6e22e">IdleTimeout</span>:          <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
-}
-<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartH2CServer</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>, <span style="color:#a6e22e">s</span>))
-</code></pre></div><h2 id="startup-banner">Startup Banner</h2>
+<h2 id="startup-banner">Startup Banner<a href="#startup-banner" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#HideBanner</code> can be used to hide the startup banner.</p>
-<h2 id="custom-listener">Custom Listener</h2>
+<h2 id="custom-listener">Custom Listener<a href="#custom-listener" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#*Listener</code> can be used to run a custom listener.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;:1323&#34;</span>)
@@ -736,25 +735,25 @@ a custom logger using <code>Echo#Logger</code>.</p>
 }
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Listener</span> = <span style="color:#a6e22e">l</span>
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;&#34;</span>))
-</code></pre></div><h2 id="disable-http2">Disable HTTP/2</h2>
+</code></pre></div><h2 id="disable-http2">Disable HTTP/2<a href="#disable-http2" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#DisableHTTP2</code> can be used disable HTTP/2 protocol.</p>
-<h2 id="read-timeout">Read Timeout</h2>
+<h2 id="read-timeout">Read Timeout<a href="#read-timeout" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#*Server#ReadTimeout</code> can be used to set the maximum duration before timing out read
 of the request.</p>
-<h2 id="write-timeout">Write Timeout</h2>
+<h2 id="write-timeout">Write Timeout<a href="#write-timeout" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#*Server#WriteTimeout</code> can be used to set the maximum duration before timing out write
 of the response.</p>
-<h2 id="validator">Validator</h2>
+<h2 id="validator">Validator<a href="#validator" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Validator</code> can be used to register a validator for performing data validation
 on request payload.</p>
 <p><a href="/guide/request#validate-data">Learn more</a></p>
-<h2 id="custom-binder">Custom Binder</h2>
+<h2 id="custom-binder">Custom Binder<a href="#custom-binder" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Binder</code> can be used to register a custom binder for binding request payload.</p>
 <p><a href="/guide/request/#custom-binder">Learn more</a></p>
-<h2 id="renderer">Renderer</h2>
+<h2 id="renderer">Renderer<a href="#renderer" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Renderer</code> can be used to register a renderer for template rendering.</p>
 <p><a href="/guide/templates">Learn more</a></p>
-<h2 id="http-error-handler">HTTP Error Handler</h2>
+<h2 id="http-error-handler">HTTP Error Handler<a href="#http-error-handler" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#HTTPErrorHandler</code> can be used to register a custom http error handler.</p>
 <p><a href="/guide/error-handling">Learn more</a></p>
 

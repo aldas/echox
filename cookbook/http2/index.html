@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,15 +679,15 @@
                 
               </ul>
               <h1>HTTP/2 Recipe</h1>
-              <h2 id="how-to-run-an-http2-server">How to run an HTTP/2 server?</h2>
-<h3 id="step-1-generate-a-self-signed-x509-tls-certificate">Step 1: Generate a self-signed X.509 TLS certificate</h3>
+                <h2 id="how-to-run-an-http2-server">How to run an HTTP/2 server?<a href="#how-to-run-an-http2-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="step-1-generate-a-self-signed-x509-tls-certificate">Step 1: Generate a self-signed X.509 TLS certificate<a href="#step-1-generate-a-self-signed-x509-tls-certificate" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Run the following command to generate <code>cert.pem</code> and <code>key.pem</code> files:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go run $GOROOT/src/crypto/tls/generate_cert.go --host localhost
 </code></pre></div><blockquote>
 <p>For demo purpose, we are using a self-signed certificate. Ideally, you should obtain
 a certificate from <a href="https://en.wikipedia.org/wiki/Certificate_authority">CA</a>.</p>
 </blockquote>
-<h3 id="step-2-create-a-handler-which-simply-outputs-the-request-information-to-the-client">Step 2: Create a handler which simply outputs the request information to the client</h3>
+<h3 id="step-2-create-a-handler-which-simply-outputs-the-request-information-to-the-client">Step 2: Create a handler which simply outputs the request information to the client<a href="#step-2-create-a-handler-which-simply-outputs-the-request-information-to-the-client" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/request&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
   <span style="color:#a6e22e">format</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`
@@ -682,9 +701,23 @@ a certificate from <a href="https://en.wikipedia.org/wiki/Certificate_authority"
 </span><span style="color:#e6db74">  `</span>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">HTML</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#a6e22e">format</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Proto</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Host</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">RemoteAddr</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Method</span>, <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>))
 })
-</code></pre></div><h3 id="step-3-configure-tls-server-using-certpem-and-keypem">Step 3: Configure TLS server using <code>cert.pem</code> and <code>key.pem</code></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartTLS</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>, <span style="color:#e6db74">&#34;cert.pem&#34;</span>, <span style="color:#e6db74">&#34;key.pem&#34;</span>)
-</code></pre></div><h3 id="step-4-start-the-server-and-browse-to-httpslocalhost1323request-to-see-the-following-output">Step 4: Start the server and browse to https://localhost:1323/request to see the following output</h3>
+</code></pre></div><h3 id="step-3-start-tls-server-using-certpem-and-keypem">Step 3: Start TLS server using <code>cert.pem</code> and <code>key.pem</code><a href="#step-3-start-tls-server-using-certpem-and-keypem" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartTLS</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>, <span style="color:#e6db74">&#34;cert.pem&#34;</span>, <span style="color:#e6db74">&#34;key.pem&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+}
+</code></pre></div><p>or use customized HTTP server with your own TLSConfig</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
+  <span style="color:#a6e22e">Addr</span>:    <span style="color:#e6db74">&#34;:8443&#34;</span>,
+  <span style="color:#a6e22e">Handler</span>: <span style="color:#a6e22e">e</span>, <span style="color:#75715e">// set Echo as handler
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">TLSConfig</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tls</span>.<span style="color:#a6e22e">Config</span>{
+    <span style="color:#75715e">//Certificates: nil, // &lt;-- s.ListenAndServeTLS will populate this field
+</span><span style="color:#75715e"></span>  },
+  <span style="color:#75715e">//ReadTimeout: 30 * time.Second, // use custom timeouts
+</span><span style="color:#75715e"></span>}
+<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">ListenAndServeTLS</span>(<span style="color:#e6db74">&#34;cert.pem&#34;</span>, <span style="color:#e6db74">&#34;key.pem&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+}
+</code></pre></div><h3 id="step-4-start-the-server-and-browse-to-httpslocalhost1323request-to-see-the-following-output">Step 4: Start the server and browse to https://localhost:1323/request to see the following output<a href="#step-4-start-the-server-and-browse-to-httpslocalhost1323request-to-see-the-following-output" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Protocol: HTTP/2.0
 Host: localhost:1323
 Remote Address: <span style="color:#f92672">[</span>::1<span style="color:#f92672">]</span>:60288

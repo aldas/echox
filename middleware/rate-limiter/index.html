@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,34 +679,34 @@
                 
               </ul>
               <h1>Rate Limiter Middleware</h1>
-              <p><code>RateLimiter</code> provides a Rate Limiter middleware for limiting the amount of requests to the server from a particular IP or id within a time period.</p>
+                <p><code>RateLimiter</code> provides a Rate Limiter middleware for limiting the amount of requests to the server from a particular IP or id within a time period.</p>
 <p>By default an in-memory store is used for keeping track of requests. The default in-memory implementation is focused on correctness and
 may not be the best option for a high number of concurrent requests or a large number of different identifiers (&gt;16k).</p>
-<h3 id="usage">Usage</h3>
+<h3 id="usage">Usage<a href="#usage" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>To add a rate limit to your application simply add the <code>RateLimiter</code> middlware.
 The example below will limit the application to 20 requests/sec using the default in-memory store:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RateLimiter</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">NewRateLimiterMemoryStore</span>(<span style="color:#ae81ff">20</span>)))
-</code></pre></div><h2 id="custom-configuration">Custom Configuration</h2>
+</code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">config</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RateLimiterConfig</span>{
     <span style="color:#a6e22e">Skipper</span>: <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">DefaultSkipper</span>,
-    <span style="color:#a6e22e">Store</span>: <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">NewRateLimiterMemoryStore</span>(
-        <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RateLimiterMemoryStoreConfig</span>{<span style="color:#a6e22e">Rate</span>: <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">Burst</span>: <span style="color:#ae81ff">30</span>, <span style="color:#a6e22e">ExpiresIn</span>: <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>}
-    )
+    <span style="color:#a6e22e">Store</span>: <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">NewRateLimiterMemoryStoreWithConfig</span>(
+        <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RateLimiterMemoryStoreConfig</span>{<span style="color:#a6e22e">Rate</span>: <span style="color:#ae81ff">10</span>, <span style="color:#a6e22e">Burst</span>: <span style="color:#ae81ff">30</span>, <span style="color:#a6e22e">ExpiresIn</span>: <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Minute</span>},
+    ),
     <span style="color:#a6e22e">IdentifierExtractor</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
         <span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">RealIP</span>()
         <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">id</span>, <span style="color:#66d9ef">nil</span>
     },
     <span style="color:#a6e22e">ErrorHandler</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">context</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusTooManyRequests</span>, <span style="color:#66d9ef">nil</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusForbidden</span>, <span style="color:#66d9ef">nil</span>)
     },
     <span style="color:#a6e22e">DenyHandler</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">context</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">identifier</span> <span style="color:#66d9ef">string</span>,<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusForbidden</span>, <span style="color:#66d9ef">nil</span>)
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusTooManyRequests</span>, <span style="color:#66d9ef">nil</span>)
     },
 }
 
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RateLimiterWithConfig</span>(<span style="color:#a6e22e">config</span>))
 </code></pre></div><p>Note: If you need to implement your own store, be sure to implement the RateLimiterStore interface and pass it to RateLimiterConfig and you&rsquo;re good to go!</p>
-<h2 id="configuration">Configuration</h2>
+<h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RateLimiterConfig</span> <span style="color:#66d9ef">struct</span> {
     <span style="color:#a6e22e">Skipper</span>    <span style="color:#a6e22e">Skipper</span>
     <span style="color:#a6e22e">BeforeFunc</span> <span style="color:#a6e22e">BeforeFunc</span>
@@ -700,7 +719,7 @@ The example below will limit the application to 20 requests/sec using the defaul
     <span style="color:#75715e">// DenyHandler provides a handler to be called when RateLimiter denies access
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">DenyHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">context</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">identifier</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span>
 }
-</code></pre></div><h3 id="default-configuration">Default Configuration</h3>
+</code></pre></div><h3 id="default-configuration">Default Configuration<a href="#default-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// DefaultRateLimiterConfig defines default values for RateLimiterConfig
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">DefaultRateLimiterConfig</span> = <span style="color:#a6e22e">RateLimiterConfig</span>{
 	<span style="color:#a6e22e">Skipper</span>: <span style="color:#a6e22e">DefaultSkipper</span>,
@@ -723,7 +742,7 @@ The example below will limit the application to 20 requests/sec using the defaul
 		}
 	},
 }
-</code></pre></div><h3 id="errors">Errors</h3>
+</code></pre></div><h3 id="errors">Errors<a href="#errors" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
 	<span style="color:#75715e">// ErrRateLimitExceeded denotes an error raised when rate limit is exceeded
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ErrRateLimitExceeded</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusTooManyRequests</span>, <span style="color:#e6db74">&#34;rate limit exceeded&#34;</span>)

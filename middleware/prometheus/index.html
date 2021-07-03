@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Prometheus Middleware</h1>
-              <p>Prometheus middleware generates metrics for HTTP requests.</p>
+                <p>Prometheus middleware generates metrics for HTTP requests.</p>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 <span style="color:#f92672">import</span> (
@@ -694,7 +713,7 @@ echo_requests_total<span style="color:#f92672">{</span>code<span style="color:#f
 echo_response_size_bytes_sum <span style="color:#ae81ff">61</span>
 echo_response_size_bytes_count <span style="color:#ae81ff">1</span>
 ...
-</code></pre></div><h2 id="custom-configuration">Custom Configuration</h2>
+</code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
 <p>A middleware skipper can be passed to avoid generating metrics to certain URLs:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>

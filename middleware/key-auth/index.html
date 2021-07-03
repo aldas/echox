@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Key Auth Middleware</h1>
-              <p>Key auth middleware provides a key based authentication.</p>
+                <p>Key auth middleware provides a key based authentication.</p>
 <ul>
 <li>For valid key it calls the next handler.</li>
 <li>For invalid key, it sends &ldquo;401 - Unauthorized&rdquo; response.</li>
@@ -670,7 +689,7 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">KeyAuth</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">error</span>) {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;valid-key&#34;</span>, <span style="color:#66d9ef">nil</span>
 }))
-</code></pre></div><h2 id="custom-configuration">Custom Configuration</h2>
+</code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">KeyAuthWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">KeyAuthConfig</span>{
@@ -679,7 +698,7 @@
 			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">key</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;valid-key&#34;</span>, <span style="color:#66d9ef">nil</span>
 		},
 }))
-</code></pre></div><h2 id="configuration">Configuration</h2>
+</code></pre></div><h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">KeyAuthConfig</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Skipper</span> <span style="color:#a6e22e">Skipper</span>
@@ -690,7 +709,8 @@
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Possible values:
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;header:&lt;name&gt;&#34;
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;query:&lt;name&gt;&#34;
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">KeyLookup</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;key_lookup&#34;`</span>
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;form:&lt;name&gt;&#34;
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">KeyLookup</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`yaml:&#34;key_lookup&#34;`</span>
 
   <span style="color:#75715e">// AuthScheme to be used in the Authorization header.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Optional. Default value &#34;Bearer&#34;.
@@ -699,6 +719,10 @@
   <span style="color:#75715e">// Validator is a function to validate key.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Required.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Validator</span> <span style="color:#a6e22e">KeyAuthValidator</span>
+
+  <span style="color:#75715e">// ErrorHandler defines a function which is executed for an invalid key.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// It may be used to define a custom error.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ErrorHandler</span> <span style="color:#a6e22e">KeyAuthErrorHandler</span>
 }
 </code></pre></div><p><em>Default Configuration</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">DefaultKeyAuthConfig</span> = <span style="color:#a6e22e">KeyAuthConfig</span>{

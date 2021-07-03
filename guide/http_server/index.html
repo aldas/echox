@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="description" content="Support Echo | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+  <meta name="description" content="Serving Echo from HTTP(S) server | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@echo">
   <meta name="twitter:creator" content="@labstack">
-  <meta name="twitter:title" content="Support Echo | Echo - High performance, minimalist Go web framework">
-  <meta name="twitter:description" content="Support Echo | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+  <meta name="twitter:title" content="Starting HTTP(S) server with Echo | Echo - High performance, minimalist Go web framework">
+  <meta name="twitter:description" content="Serving Echo from HTTP(S) server | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
   <meta name="twitter:image" content="https://echo.labstack.com/images/share.png">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Support Echo">
-  <meta property="og:title" content="Support Echo | Echo - High performance, minimalist Go web framework">
-  <meta property="og:description" content="Support Echo | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+  <meta property="og:site_name" content="Starting HTTP(S) server with Echo">
+  <meta property="og:title" content="Starting HTTP(S) server with Echo | Echo - High performance, minimalist Go web framework">
+  <meta property="og:description" content="Serving Echo from HTTP(S) server | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
   <meta property="og:url" content="https://echo.labstack.com/">
   <meta property="og:image" content="https://echo.labstack.com/images/share.png">
   <title>
-    Support Echo | Echo - High performance, minimalist Go web framework
+    Starting HTTP(S) server with Echo | Echo - High performance, minimalist Go web framework
   </title>
   <link rel="stylesheet"
     href="https://cdn.labstack.com/styles/icomoon.css">
@@ -118,7 +118,7 @@
         </li>
         
         <li>
-          <a href="/guide/http_server">
+          <a class="active" href="/guide/http_server">
              HTTP(s) Server
           </a>
           <ul class="menu-l3">
@@ -664,7 +664,13 @@
                 
                 
                 
-                <li><a href='https://echo.labstack.com/support-echo'>support-echo</a></li>
+                <li><a href='https://echo.labstack.com/guide'>guide</a></li>
+                
+                
+                
+                
+                
+                <li><a href='https://echo.labstack.com/guide/http_server'>http_server</a></li>
                 
                 
                 
@@ -672,18 +678,108 @@
                 
                 
               </ul>
-              <h1>Support Echo</h1>
-                <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Echo is an MIT licensed open source project and completely free to use. If you are
-using Echo in your products/projects, please consider sponsoring Echo to ensure
-it is actively developed and maintained.</p>
-
+              <h1>Starting HTTP(S) server with Echo</h1>
+                <p>Echo provides following convenience methods to start HTTP server with Echo as a request handler:</p>
+<ul>
+<li><code>Echo.Start(address string)</code></li>
+<li><code>Echo.StartTLS(address string, certFile, keyFile interface{})</code></li>
+<li><code>Echo.StartAutoTLS(address string)</code></li>
+<li><code>Echo.StartH2CServer(address string, h2s *http2.Server)</code></li>
+<li><code>Echo.StartServer(s *http.Server)</code></li>
+</ul>
+<h2 id="http-server">HTTP Server<a href="#http-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<p><code>Echo.Start</code> is convenience method that starts http server with Echo serving requests.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+  <span style="color:#75715e">// add middleware and routes
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+  }
+}
+</code></pre></div><p>Following is equivalent to <code>Echo.Start</code> previous example</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+  <span style="color:#75715e">// add middleware and routes
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
+    <span style="color:#a6e22e">Addr</span>:        <span style="color:#e6db74">&#34;:8080&#34;</span>,
+    <span style="color:#a6e22e">Handler</span>:     <span style="color:#a6e22e">e</span>,
+    <span style="color:#75715e">//ReadTimeout: 30 * time.Second, // customize http.Server timeouts
+</span><span style="color:#75715e"></span>  }
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">ListenAndServe</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+  }
+}
+</code></pre></div><h2 id="https-server">HTTPS Server<a href="#https-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<p><code>Echo.StartTLS</code> is convenience method that starts HTTPS server with Echo serving requests on given address and uses
+<code>server.crt</code> and <code>server.key</code> as TLS certificate pair.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+  <span style="color:#75715e">// add middleware and routes
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartTLS</span>(<span style="color:#e6db74">&#34;:8443&#34;</span>, <span style="color:#e6db74">&#34;server.crt&#34;</span>, <span style="color:#e6db74">&#34;server.key&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+  }
+}
+</code></pre></div><p>Following is equivalent to <code>Echo.StartTLS</code> previous example</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+  <span style="color:#75715e">// add middleware and routes
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
+    <span style="color:#a6e22e">Addr</span>:    <span style="color:#e6db74">&#34;:8443&#34;</span>,
+    <span style="color:#a6e22e">Handler</span>: <span style="color:#a6e22e">e</span>, <span style="color:#75715e">// set Echo as handler
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">TLSConfig</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tls</span>.<span style="color:#a6e22e">Config</span>{
+      <span style="color:#75715e">//MinVersion: 1, // customize TLS configuration
+</span><span style="color:#75715e"></span>    },
+    <span style="color:#75715e">//ReadTimeout: 30 * time.Second, // use custom timeouts
+</span><span style="color:#75715e"></span>  }
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">ListenAndServeTLS</span>(<span style="color:#e6db74">&#34;server.crt&#34;</span>, <span style="color:#e6db74">&#34;server.key&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+  }
+}
+</code></pre></div><h2 id="auto-tls-server-with-lets-encrypt">Auto TLS Server with Let’s Encrypt<a href="#auto-tls-server-with-lets-encrypt" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<p>See <a href="/cooobook/auto-tls#server">Auto TLS Recipe</a></p>
+<h2 id="http2-cleartext-server-http2-over-http">HTTP/2 Cleartext Server (HTTP2 over HTTP)<a href="#http2-cleartext-server-http2-over-http" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<p><code>Echo.StartH2CServer</code> is convenience method that starts a custom HTTP/2 cleartext server on given address</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+  <span style="color:#75715e">// add middleware and routes
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http2</span>.<span style="color:#a6e22e">Server</span>{
+    <span style="color:#a6e22e">MaxConcurrentStreams</span>: <span style="color:#ae81ff">250</span>,
+    <span style="color:#a6e22e">MaxReadFrameSize</span>:     <span style="color:#ae81ff">1048576</span>,
+    <span style="color:#a6e22e">IdleTimeout</span>:          <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
+  }
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartH2CServer</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+  }
+}
+</code></pre></div><p>Following is equivalent to <code>Echo.StartH2CServer</code> previous example</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+  <span style="color:#75715e">// add middleware and routes
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">h2s</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http2</span>.<span style="color:#a6e22e">Server</span>{
+    <span style="color:#a6e22e">MaxConcurrentStreams</span>: <span style="color:#ae81ff">250</span>,
+    <span style="color:#a6e22e">MaxReadFrameSize</span>:     <span style="color:#ae81ff">1048576</span>,
+    <span style="color:#a6e22e">IdleTimeout</span>:          <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
+  }
+  <span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
+    <span style="color:#a6e22e">Addr</span>:    <span style="color:#e6db74">&#34;:8080&#34;</span>,
+    <span style="color:#a6e22e">Handler</span>: <span style="color:#a6e22e">h2c</span>.<span style="color:#a6e22e">NewHandler</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">h2s</span>),
+  }
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">ListenAndServe</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+  }
+}
+</code></pre></div>
             </section>
             <footer>
               Caught a mistake?
               <a 
-                href="https://github.com/labstack/echox/blob/master/website/content/support-echo.md">
+                href="https://github.com/labstack/echox/blob/master/website/content/guide/http_server.md">
                 <i class="far fa-edit"></i> Edit this page on GitHub!
               </a>
               <hr>

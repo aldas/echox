@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,13 +679,13 @@
                 
               </ul>
               <h1>CRUD Recipe</h1>
-              <h2 id="server">Server</h2>
+                <h2 id="server">Server<a href="#server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>server.go</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/crud/server.go"></pre>
 
-<h2 id="client">Client</h2>
+<h2 id="client">Client<a href="#client" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>curl</code></p>
-<h3 id="create-user">Create User</h3>
+<h3 id="create-user">Create User<a href="#create-user" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#39;Content-Type: application/json&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Joe Smith&#34;}&#39;</span> <span style="color:#ae81ff">\
@@ -676,14 +695,14 @@
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Joe Smith&#34;</span>
 }
-</code></pre></div><h3 id="get-user">Get User</h3>
+</code></pre></div><h3 id="get-user">Get User<a href="#get-user" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl localhost:1323/users/1
 </code></pre></div><p><em>Response</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Joe Smith&#34;</span>
 }
-</code></pre></div><h3 id="update-user">Update User</h3>
+</code></pre></div><h3 id="update-user">Update User<a href="#update-user" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X PUT <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#39;Content-Type: application/json&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Joe&#34;}&#39;</span> <span style="color:#ae81ff">\
@@ -693,7 +712,7 @@
   <span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
   <span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Joe&#34;</span>
 }
-</code></pre></div><h3 id="delete-user">Delete User</h3>
+</code></pre></div><h3 id="delete-user">Delete User<a href="#delete-user" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X DELETE localhost:1323/users/1
 </code></pre></div><p><em>Response</em></p>
 <p><code>NoContent - 204</code></p>

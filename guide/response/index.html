@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,26 +679,26 @@
                 
               </ul>
               <h1>Response</h1>
-              <h2 id="send-string">Send String</h2>
+                <h2 id="send-string">Send String<a href="#send-string" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#String(code int, s string)</code> can be used to send plain text response with status
 code.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;Hello, World!&#34;</span>)
 }
-</code></pre></div><h2 id="send-html-reference-to-templates">Send HTML (Reference to templates)</h2>
+</code></pre></div><h2 id="send-html-reference-to-templates">Send HTML (Reference to templates)<a href="#send-html-reference-to-templates" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#HTML(code int, html string)</code> can be used to send simple HTML response with
 status code. If you are looking to send dynamically generate HTML see <a href="/guide/templates">templates</a>.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">HTML</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;&lt;strong&gt;Hello, World!&lt;/strong&gt;&#34;</span>)
 }
-</code></pre></div><h3 id="send-html-blob">Send HTML Blob</h3>
+</code></pre></div><h3 id="send-html-blob">Send HTML Blob<a href="#send-html-blob" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#HTMLBlob(code int, b []byte)</code> can be used to send HTML blob with status
 code. You may find it handy using with a template engine which outputs <code>[]byte</code>.</p>
-<h2 id="render-template">Render Template</h2>
+<h2 id="render-template">Render Template<a href="#render-template" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><a href="/guide/templates">Learn more</a></p>
-<h2 id="send-json">Send JSON</h2>
+<h2 id="send-json">Send JSON<a href="#send-json" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#JSON(code int, i interface{})</code> can be used to encode a provided Go type into
 JSON and send it as response with status code.</p>
 <p><em>Example</em></p>
@@ -697,7 +716,7 @@ JSON and send it as response with status code.</p>
   }
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">u</span>)
 }
-</code></pre></div><h3 id="stream-json">Stream JSON</h3>
+</code></pre></div><h3 id="stream-json">Stream JSON<a href="#stream-json" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#JSON()</code> internally uses <code>json.Marshal</code> which may not be efficient to large JSON,
 in that case you can directly stream JSON.</p>
 <p><em>Example</em></p>
@@ -710,7 +729,7 @@ in that case you can directly stream JSON.</p>
   <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>)
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>()).<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">u</span>)
 }
-</code></pre></div><h3 id="json-pretty">JSON Pretty</h3>
+</code></pre></div><h3 id="json-pretty">JSON Pretty<a href="#json-pretty" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#JSONPretty(code int, i interface{}, indent string)</code> can be used to a send
 a JSON response which is pretty printed based on indent, which could be spaces or tabs.</p>
 <p>Example below sends a pretty print JSON indented with spaces:</p>
@@ -731,7 +750,7 @@ by appending <code>pretty</code> in the request URL query string.</p>
 </blockquote>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl http://localhost:1323/users/1?pretty
-</code></pre></div><h3 id="json-blob">JSON Blob</h3>
+</code></pre></div><h3 id="json-blob">JSON Blob<a href="#json-blob" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#JSONBlob(code int, b []byte)</code> can be used to send pre-encoded JSON blob directly
 from external source, for example, database.</p>
 <p><em>Example</em></p>
@@ -739,12 +758,12 @@ from external source, for example, database.</p>
   <span style="color:#a6e22e">encodedJSON</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">byte</span>{} <span style="color:#75715e">// Encoded JSON from external source
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSONBlob</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">encodedJSON</span>)
 }
-</code></pre></div><h2 id="send-jsonp">Send JSONP</h2>
+</code></pre></div><h2 id="send-jsonp">Send JSONP<a href="#send-jsonp" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#JSONP(code int, callback string, i interface{})</code> can be used to encode a provided
 Go type into JSON and send it as JSONP payload constructed using a callback, with
 status code.</p>
 <p><a href="/cookbook/jsonp"><em>Example</em></a></p>
-<h2 id="send-xml">Send XML</h2>
+<h2 id="send-xml">Send XML<a href="#send-xml" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#XML(code int, i interface{})</code> can be used to encode a provided Go type into
 XML and send it as response with status code.</p>
 <p><em>Example</em></p>
@@ -755,7 +774,7 @@ XML and send it as response with status code.</p>
   }
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">XML</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">u</span>)
 }
-</code></pre></div><h3 id="stream-xml">Stream XML</h3>
+</code></pre></div><h3 id="stream-xml">Stream XML<a href="#stream-xml" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#XML</code> internally uses <code>xml.Marshal</code> which may not be efficient to large XML,
 in that case you can directly stream XML.</p>
 <p><em>Example</em></p>
@@ -768,7 +787,7 @@ in that case you can directly stream XML.</p>
   <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>)
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">xml</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>()).<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">u</span>)
 }
-</code></pre></div><h3 id="xml-pretty">XML Pretty</h3>
+</code></pre></div><h3 id="xml-pretty">XML Pretty<a href="#xml-pretty" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#XMLPretty(code int, i interface{}, indent string)</code> can be used to a send
 an XML response which is pretty printed based on indent, which could be spaces or tabs.</p>
 <p>Example below sends a pretty print XML indented with spaces:</p>
@@ -790,7 +809,7 @@ an XML response which is pretty printed based on indent, which could be spaces o
 </blockquote>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl http://localhost:1323/users/1?pretty
-</code></pre></div><h3 id="xml-blob">XML Blob</h3>
+</code></pre></div><h3 id="xml-blob">XML Blob<a href="#xml-blob" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#XMLBlob(code int, b []byte)</code> can be used to send pre-encoded XML blob directly
 from external source, for example, database.</p>
 <p><em>Example</em></p>
@@ -798,28 +817,28 @@ from external source, for example, database.</p>
   <span style="color:#a6e22e">encodedXML</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">byte</span>{} <span style="color:#75715e">// Encoded XML from external source
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">XMLBlob</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">encodedXML</span>)
 }
-</code></pre></div><h2 id="send-file">Send File</h2>
+</code></pre></div><h2 id="send-file">Send File<a href="#send-file" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#File(file string)</code> can be used to send the content of file as response.
 It automatically sets the correct content type and handles caching gracefully.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">File</span>(<span style="color:#e6db74">&#34;&lt;PATH_TO_YOUR_FILE&gt;&#34;</span>)
 }
-</code></pre></div><h2 id="send-attachment">Send Attachment</h2>
+</code></pre></div><h2 id="send-attachment">Send Attachment<a href="#send-attachment" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#Attachment(file, name string)</code> is similar to <code>File()</code> except that it is
 used to send file as attachment with provided name.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Attachment</span>(<span style="color:#e6db74">&#34;&lt;PATH_TO_YOUR_FILE&gt;&#34;</span>, <span style="color:#e6db74">&#34;&lt;ATTACHMENT_NAME&gt;&#34;</span>)
 }
-</code></pre></div><h2 id="send-inline">Send Inline</h2>
+</code></pre></div><h2 id="send-inline">Send Inline<a href="#send-inline" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#Inline(file, name string)</code> is similar to <code>File()</code> except that it is
 used to send file as inline with provided name.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Inline</span>(<span style="color:#e6db74">&#34;&lt;PATH_TO_YOUR_FILE&gt;&#34;</span>)
 }
-</code></pre></div><h2 id="send-blob">Send Blob</h2>
+</code></pre></div><h2 id="send-blob">Send Blob<a href="#send-blob" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#Blob(code int, contentType string, b []byte)</code> can be used to send an arbitrary
 data response with provided content type and status code.</p>
 <p><em>Example</em></p>
@@ -828,7 +847,7 @@ data response with provided content type and status code.</p>
 </span><span style="color:#e6db74">	  0086003,&#34;0005866&#34;,UPDATED,06/19/2006`</span>)
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Blob</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;text/csv&#34;</span>, <span style="color:#a6e22e">data</span>)
 }
-</code></pre></div><h2 id="send-stream">Send Stream</h2>
+</code></pre></div><h2 id="send-stream">Send Stream<a href="#send-stream" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#Stream(code int, contentType string, r io.Reader)</code> can be used to send an
 arbitrary data stream response with provided content type, <code>io.Reader</code> and status
 code.</p>
@@ -840,23 +859,23 @@ code.</p>
   }
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Stream</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;image/png&#34;</span>, <span style="color:#a6e22e">f</span>)
 }
-</code></pre></div><h2 id="send-no-content">Send No Content</h2>
+</code></pre></div><h2 id="send-no-content">Send No Content<a href="#send-no-content" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#NoContent(code int)</code> can be used to send empty body with status code.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">NoContent</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>)
 }
-</code></pre></div><h2 id="redirect-request">Redirect Request</h2>
+</code></pre></div><h2 id="redirect-request">Redirect Request<a href="#redirect-request" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Context#Redirect(code int, url string)</code> can be used to redirect the request to
 a provided URL with status code.</p>
 <p><em>Example</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Redirect</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusMovedPermanently</span>, <span style="color:#e6db74">&#34;&lt;URL&gt;&#34;</span>)
 }
-</code></pre></div><h2 id="hooks">Hooks</h2>
-<h3 id="before-response">Before Response</h3>
+</code></pre></div><h2 id="hooks">Hooks<a href="#hooks" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="before-response">Before Response<a href="#before-response" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#Response#Before(func())</code> can be used to register a function which is called just before the response is written.</p>
-<h3 id="after-response">After Response</h3>
+<h3 id="after-response">After Response<a href="#after-response" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Context#Response#After(func())</code> can be used to register a function which is called just
 after the response is written. If the &ldquo;Content-Length&rdquo; is unknown, none of the after
 function is executed.</p>

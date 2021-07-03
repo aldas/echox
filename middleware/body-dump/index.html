@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,16 +679,16 @@
                 
               </ul>
               <h1>Body Dump Middleware</h1>
-              <p>Body dump middleware captures the request and response payload and calls the registered handler. Generally used for debugging/logging purpose. Avoid using it if your request/response payload is huge e.g. file upload/download, but if you still need to, add an exception for your endpoints in the skipper function.</p>
+                <p>Body dump middleware captures the request and response payload and calls the registered handler. Generally used for debugging/logging purpose. Avoid using it if your request/response payload is huge e.g. file upload/download, but if you still need to, add an exception for your endpoints in the skipper function.</p>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">BodyDump</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">reqBody</span>, <span style="color:#a6e22e">resBody</span> []<span style="color:#66d9ef">byte</span>) {
 }))
-</code></pre></div><h2 id="custom-configuration">Custom Configuration</h2>
+</code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">BodyDumpWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">BodyDumpConfig</span>{}))
-</code></pre></div><h2 id="configuration">Configuration</h2>
+</code></pre></div><h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">BodyDumpConfig</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Skipper</span> <span style="color:#a6e22e">Skipper</span>

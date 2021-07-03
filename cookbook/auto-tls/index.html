@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Auto TLS Recipe</h1>
-              <p>This recipe demonstrates how to obtain TLS certificates for a domain automatically from
+                <p>This recipe demonstrates how to obtain TLS certificates for a domain automatically from
 Let&rsquo;s Encrypt. <code>Echo#StartAutoTLS</code> accepts an address which should listen on port <code>443</code>.</p>
 <p>Browse to <code>https://&lt;DOMAIN&gt;</code>. If everything goes fine, you should see a welcome
 message with TLS enabled on the website.</p>
@@ -671,7 +690,7 @@ message with TLS enabled on the website.</p>
 <li>Cache certificates to avoid issues with rate limits (<a href="https://letsencrypt.org/docs/rate-limits">https://letsencrypt.org/docs/rate-limits</a>)</li>
 <li>To redirect HTTP traffic to HTTPS, you can use <a href="/middleware/redirect#https-redirect">redirect middleware</a></li>
 </ul>
-<h2 id="server">Server</h2>
+<h2 id="server">Server<a href="#server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>server.go</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/auto-tls/server.go"></pre>
 

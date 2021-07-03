@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -654,15 +673,15 @@
                 
               </ul>
               <h1>Middleware</h1>
-              <h2 id="overview">Overview</h2>
+                <h2 id="overview">Overview<a href="#overview" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Middleware is a function chained in the HTTP request-response cycle with access
 to <code>Echo#Context</code> which it uses to perform a specific action, for example, logging
 every request or limiting the number of requests.</p>
 <p>Handler is processed in the end after all middleware are finished executing.</p>
 <p>Middleware registered using <code>Echo#Use()</code> is only executed for paths which are
 registered after <code>Echo#Use()</code> has been called.</p>
-<h2 id="levels">Levels</h2>
-<h3 id="root-level-before-router">Root Level (Before router)</h3>
+<h2 id="levels">Levels<a href="#levels" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="root-level-before-router">Root Level (Before router)<a href="#root-level-before-router" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Echo#Pre()</code> can be used to register a middleware which is executed before router
 processes the request. It is helpful to make any changes to the request properties,
 for example, adding or removing a trailing slash from the path so it matches the
@@ -682,7 +701,7 @@ route.</p>
 <p>As router has not processed the request, middleware at this level won&rsquo;t
 have access to any path related API from <code>echo.Context</code>.</p>
 </blockquote>
-<h3 id="root-level-after-router">Root Level (After router)</h3>
+<h3 id="root-level-after-router">Root Level (After router)<a href="#root-level-after-router" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Most of the time you will register a middleware at this level using <code>Echo#Use()</code>.
 This middleware is executed after router processes the request and has full access
 to <code>echo.Context</code> API.</p>
@@ -698,7 +717,7 @@ to <code>echo.Context</code> API.</p>
 <li>CORS</li>
 <li>Static</li>
 </ul>
-<h3 id="group-level">Group Level</h3>
+<h3 id="group-level">Group Level<a href="#group-level" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>When creating a new group, you can register middleware just for that group. For
 example, you can have an admin group which is secured by registering a BasicAuth
 middleware for it.</p>
@@ -706,12 +725,12 @@ middleware for it.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">admin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Group</span>(<span style="color:#e6db74">&#34;/admin&#34;</span>, <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">BasicAuth</span>())
 </code></pre></div><p>You can also add a middleware after creating a group via <code>admin.Use()</code>.</p>
-<h3 id="route-level">Route Level</h3>
+<h3 id="route-level">Route Level<a href="#route-level" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>When defining a new route, you can optionally register middleware just for it.</p>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/&#34;</span>, &lt;<span style="color:#a6e22e">Handler</span>&gt;, &lt;<span style="color:#a6e22e">Middleware</span><span style="color:#f92672">...</span>&gt;)
-</code></pre></div><h2 id="skipping-middleware">Skipping Middleware</h2>
+</code></pre></div><h2 id="skipping-middleware">Skipping Middleware<a href="#skipping-middleware" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>There are cases when you would like to skip a middleware based on some condition,
 for that each middleware has an option to define a function <code>Skipper func(c echo.Context) bool</code>.</p>
 <p><em>Usage</em></p>
@@ -725,7 +744,7 @@ for that each middleware has an option to define a function <code>Skipper func(c
 	},
 }))
 </code></pre></div><p>Example above skips Logger middleware when request host starts with localhost.</p>
-<h2 id="writing-custom-middlewarehahahugoshortcode-s0-hbhb"><a href="https://echo.labstack.com/cookbook/middleware/">Writing Custom Middleware</a></h2>
+<h2 id="writing-custom-middlewarehahahugoshortcode-s0-hbhb"><a href="https://echo.labstack.com/cookbook/middleware/">Writing Custom Middleware</a><a href="#writing-custom-middlewarehahahugoshortcode-s0-hbhb" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 
             </section>
             <footer>

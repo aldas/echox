@@ -229,6 +229,10 @@
   </url>
   
   <url>
+    <loc>https://echo.labstack.com/guide/http_server</loc>
+  </url>
+  
+  <url>
     <loc>https://echo.labstack.com/guide/static-files</loc>
   </url>
   

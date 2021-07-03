@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,41 +679,41 @@
                 
               </ul>
               <h1>Load Balancing Recipe</h1>
-              <p>This recipe demonstrates how you can use Nginx or Armor as a reverse proxy server and load balance between multiple Echo servers.</p>
-<h2 id="how-to-setup-nginx-proxy-server-with-echo">How to setup Nginx proxy server with Echo?</h2>
-<h3 id="step-1-install-nginx">Step 1: Install Nginx</h3>
+                <p>This recipe demonstrates how you can use Nginx or Armor as a reverse proxy server and load balance between multiple Echo servers.</p>
+<h2 id="how-to-setup-nginx-proxy-server-with-echo">How to setup Nginx proxy server with Echo?<a href="#how-to-setup-nginx-proxy-server-with-echo" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="step-1-install-nginx">Step 1: Install Nginx<a href="#step-1-install-nginx" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install">https://www.nginx.com/resources/wiki/start/topics/tutorials/install</a></p>
-<h3 id="step-2-configure-nginx">Step 2: Configure Nginx</h3>
+<h3 id="step-2-configure-nginx">Step 2: Configure Nginx<a href="#step-2-configure-nginx" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Create a file <code>/etc/nginx/sites-enabled/localhost</code> with the following content:</p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/load-balancing/nginx.conf"></pre>
 
 <blockquote>
 <p>Change listen, server_name, access_log per your need.</p>
 </blockquote>
-<h3 id="step-3-restart-nginx">Step 3: Restart Nginx</h3>
+<h3 id="step-3-restart-nginx">Step 3: Restart Nginx<a href="#step-3-restart-nginx" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>service nginx restart</code></p>
-<h3 id="step-4-start-upstream-servers">Step 4: Start upstream servers</h3>
+<h3 id="step-4-start-upstream-servers">Step 4: Start upstream servers<a href="#step-4-start-upstream-servers" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <ul>
 <li><code>cd upstream</code></li>
 <li><code>go run server.go server1 :8081</code></li>
 <li><code>go run server.go server2 :8082</code></li>
 </ul>
-<h3 id="step-5-browse-to-httpslocalhost8080">Step 5: Browse to https://localhost:8080</h3>
+<h3 id="step-5-browse-to-httpslocalhost8080">Step 5: Browse to https://localhost:8080<a href="#step-5-browse-to-httpslocalhost8080" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>You should see a webpage being served from &ldquo;server 1&rdquo; or &ldquo;server 2&rdquo;.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Hello from upstream server server1
-</code></pre></div><h2 id="how-to-setup-armor-proxy-server-with-echo">How to setup Armor proxy server with Echo?</h2>
-<h3 id="step-1-install-armor">Step 1: Install Armor</h3>
+</code></pre></div><h2 id="how-to-setup-armor-proxy-server-with-echo">How to setup Armor proxy server with Echo?<a href="#how-to-setup-armor-proxy-server-with-echo" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="step-1-install-armor">Step 1: Install Armor<a href="#step-1-install-armor" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><a href="https://armor.labstack.com/guide">https://armor.labstack.com/guide</a></p>
-<h3 id="step-2-configure-armor">Step 2: Configure Armor</h3>
+<h3 id="step-2-configure-armor">Step 2: Configure Armor<a href="#step-2-configure-armor" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Create a file <code>/etc/armor/config.yaml</code> with the following content:</p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/load-balancing/armor.yaml"></pre>
 
-<h3 id="step-3-start-armor">Step 3: Start Armor</h3>
+<h3 id="step-3-start-armor">Step 3: Start Armor<a href="#step-3-start-armor" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>armor -c /etc/armor/config.yaml</code></p>
 <blockquote>
 <p>Change address and hosts per your need.</p>
 </blockquote>
-<h3 id="step-4--5-follow-nginx-recipe">Step 4 &amp; 5: Follow Nginx recipe</h3>
+<h3 id="step-4--5-follow-nginx-recipe">Step 4 &amp; 5: Follow Nginx recipe<a href="#step-4--5-follow-nginx-recipe" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <h2 id="source-codehahahugoshortcode-s2-hbhb"><a href="https://github.com/labstack/echox/tree/master/cookbook/load-balancing
 ">Source Code</a></h2>
 <p><code>upstream/server.go</code></p>

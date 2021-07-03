@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>JWT Middleware</h1>
-              <p>JWT provides a JSON Web Token (JWT) authentication middleware.</p>
+                <p>JWT provides a JSON Web Token (JWT) authentication middleware.</p>
 <ul>
 <li>For valid token, it sets the user in context and calls next handler.</li>
 <li>For invalid token, it sends &ldquo;401 - Unauthorized&rdquo; response.</li>
@@ -668,45 +687,122 @@
 </ul>
 <p><em>Usage</em></p>
 <p><code>e.Use(middleware.JWT([]byte(&quot;secret&quot;)))</code></p>
-<h2 id="custom-configuration">Custom Configuration</h2>
+<h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTConfig</span>{
   <span style="color:#a6e22e">SigningKey</span>: []byte(<span style="color:#e6db74">&#34;secret&#34;</span>),
   <span style="color:#a6e22e">TokenLookup</span>: <span style="color:#e6db74">&#34;query:token&#34;</span>,
 }))
-</code></pre></div><h2 id="configuration">Configuration</h2>
+</code></pre></div><p><em>Usage with different JWT library/repository</em></p>
+<blockquote>
+<p>Note: To be backwards compatible Echo still uses the currently unmaintained JWT implementation <code>dgrijalva/jwt-go</code>, which has known potential security risks. We strongly recommend using a maintained fork like <a href="https://github.com/golang-jwt/jwt">https://github.com/golang-jwt/jwt</a>.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Use maintained fork (https://github.com/golang-jwt/jwt) instead of `dgrijalva/jwt-go`
+</span><span style="color:#75715e">// At this moment: go get github.com/golang-jwt/jwt@v3.2.1
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> (
+  <span style="color:#e6db74">&#34;github.com/golang-jwt/jwt&#34;</span>
+)
+</code></pre></div><p>To use a different JWT library you need to implement a custom <code>JWTConfig.ParseTokenFunc</code> function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">signingKey</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#e6db74">&#34;secret&#34;</span>)
+
+<span style="color:#a6e22e">config</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTConfig</span>{
+  <span style="color:#a6e22e">TokenLookup</span>: <span style="color:#e6db74">&#34;query:token&#34;</span>,
+  <span style="color:#a6e22e">ParseTokenFunc</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">auth</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#a6e22e">keyFunc</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">jwt</span>.<span style="color:#a6e22e">Token</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>) {
+      <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Method</span>.<span style="color:#a6e22e">Alg</span>() <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;HS256&#34;</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;unexpected jwt signing method=%v&#34;</span>, <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Header</span>[<span style="color:#e6db74">&#34;alg&#34;</span>])
+      }
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">signingKey</span>, <span style="color:#66d9ef">nil</span>
+    }
+
+    <span style="color:#75715e">// claims are of type `jwt.MapClaims` when token is created with `jwt.Parse`
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">token</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">jwt</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#a6e22e">auth</span>, <span style="color:#a6e22e">keyFunc</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+    }
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">Valid</span> {
+      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;invalid token&#34;</span>)
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">token</span>, <span style="color:#66d9ef">nil</span>
+  },
+}
+
+<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTWithConfig</span>(<span style="color:#a6e22e">config</span>))
+</code></pre></div><h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">JWTConfig</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Skipper</span> <span style="color:#a6e22e">Skipper</span>
-
+  
+  <span style="color:#75715e">// BeforeFunc defines a function which is executed just before the middleware.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">BeforeFunc</span> <span style="color:#a6e22e">BeforeFunc</span>
+  
+  <span style="color:#75715e">// SuccessHandler defines a function which is executed for a valid token.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">SuccessHandler</span> <span style="color:#a6e22e">JWTSuccessHandler</span>
+  
+  <span style="color:#75715e">// ErrorHandler defines a function which is executed for an invalid token.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// It may be used to define a custom JWT error.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ErrorHandler</span> <span style="color:#a6e22e">JWTErrorHandler</span>
+  
+  <span style="color:#75715e">// ErrorHandlerWithContext is almost identical to ErrorHandler, but it&#39;s passed the current context.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ErrorHandlerWithContext</span> <span style="color:#a6e22e">JWTErrorHandlerWithContext</span>
+  
   <span style="color:#75715e">// Signing key to validate token.
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Required.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// This is one of the three options to provide a token validation key.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// The order of precedence is a user-defined KeyFunc, SigningKeys and SigningKey.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Required if neither user-defined KeyFunc nor SigningKeys is provided.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">SigningKey</span> <span style="color:#66d9ef">interface</span>{}
-
-  <span style="color:#75715e">// Signing method, used to check token signing method.
+  
+  <span style="color:#75715e">// Map of signing keys to validate token with kid field usage.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// This is one of the three options to provide a token validation key.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// The order of precedence is a user-defined KeyFunc, SigningKeys and SigningKey.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Required if neither user-defined KeyFunc nor SigningKey is provided.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">SigningKeys</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{}
+  
+  <span style="color:#75715e">// Signing method used to check the token&#39;s signing algorithm.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Optional. Default value HS256.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">SigningMethod</span> <span style="color:#66d9ef">string</span>
-
+  
   <span style="color:#75715e">// Context key to store user information from the token into context.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Optional. Default value &#34;user&#34;.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ContextKey</span> <span style="color:#66d9ef">string</span>
-
-  <span style="color:#75715e">// Claims are extendable claims data defining token content.
+  
+  <span style="color:#75715e">// Claims are extendable claims data defining token content. Used by default ParseTokenFunc implementation.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Not used if custom ParseTokenFunc is set.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Optional. Default value jwt.MapClaims
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Claims</span> <span style="color:#a6e22e">jwt</span>.<span style="color:#a6e22e">Claims</span>
-
+  
   <span style="color:#75715e">// TokenLookup is a string in the form of &#34;&lt;source&gt;:&lt;name&gt;&#34; that is used
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// to extract token from the request.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Optional. Default value &#34;header:Authorization&#34;.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Possible values:
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;header:&lt;name&gt;&#34;
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;query:&lt;name&gt;&#34;
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;param:&lt;name&gt;&#34;
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;cookie:&lt;name&gt;&#34;
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// - &#34;form:&lt;name&gt;&#34;
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">TokenLookup</span> <span style="color:#66d9ef">string</span>
-
+  
   <span style="color:#75715e">// AuthScheme to be used in the Authorization header.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Optional. Default value &#34;Bearer&#34;.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">AuthScheme</span> <span style="color:#66d9ef">string</span>
+  
+  <span style="color:#75715e">// KeyFunc defines a user-defined function that supplies the public key for a token validation.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// The function shall take care of verifying the signing algorithm and selecting the proper key.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// A user-defined KeyFunc can be useful if tokens are issued by an external party.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Used by default ParseTokenFunc implementation.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// When a user-defined KeyFunc is provided, SigningKey, SigningKeys, and SigningMethod are ignored.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// This is one of the three options to provide a token validation key.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// The order of precedence is a user-defined KeyFunc, SigningKeys and SigningKey.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Required if neither SigningKeys nor SigningKey is provided.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Not used if custom ParseTokenFunc is set.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Default to an internal implementation verifying the signing algorithm and selecting the proper key.
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">KeyFunc</span> <span style="color:#a6e22e">jwt</span>.<span style="color:#a6e22e">Keyfunc</span>
+  
+  <span style="color:#75715e">// ParseTokenFunc defines a user-defined function that parses token from given auth. Returns an error when token
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// parsing fails or parsed token is invalid.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Defaults to implementation using `github.com/dgrijalva/jwt-go` as JWT implementation library
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ParseTokenFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">auth</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>)
 }
 </code></pre></div><p><em>Default Configuration</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">DefaultJWTConfig</span> = <span style="color:#a6e22e">JWTConfig</span>{
@@ -717,7 +813,7 @@
   <span style="color:#a6e22e">AuthScheme</span>:    <span style="color:#e6db74">&#34;Bearer&#34;</span>,
   <span style="color:#a6e22e">Claims</span>:        <span style="color:#a6e22e">jwt</span>.<span style="color:#a6e22e">MapClaims</span>{},
 }
-</code></pre></div><h2 id="examplecookbookjwt"><a href="/cookbook/jwt">Example</a></h2>
+</code></pre></div><h2 id="examplecookbookjwt"><a href="/cookbook/jwt">Example</a><a href="#examplecookbookjwt" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 
             </section>
             <footer>

@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,17 +679,17 @@
                 
               </ul>
               <h1>Streaming Response Recipe</h1>
-              <ul>
+                <ul>
 <li>Send data as it is produced</li>
 <li>Streaming JSON response with chunked transfer encoding</li>
 </ul>
-<h2 id="server">Server</h2>
+<h2 id="server">Server<a href="#server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>server.go</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/streaming-response/server.go"></pre>
 
-<h2 id="client">Client</h2>
+<h2 id="client">Client<a href="#client" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl localhost:1323
-</code></pre></div><h2 id="output">Output</h2>
+</code></pre></div><h2 id="output">Output<a href="#output" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;Altitude&#34;</span>:-97,<span style="color:#e6db74">&#34;Latitude&#34;</span>:37.819929,<span style="color:#e6db74">&#34;Longitude&#34;</span>:-122.478255<span style="color:#f92672">}</span>
 <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;Altitude&#34;</span>:1899,<span style="color:#e6db74">&#34;Latitude&#34;</span>:39.096849,<span style="color:#e6db74">&#34;Longitude&#34;</span>:-120.032351<span style="color:#f92672">}</span>
 <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;Altitude&#34;</span>:2619,<span style="color:#e6db74">&#34;Latitude&#34;</span>:37.865101,<span style="color:#e6db74">&#34;Longitude&#34;</span>:-119.538329<span style="color:#f92672">}</span>

@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,11 +679,11 @@
                 
               </ul>
               <h1>Context</h1>
-              <p><code>echo.Context</code> represents the context of the current HTTP request. It holds request and
+                <p><code>echo.Context</code> represents the context of the current HTTP request. It holds request and
 response reference, path, path parameters, data, registered handler and APIs to read
 request and write response. As Context is an interface, it is easy to extend it with
 custom APIs.</p>
-<h2 id="extending-context">Extending Context</h2>
+<h2 id="extending-context">Extending Context<a href="#extending-context" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><strong>Define a custom context</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CustomContext</span> <span style="color:#66d9ef">struct</span> {
 	<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>
@@ -686,6 +705,9 @@ custom APIs.</p>
 })
 </code></pre></div><blockquote>
 <p>This middleware should be registered before any other middleware.</p>
+</blockquote>
+<blockquote>
+<p>The custom context cannot be defined in a middleware before the router ran (Pre)</p>
 </blockquote>
 <p><strong>Use in handler</strong></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {

@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,18 +679,18 @@
                 
               </ul>
               <h1>Testing</h1>
-              <h2 id="testing-handler">Testing Handler</h2>
+                <h2 id="testing-handler">Testing Handler<a href="#testing-handler" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>GET</code> <code>/users/:id</code></p>
 <p>Handler below retrieves user by id from the database. If user is not found it returns
 <code>404</code> error with a message.</p>
-<h3 id="createuser">CreateUser</h3>
+<h3 id="createuser">CreateUser<a href="#createuser" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>POST</code> <code>/users</code></p>
 <ul>
 <li>Accepts JSON payload</li>
 <li>On success <code>201 - Created</code></li>
 <li>On error <code>500 - Internal Server Error</code></li>
 </ul>
-<h3 id="getuser">GetUser</h3>
+<h3 id="getuser">GetUser<a href="#getuser" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>GET</code> <code>/users/:email</code></p>
 <ul>
 <li>On success <code>200 - OK</code></li>
@@ -765,22 +784,22 @@
 		<span style="color:#a6e22e">assert</span>.<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">userJSON</span>, <span style="color:#a6e22e">rec</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">String</span>())
 	}
 }
-</code></pre></div><h3 id="using-form-payload">Using Form Payload</h3>
+</code></pre></div><h3 id="using-form-payload">Using Form Payload<a href="#using-form-payload" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// import &#34;net/url&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Values</span>)
 <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;Jon Snow&#34;</span>)
 <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;email&#34;</span>, <span style="color:#e6db74">&#34;jon@labstack.com&#34;</span>)
 <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>, <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Encode</span>()))
 <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HeaderContentType</span>, <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MIMEApplicationForm</span>)
-</code></pre></div><h3 id="setting-path-params">Setting Path Params</h3>
+</code></pre></div><h3 id="setting-path-params">Setting Path Params<a href="#setting-path-params" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamNames</span>(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;email&#34;</span>)
 <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamValues</span>(<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;jon@labstack.com&#34;</span>)
-</code></pre></div><h3 id="setting-query-params">Setting Query Params</h3>
+</code></pre></div><h3 id="setting-query-params">Setting Query Params<a href="#setting-query-params" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// import &#34;net/url&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Values</span>)
 <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;email&#34;</span>, <span style="color:#e6db74">&#34;jon@labstack.com&#34;</span>)
 <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>, <span style="color:#e6db74">&#34;/?&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Encode</span>(), <span style="color:#66d9ef">nil</span>)
-</code></pre></div><h2 id="testing-middleware">Testing Middleware</h2>
+</code></pre></div><h2 id="testing-middleware">Testing Middleware<a href="#testing-middleware" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>TBD</em></p>
 <p>For now you can look into built-in middleware <a href="https://github.com/labstack/echo/tree/master/middleware">test cases</a>.</p>
 

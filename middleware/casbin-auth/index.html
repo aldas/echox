@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Casbin Auth Middleware</h1>
-              <p><a href="https://github.com/casbin/casbin">Casbin</a> is a powerful and efficient open-source access control library for Go. It provides support for enforcing authorization based on various models. So far, the access control models supported by Casbin are:</p>
+                <p><a href="https://github.com/casbin/casbin">Casbin</a> is a powerful and efficient open-source access control library for Go. It provides support for enforcing authorization based on various models. So far, the access control models supported by Casbin are:</p>
 <ul>
 <li>ACL (Access Control List)</li>
 <li>ACL with superuser</li>
@@ -677,7 +696,7 @@
 <p>Echo community contribution</p>
 </blockquote>
 <p>Note: Currently, only HTTP basic authentication is supported.</p>
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="dependencies">Dependencies<a href="#dependencies" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
   <span style="color:#e6db74">&#34;github.com/casbin/casbin&#34;</span>
   <span style="color:#a6e22e">casbin_mw</span> <span style="color:#e6db74">&#34;github.com/labstack/echo-contrib/casbin&#34;</span>
@@ -687,7 +706,7 @@
 <span style="color:#a6e22e">enforcer</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">casbin</span>.<span style="color:#a6e22e">NewEnforcer</span>(<span style="color:#e6db74">&#34;casbin_auth_model.conf&#34;</span>, <span style="color:#e6db74">&#34;casbin_auth_policy.csv&#34;</span>)
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">casbin_mw</span>.<span style="color:#a6e22e">Middleware</span>(<span style="color:#a6e22e">enforcer</span>))
 </code></pre></div><p>For syntax, see: <a href="https://casbin.org/docs/en/syntax-for-models">Syntax for Models</a>.</p>
-<h2 id="custom-configuration">Custom Configuration</h2>
+<h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">ce</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">casbin</span>.<span style="color:#a6e22e">NewEnforcer</span>(<span style="color:#e6db74">&#34;casbin_auth_model.conf&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>)
@@ -696,7 +715,7 @@
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">casbin_mw</span>.<span style="color:#a6e22e">MiddlewareWithConfig</span>(<span style="color:#a6e22e">casbin_mw</span>.<span style="color:#a6e22e">Config</span>{
   <span style="color:#a6e22e">Enforcer</span>: <span style="color:#a6e22e">ce</span>,
 }))
-</code></pre></div><h2 id="configuration">Configuration</h2>
+</code></pre></div><h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Config defines the config for CasbinAuth middleware.
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">Config</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.

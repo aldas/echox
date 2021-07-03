@@ -101,7 +101,7 @@ Usage
 e.Use(middleware.Gzip())
 Custom Configuration Usage
 e := echo.New() e.Use(middleware.GzipWithConfig(middleware.GzipConfig{ Level: 5, })) Configuration GzipConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Gzip compression level.  // Optional. Default value -1.  Level int `json:&amp;#34;level&amp;#34;` } Default Configuration
-DefaultGzipConfig = GzipConfig{ Skipper: DefaultSkipper, Level: -1, } </description>
+DefaultGzipConfig = GzipConfig{ Skipper: DefaultSkipper, Level: -1, } Middleware Skipper A middleware skipper can be passed to avoid gzip to certain URLs:</description>
     </item>
     
     <item>
@@ -126,7 +126,8 @@ Custom Configuration By default, traces are sent to localhost Jaeger agent insta
  For valid token, it sets the user in context and calls next handler. For invalid token, it sends &amp;ldquo;401 - Unauthorized&amp;rdquo; response. For missing or invalid Authorization header, it sends &amp;ldquo;400 - Bad Request&amp;rdquo;.  Usage
 e.Use(middleware.JWT([]byte(&amp;quot;secret&amp;quot;)))
 Custom Configuration Usage
-e.Use(middleware.JWTWithConfig(middleware.JWTConfig{ SigningKey: []byte(&amp;#34;secret&amp;#34;), TokenLookup: &amp;#34;query:token&amp;#34;, })) Configuration JWTConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Signing key to validate token.</description>
+e.Use(middleware.JWTWithConfig(middleware.JWTConfig{ SigningKey: []byte(&amp;#34;secret&amp;#34;), TokenLookup: &amp;#34;query:token&amp;#34;, })) Usage with different JWT library/repository
+ Note: To be backwards compatible Echo still uses the currently unmaintained JWT implementation dgrijalva/jwt-go, which has known potential security risks.</description>
     </item>
     
     <item>
@@ -154,7 +155,7 @@ Sample Output
 {&amp;#34;time&amp;#34;:&amp;#34;2017-01-12T08:58:07.372015644-08:00&amp;#34;,&amp;#34;remote_ip&amp;#34;:&amp;#34;::1&amp;#34;,&amp;#34;host&amp;#34;:&amp;#34;localhost:1323&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;GET&amp;#34;,&amp;#34;uri&amp;#34;:&amp;#34;/&amp;#34;,&amp;#34;status&amp;#34;:200,&amp;#34;error&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;latency&amp;#34;:14743,&amp;#34;latency_human&amp;#34;:&amp;#34;14.743µs&amp;#34;,&amp;#34;bytes_in&amp;#34;:0,&amp;#34;bytes_out&amp;#34;:2} Custom Configuration Usage
 e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{ Format: &amp;#34;method=${method}, uri=${uri}, status=${status}\n&amp;#34;, })) Example above uses a Format which logs request method and request URI.
 Sample Output
-method=GET, uri=/, status=200 Configuration LoggerConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Tags to construct the logger format.  //  // - time_unix  // - time_unix_nano  // - time_rfc3339  // - time_rfc3339_nano  // - id (Request ID)  // - remote_ip  // - uri  // - host  // - method  // - path  // - referer  // - user_agent  // - status  // - error  // - latency (In nanoseconds)  // - latency_human (Human readable)  // - bytes_in (Bytes received)  // - bytes_out (Bytes sent)  // - header:&amp;lt;NAME&amp;gt;  // - query:&amp;lt;NAME&amp;gt;  // - form:&amp;lt;NAME&amp;gt;  // - cookie:&amp;lt;NAME&amp;gt;  //  // Example &amp;#34;${remote_ip} ${status}&amp;#34;  //  // Optional.</description>
+method=GET, uri=/, status=200 Configuration // LoggerConfig defines the config for Logger middleware. LoggerConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Tags to construct the logger format.  //  // - time_unix  // - time_unix_nano  // - time_rfc3339  // - time_rfc3339_nano  // - time_custom  // - id (Request ID)  // - remote_ip  // - uri  // - host  // - method  // - path  // - protocol  // - referer  // - user_agent  // - status  // - error  // - latency (In nanoseconds)  // - latency_human (Human readable)  // - bytes_in (Bytes received)  // - bytes_out (Bytes sent)  // - header:&amp;lt;NAME&amp;gt;  // - query:&amp;lt;NAME&amp;gt;  // - form:&amp;lt;NAME&amp;gt;  //  // Example &amp;#34;${remote_ip} ${status}&amp;#34;  //  // Optional.</description>
     </item>
     
     <item>

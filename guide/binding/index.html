@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Binding Request Data</h1>
-              <h2 id="bind-using-struct-tags">Bind using struct tags</h2>
+                <h2 id="bind-using-struct-tags">Bind using struct tags<a href="#bind-using-struct-tags" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Echo provides following method to bind data from different sources (path params, query params, request body) to structure using
 <code>Context#Bind(i interface{})</code> method.
 The default binder supports decoding application/json, application/xml and
@@ -676,7 +695,7 @@ application/x-www-form-urlencoded data based on the Content-Type header.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#a6e22e">ID</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`param:&#34;id&#34; query:&#34;id&#34; form:&#34;id&#34; json:&#34;id&#34; xml:&#34;id&#34;`</span>
 }
-</code></pre></div><p>Request data is binded to the struct in given order:</p>
+</code></pre></div><p>Request data is bound to the struct in given order:</p>
 <ol>
 <li>Path parameters</li>
 <li>Query parameters (only for GET/DELETE methods)</li>
@@ -686,11 +705,11 @@ application/x-www-form-urlencoded data based on the Content-Type header.</p>
 <ul>
 <li>For <code>query</code>, <code>param</code>, <code>form</code> <strong>only</strong> fields <strong>with</strong> tags are bound.</li>
 <li>For <code>json</code> and <code>xml</code> can bind to <em>public</em> fields without tags but this is by their standard library implementation.</li>
-<li>Each step can overwrite binded fields from the previous step. This means if your json request has query param
+<li>Each step can overwrite bound fields from the previous step. This means if your json request has query param
 <code>&amp;name=query</code> and body is <code>{&quot;name&quot;: &quot;body&quot;}</code> then the result will be <code>User{Name: &quot;body&quot;}</code>.</li>
-<li>To avoid security flaws try to avoid passing binded structs directly to other methods if
+<li>To avoid security flaws try to avoid passing bound structs directly to other methods if
 these structs contain fields that should not be bindable. It is advisable to have separate struct for binding and map it
-explicitly to your business struct. Consider what will happen if your binded struct has public
+explicitly to your business struct. Consider what will happen if your bound struct has public
 field <code>IsAdmin bool</code> and request body would contain <code>{IsAdmin: true, Name: &quot;hacker&quot;}</code>.</li>
 <li>When binding forms take note that Echo implementation uses standard library form parsing which parses form data
 from BOTH URL and BODY if content type is not MIMEMultipartForm. See documentation for <a href="https://golang.org/pkg/net/http/#Request.ParseForm">non-MIMEMultipartForm</a>
@@ -711,7 +730,7 @@ and <a href="https://golang.org/pkg/net/http/#Request.ParseMultipartForm">MIMEMu
 }
 </code></pre></div></li>
 </ul>
-<h3 id="example">Example</h3>
+<h3 id="example">Example<a href="#example" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Example below binds the request payload into <code>User</code> struct based on tags:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// User
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
@@ -720,10 +739,10 @@ and <a href="https://golang.org/pkg/net/http/#Request.ParseMultipartForm">MIMEMu
 }
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">User</span>)
-  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">u</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">u</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
     <span style="color:#66d9ef">return</span>
   }
-  <span style="color:#75715e">// To avoid security flaws try to avoid passing binded structs directly to other methods 
+  <span style="color:#75715e">// To avoid security flaws try to avoid passing bound structs directly to other methods 
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// if these structs contain fields that should not be bindable. 
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">UserDTO</span>{
     <span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Name</span>,
@@ -734,17 +753,17 @@ and <a href="https://golang.org/pkg/net/http/#Request.ParseMultipartForm">MIMEMu
   
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">u</span>)
 }
-</code></pre></div><h3 id="json-data">JSON Data</h3>
+</code></pre></div><h3 id="json-data">JSON Data<a href="#json-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#39;Content-Type: application/json&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Joe&#34;,&#34;email&#34;:&#34;joe@labstack&#34;}&#39;</span>
-</code></pre></div><h3 id="form-data">Form Data</h3>
+</code></pre></div><h3 id="form-data">Form Data<a href="#form-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;name=Joe&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;email=joe@labstack.com&#39;</span>
-</code></pre></div><h3 id="query-parameters">Query Parameters</h3>
+</code></pre></div><h3 id="query-parameters">Query Parameters<a href="#query-parameters" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X GET http://localhost:1323/users<span style="color:#ae81ff">\?</span>name<span style="color:#ae81ff">\=</span>Joe<span style="color:#ae81ff">\&amp;</span>email<span style="color:#ae81ff">\=</span>joe@labstack.com
-</code></pre></div><h2 id="fast-binding-with-dedicated-helpers">Fast binding with dedicated helpers</h2>
+</code></pre></div><h2 id="fast-binding-with-dedicated-helpers">Fast binding with dedicated helpers<a href="#fast-binding-with-dedicated-helpers" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>For binding data found in a request a handful of helper functions are provided. This will allow binding of query parameters, path parameters or data found in the body like forms or JSON data.</p>
 <p>Following functions provide a handful of methods for binding to Go native types from request query or path parameters. These binders offer a fluent syntax and can be chained to configure, execute binding and handle errors.</p>
 <ul>
@@ -770,7 +789,7 @@ the binder call chain. Fail fast is enabled by default and should be disabled wh
   <span style="color:#a6e22e">Int64s</span>(<span style="color:#e6db74">&#34;ids&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">IDs</span>).
   <span style="color:#a6e22e">Bool</span>(<span style="color:#e6db74">&#34;active&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">Active</span>).
   <span style="color:#a6e22e">BindError</span>() <span style="color:#75715e">// returns first binding error
-</span></code></pre></div><h3 id="supported-types">Supported types</h3>
+</span></code></pre></div><h3 id="supported-types">Supported types<a href="#supported-types" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Types that are supported:</p>
 <ul>
 <li>bool</li>
@@ -802,14 +821,14 @@ the binder call chain. Fail fast is enabled by default and should be disabled wh
 <li><code>Must&lt;Type&gt;s(&quot;param&quot;, &amp;destination)</code> - (for slices) parameter value is required to exist, binds it to given destination of that type i.e <code>MustInt64s(...)</code>.</li>
 </ul>
 <p>for some slice types <code>BindWithDelimiter(&quot;param&quot;, &amp;dest, &quot;,&quot;)</code> supports splitting parameter values before type conversion is done. For example URL <code>/api/search?id=1,2,3&amp;id=1</code> can be bind to <code>[]int64{1,2,3,1}</code></p>
-<h2 id="custom-binder">Custom Binder</h2>
+<h2 id="custom-binder">Custom Binder<a href="#custom-binder" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Custom binder can be registered using <code>Echo#Binder</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CustomBinder</span> <span style="color:#66d9ef">struct</span> {}
 
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">cb</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CustomBinder</span>) <span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#75715e">// You may use default binder
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">DefaultBinder</span>)
-  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ErrUnsupportedMediaType</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ErrUnsupportedMediaType</span> {
     <span style="color:#66d9ef">return</span>
   }
 

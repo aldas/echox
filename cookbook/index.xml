@@ -48,8 +48,8 @@ Create User curl -X POST \  -H &amp;#39;Content-Type: application/json&amp;#39; 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/cookbook/embed-resources/</guid>
-      <description>With go.rice server.go
- Source Code With go 1.16 embed feature server.go
+      <description>With go 1.16 embed feature server.go
+ Source Code With go.rice server.go
  Source Code </description>
     </item>
     
@@ -98,8 +98,6 @@ Create User curl -X POST \  -H &amp;#39;Content-Type: application/json&amp;#39; 
       <guid>https://echo.labstack.com/cookbook/graceful-shutdown/</guid>
       <description>Using http.Server#Shutdown() server.go
   Requires go1.8+
- Using grace server.go
- Using graceful server.go
  Source Code </description>
     </item>
     
@@ -154,11 +152,11 @@ Server server.go
       <guid>https://echo.labstack.com/cookbook/jwt/</guid>
       <description>JWT authentication using HS256 algorithm. JWT is retrieved from Authorization request header.  Server using Map claims server.go
  Server using custom claims server.go
+ Server using a user-defined KeyFunc server.go
  Client curl
 Login Login using username and password to retrieve a token.
 curl -X POST -d &amp;#39;username=jon&amp;#39; -d &amp;#39;password=shhh!&amp;#39; localhost:1323/login Response
-{ &amp;#34;token&amp;#34;: &amp;#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjE5NTcxMzZ9.RB3arc4-OyzASAaUhC2W3ReWaXAt_z2Fd3BN4aWTgEY&amp;#34; } Request Request a restricted resource using the token in Authorization request header.
-curl localhost:1323/restricted -H &amp;#34;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjE5NTcxMzZ9.RB3arc4-OyzASAaUhC2W3ReWaXAt_z2Fd3BN4aWTgEY&amp;#34; Response</description>
+{ &amp;#34;token&amp;#34;: &amp;#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjE5NTcxMzZ9.RB3arc4-OyzASAaUhC2W3ReWaXAt_z2Fd3BN4aWTgEY&amp;#34; } Request Request a restricted resource using the token in Authorization request header.</description>
     </item>
     
     <item>

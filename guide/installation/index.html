@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,23 +679,22 @@
                 
               </ul>
               <h1>Installation</h1>
-              <h2 id="prerequisites">Prerequisites</h2>
+                <h2 id="prerequisites">Prerequisites<a href="#prerequisites" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <ul>
 <li><a href="https://golang.org/doc/install">Install</a> Go</li>
-<li><a href="https://golang.org/doc/code.html#GOPATH">Set</a> GOPATH</li>
 </ul>
-<h2 id="using-go-gethttpsgolangorgcmdgohdr-download_and_install_packages_and_dependencies">Using <a href="https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies">go get</a></h2>
+<h2 id="using-go-gethttpsgolangorgcmdgohdr-download_and_install_packages_and_dependencies">Using <a href="https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies">go get</a><a href="#using-go-gethttpsgolangorgcmdgohdr-download_and_install_packages_and_dependencies" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd &lt;PROJECT IN $GOPATH&gt;
-$ go get -u github.com/labstack/echo/...
-</code></pre></div><h2 id="using-dephttpsgithubcomgolangdep">Using <a href="https://github.com/golang/dep">dep</a></h2>
+$ go get -u github.com/labstack/echo/v4
+</code></pre></div><h2 id="using-dephttpsgithubcomgolangdep">Using <a href="https://github.com/golang/dep">dep</a><a href="#using-dephttpsgithubcomgolangdep" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd &lt;PROJECT IN $GOPATH&gt;
-$ dep ensure -add github.com/labstack/echo@^3.1
-</code></pre></div><h2 id="using-glidehttpglidesh">Using <a href="http://glide.sh">glide</a></h2>
+$ dep ensure -add github.com/labstack/echo@^4.3
+</code></pre></div><h2 id="using-glidehttpglidesh">Using <a href="http://glide.sh">glide</a><a href="#using-glidehttpglidesh" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd &lt;PROJECT IN $GOPATH&gt;
-$ glide get github.com/labstack/echo#~3.1
-</code></pre></div><h2 id="using-govendorhttpsgithubcomkardianosgovendor">Using <a href="https://github.com/kardianos/govendor">govendor</a></h2>
+$ glide get github.com/labstack/echo#~4.3
+</code></pre></div><h2 id="using-govendorhttpsgithubcomkardianosgovendor">Using <a href="https://github.com/kardianos/govendor">govendor</a><a href="#using-govendorhttpsgithubcomkardianosgovendor" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd &lt;PROJECT IN $GOPATH&gt;
-$ govendor fetch github.com/labstack/echo@v3.1
+$ govendor fetch github.com/labstack/echo@v4.3
 </code></pre></div><p>Echo follows <a href="http://semver.org">semantic versioning</a> managed through GitHub
 releases, specific version of Echo can be installed using a <a href="https://github.com/avelino/awesome-go#package-management">package manager</a>.</p>
 

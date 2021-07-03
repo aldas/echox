@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,8 +679,8 @@
                 
               </ul>
               <h1>Request</h1>
-              <h2 id="retrieve-data">Retrieve Data</h2>
-<h3 id="form-data">Form Data</h3>
+                <h2 id="retrieve-data">Retrieve Data<a href="#retrieve-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="form-data">Form Data<a href="#form-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Form data can be retrieved by name using <code>Context#FormValue(name string)</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Handler
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
@@ -677,7 +696,7 @@
   <span style="color:#f92672">*</span><span style="color:#a6e22e">t</span> = <span style="color:#a6e22e">Timestamp</span>(<span style="color:#a6e22e">ts</span>)
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 }
-</code></pre></div><h3 id="query-parameters">Query Parameters</h3>
+</code></pre></div><h3 id="query-parameters">Query Parameters<a href="#query-parameters" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Query parameters can be retrieved by name using <code>Context#QueryParam(name string)</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Handler
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
@@ -688,21 +707,31 @@
 </span><span style="color:#ae81ff"></span>  -X GET <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  http://localhost:1323<span style="color:#ae81ff">\?</span>name<span style="color:#ae81ff">\=</span>Joe
 </code></pre></div><p>Similar to form data, custom data type can be bind using <code>Context#QueryParam(name string)</code>.</p>
-<h3 id="path-parameters">Path Parameters</h3>
+<h3 id="path-parameters">Path Parameters<a href="#path-parameters" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Registered path parameters can be retrieved by name using <code>Context#Param(name string) string</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/users/:name&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Param</span>(<span style="color:#e6db74">&#34;name&#34;</span>)
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">name</span>)
 })
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl http://localhost:1323/users/Joe
-</code></pre></div><h3 id="binding-data">Binding Data</h3>
+</code></pre></div><h3 id="binding-data">Binding Data<a href="#binding-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Also binding of request data to native Go structs and variables is supported.
 See <a href="https://echo.labstack.com/guide/binding/">Binding Data</a></p>
-<h2 id="validate-data">Validate Data</h2>
+<h2 id="validate-data">Validate Data<a href="#validate-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Echo doesn&rsquo;t have built-in data validation capabilities, however, you can register
 a custom validator using <code>Echo#Validator</code> and leverage third-party <a href="https://github.com/avelino/awesome-go#validation">libraries</a>.</p>
 <p>Example below uses <a href="https://github.com/go-playground/validator">https://github.com/go-playground/validator</a> framework for validation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> (
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+  <span style="color:#e6db74">&#34;net/http&#34;</span>
+  
+	<span style="color:#e6db74">&#34;github.com/go-playground/validator&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/labstack/echo/v4&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/labstack/echo/v4/middleware&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> (
   <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
     <span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34; validate:&#34;required&#34;`</span>
     <span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;email&#34; validate:&#34;required,email&#34;`</span>
@@ -715,7 +744,8 @@ a custom validator using <code>Echo#Validator</code> and leverage third-party <a
 
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">cv</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CustomValidator</span>) <span style="color:#a6e22e">Validate</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span> {
   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cv</span>.<span style="color:#a6e22e">validator</span>.<span style="color:#a6e22e">Struct</span>(<span style="color:#a6e22e">i</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusInternalServerError</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+    <span style="color:#75715e">// Optionally, you could return the error to give each route more control over the status code
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
   }
   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }
@@ -729,7 +759,7 @@ a custom validator using <code>Echo#Validator</code> and leverage third-party <a
       <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
     }
     <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Validate</span>(<span style="color:#a6e22e">u</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusBadRequest</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
     }
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">u</span>)
   })

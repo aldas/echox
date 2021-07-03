@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Basic Auth Middleware</h1>
-              <p>Basic auth middleware provides an HTTP basic authentication.</p>
+                <p>Basic auth middleware provides an HTTP basic authentication.</p>
 <ul>
 <li>For valid credentials it calls the next handler.</li>
 <li>For missing or invalid credentials, it sends &ldquo;401 - Unauthorized&rdquo; response.</li>
@@ -674,10 +693,10 @@
 	}
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">nil</span>
 }))
-</code></pre></div><h2 id="custom-configuration">Custom Configuration</h2>
+</code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">BasicAuthWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">BasicAuthConfig</span>{}))
-</code></pre></div><h2 id="configuration">Configuration</h2>
+</code></pre></div><h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">BasicAuthConfig</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Skipper</span> <span style="color:#a6e22e">Skipper</span>

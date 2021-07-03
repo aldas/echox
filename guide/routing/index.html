@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,7 +679,7 @@
                 
               </ul>
               <h1>Routing</h1>
-              <p>Echo&rsquo;s router is based on <a href="http://en.wikipedia.org/wiki/Radix_tree">radix tree</a>, making
+                <p>Echo&rsquo;s router is based on <a href="http://en.wikipedia.org/wiki/Radix_tree">radix tree</a>, making
 route lookup really fast. It leverages <a href="https://golang.org/pkg/sync/#Pool">sync pool</a>
 to reuse memory and achieve zero dynamic memory allocation with no GC overhead.</p>
 <p>Routes can be registered by specifying HTTP method, path and a matching handler.
@@ -677,7 +696,7 @@ handler which sends <code>Hello, World!</code> HTTP response.</p>
 If you want to register it for some methods use <code>Echo.Match(methods []string, path string, h Handler)</code>.</p>
 <p>Echo defines handler function as <code>func(echo.Context) error</code> where <code>echo.Context</code> primarily
 holds HTTP request and response interfaces.</p>
-<h2 id="match-any">Match-any</h2>
+<h2 id="match-any">Match-any<a href="#match-any" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Matches zero or more characters in the path. For example, pattern <code>/users/*</code> will
 match:</p>
 <ul>
@@ -686,7 +705,7 @@ match:</p>
 <li><code>/users/1/files/1</code></li>
 <li><code>/users/anything...</code></li>
 </ul>
-<h2 id="path-matching-order">Path Matching Order</h2>
+<h2 id="path-matching-order">Path Matching Order<a href="#path-matching-order" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <ul>
 <li>Static</li>
 <li>Param</li>
@@ -713,7 +732,7 @@ match:</p>
 <blockquote>
 <p>Routes can be written in any order.</p>
 </blockquote>
-<h2 id="group">Group</h2>
+<h2 id="group">Group<a href="#group" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Group(prefix string, m ...Middleware) *Group</code></p>
 <p>Routes with common prefix can be grouped to define a new sub-router with optional
 middleware. In addition to specified middleware group also inherits parent middleware.
@@ -728,7 +747,7 @@ for routes <code>/admin/*</code>.</p>
 	}
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">nil</span>
 }))
-</code></pre></div><h2 id="route-naming">Route Naming</h2>
+</code></pre></div><h2 id="route-naming">Route Naming<a href="#route-naming" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Each of the registration methods returns a <code>Route</code> object, which can be used to name a route after the registration. For example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">route</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 })
@@ -738,7 +757,7 @@ for routes <code>/admin/*</code>.</p>
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/users/:id&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 }).<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;get-user&#34;</span>
 </code></pre></div><p>Route names can be very useful when generating URIs from the templates, where you can&rsquo;t access the handler references or when you have multiple routes with the same handler.</p>
-<h2 id="uri-building">URI Building</h2>
+<h2 id="uri-building">URI Building<a href="#uri-building" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#URI(handler HandlerFunc, params ...interface{})</code> can be used to generate URI for any handler with specified path parameters. It&rsquo;s helpful to centralize all your
 URI patterns which ease in refactoring your application.</p>
 <p>For example, <code>e.URI(h, 1)</code> will generate <code>/users/1</code> for the route registered below:</p>
@@ -757,7 +776,7 @@ URI patterns which ease in refactoring your application.</p>
 
 <span style="color:#75715e">// Route
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/users/:id&#34;</span>, <span style="color:#a6e22e">h</span>).<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;foobar&#34;</span>
-</code></pre></div><h2 id="list-routes">List Routes</h2>
+</code></pre></div><h2 id="list-routes">List Routes<a href="#list-routes" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#Routes() []*Route</code> can be used to list all registered routes in the order
 they are defined. Each route contains HTTP method, path and an associated handler.</p>
 <p><em>Example</em></p>

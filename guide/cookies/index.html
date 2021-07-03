@@ -118,6 +118,15 @@
         </li>
         
         <li>
+          <a href="/guide/http_server">
+             HTTP(s) Server
+          </a>
+          <ul class="menu-l3">
+            
+          </ul>
+        </li>
+        
+        <li>
           <a href="/guide/ip-address">
              IP Address
           </a>
@@ -620,7 +629,7 @@
 </nav>
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/program">
+  <a href="https://code.labstack.com/new">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -640,6 +649,16 @@
             <section>
               
               
+                <style>
+                    .hanchor {
+                        font-size: 80%;
+                        visibility: hidden;
+                        color: silver;
+                    }
+                    h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                        visibility: visible;
+                    }
+                </style>
               <ul class="breadcrumb">
                 
                 
@@ -660,14 +679,14 @@
                 
               </ul>
               <h1>Cookies</h1>
-              <p>Cookie is a small piece of data sent from a website server and stored in the user&rsquo;s web
+                <p>Cookie is a small piece of data sent from a website server and stored in the user&rsquo;s web
 browser while browsing. Every time the user loads the website, the browser
 sends the cookies back to the server to notify the server of user&rsquo;s latest activity.
 Cookies were designed to be a reliable mechanism for websites to remember stateful
 information (e.g. items added to the shopping cart in an online store) or to
 record the user&rsquo;s browsing activity (such as clicking particular buttons, logging
 in, or user previously visited pages of the website). Cookies can also store form content a user has previously entered, such as username, gender, age, address, etc.</p>
-<h2 id="cookie-attributes">Cookie Attributes</h2>
+<h2 id="cookie-attributes">Cookie Attributes<a href="#cookie-attributes" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <table>
 <thead>
 <tr>
@@ -707,7 +726,7 @@ in, or user previously visited pages of the website). Cookies can also store for
 </tbody>
 </table>
 <p>Echo uses go standard <code>http.Cookie</code> object to add/retrieve cookies from the context received in the handler function.</p>
-<h2 id="create-a-cookie">Create a Cookie</h2>
+<h2 id="create-a-cookie">Create a Cookie<a href="#create-a-cookie" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">writeCookie</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Cookie</span>)
 	<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;username&#34;</span>
@@ -721,7 +740,7 @@ in, or user previously visited pages of the website). Cookies can also store for
 <li>Attributes for the cookie are set assigning to the <code>http.Cookie</code> instance public attributes.</li>
 <li>Finally <code>c.SetCookie(cookie)</code> adds a <code>Set-Cookie</code> header in HTTP response.</li>
 </ul>
-<h2 id="read-a-cookie">Read a Cookie</h2>
+<h2 id="read-a-cookie">Read a Cookie<a href="#read-a-cookie" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readCookie</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#a6e22e">cookie</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Cookie</span>(<span style="color:#e6db74">&#34;username&#34;</span>)
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
@@ -735,7 +754,7 @@ in, or user previously visited pages of the website). Cookies can also store for
 <li>Cookie is read by name using <code>c.Cookie(&quot;username&quot;)</code> from the HTTP request.</li>
 <li>Cookie attributes are accessed using <code>Getter</code> function.</li>
 </ul>
-<h2 id="read-all-the-cookies">Read all the Cookies</h2>
+<h2 id="read-all-the-cookies">Read all the Cookies<a href="#read-all-the-cookies" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readAllCookies</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Cookies</span>() {
 		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Name</span>)
