@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -703,12 +702,12 @@ This guides show you why and how.</p>
 <p>If you put no proxy (e.g.: directory facing to the internet), all you need to (and have to) see is IP address from network layer.
 Any HTTP header is untrustable because the clients have full control what headers to be set.</p>
 <p>In this case, use <code>echo.ExtractIPDirect()</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPDirect</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPDirect</span>()
 </code></pre></div><h2 id="case-2-with-proxies-using-x-forwarded-for-header">Case 2. With proxies using <code>X-Forwarded-For</code> header<a href="#case-2-with-proxies-using-x-forwarded-for-header" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For"><code>X-Forwared-For</code> (XFF)</a> is the popular header to relay clients' IP addresses.
 At each hop on the proxies, they append the request IP address at the end of the header.</p>
 <p>Following example diagram illustrates this behavior.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">            ┌──────────┐            ┌──────────┐            ┌──────────┐
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">            ┌──────────┐            ┌──────────┐            ┌──────────┐
 ───────────&gt;│ Proxy 1  │───────────&gt;│ Proxy 2  │───────────&gt;│ Your app │
             │ (IP: b)  │            │ (IP: c)  │            │          │
             └──────────┘            └──────────┘            └──────────┘
@@ -722,10 +721,10 @@ XFF:  &#34;x&#34;                   &#34;x, a&#34;                  &#34;x, a, b
                                                     ↑ What your app will see
 </code></pre></div><p>In this case, use <strong>first <em>untrustable</em> IP reading from right</strong>. Never use first one reading from left, as it is configurable by client. Here &ldquo;trustable&rdquo; means &ldquo;you are sure the IP address belongs to your infrastructre&rdquo;. In above example, if <code>b</code> and <code>c</code> are trustable, the IP address of the client is <code>a</code> for both cases, never be <code>x</code>.</p>
 <p>In Echo, use <code>ExtractIPFromXFFHeader(...TrustOption)</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPFromXFFHeader</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPFromXFFHeader</span>()
 </code></pre></div><p>By default, it trusts internal IP addresses (loopback, link-local unicast, private-use and unique local address from <a href="https://tools.ietf.org/html/rfc6890">RFC6890</a>, <a href="https://tools.ietf.org/html/rfc4291">RFC4291</a> and <a href="https://tools.ietf.org/html/rfc4193">RFC4193</a>). To control this behavior, use <a href="https://godoc.org/github.com/labstack/echo#TrustOption"><code>TrustOption</code></a>s.</p>
 <p>E.g.:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPFromXFFHeader</span>(
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPFromXFFHeader</span>(
 	<span style="color:#a6e22e">TrustLinkLocal</span>(<span style="color:#66d9ef">false</span>),
 	<span style="color:#a6e22e">TrustIPRanges</span>(<span style="color:#a6e22e">lbIPRange</span>),
 )
@@ -735,7 +734,7 @@ XFF:  &#34;x&#34;                   &#34;x, a&#34;                  &#34;x, a, b
 <h2 id="case-3-with-proxies-using-x-real-ip-header">Case 3. With proxies using <code>X-Real-IP</code> header<a href="#case-3-with-proxies-using-x-real-ip-header" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>X-Real-IP</code> is another HTTP header to relay clients' IP addresses, but it carries only one address unlike XFF.</p>
 <p>If your proxies set this header, use <code>ExtractIPFromRealIPHeader(...TrustOption)</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPFromRealIPHeader</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">IPExtractor</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ExtractIPFromRealIPHeader</span>()
 </code></pre></div><p>Again, it trusts internal IP addresses by default (loopback, link-local unicast, private-use and unique local address from <a href="https://tools.ietf.org/html/rfc6890">RFC6890</a>, <a href="https://tools.ietf.org/html/rfc4291">RFC4291</a> and <a href="https://tools.ietf.org/html/rfc4193">RFC4193</a>). To control this behavior, use <a href="https://godoc.org/github.com/labstack/echo#TrustOption"><code>TrustOption</code></a>s.</p>
 <ul>
 <li>Ref: <a href="https://godoc.org/github.com/labstack/echo#TrustOption">https://godoc.org/github.com/labstack/echo#TrustOption</a></li>
@@ -759,7 +758,6 @@ Sole reason this is default is just backward compatibility.</p>
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

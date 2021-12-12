@@ -127,7 +127,7 @@ Custom Configuration By default, traces are sent to localhost Jaeger agent insta
 e.Use(middleware.JWT([]byte(&amp;quot;secret&amp;quot;)))
 Custom Configuration Usage
 e.Use(middleware.JWTWithConfig(middleware.JWTConfig{ SigningKey: []byte(&amp;#34;secret&amp;#34;), TokenLookup: &amp;#34;query:token&amp;#34;, })) Usage with different JWT library/repository
- Note: To be backwards compatible Echo still uses the currently unmaintained JWT implementation dgrijalva/jwt-go, which has known potential security risks.</description>
+To use a different JWT library you need to implement a custom JWTConfig.</description>
     </item>
     
     <item>
@@ -243,8 +243,7 @@ Usage</description>
 Usage
 e.Use(middleware.RequestID())
 Custom Configuration Usage
-e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{ Generator: func() string { return customGenerator() }, })) Configuration RequestIDConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Generator defines a function to generate an ID.  // Optional. Default value random.String(32).  Generator func() string } Default Configuration
-DefaultRequestIDConfig = RequestIDConfig{ Skipper: DefaultSkipper, Generator: generator, } Set ID You can set the id from the requester with the X-Request-ID-Header</description>
+e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{ Generator: func() string { return customGenerator() }, })) Configuration RequestIDConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Generator defines a function to generate an ID.  // Optional. Default value random.String(32).  Generator func() string // TargetHeader defines what header to look for to populate the id  TargetHeader string } Default Configuration</description>
     </item>
     
     <item>

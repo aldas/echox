@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -727,7 +726,7 @@ in, or user previously visited pages of the website). Cookies can also store for
 </table>
 <p>Echo uses go standard <code>http.Cookie</code> object to add/retrieve cookies from the context received in the handler function.</p>
 <h2 id="create-a-cookie">Create a Cookie<a href="#create-a-cookie" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">writeCookie</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">writeCookie</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Cookie</span>)
 	<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;username&#34;</span>
 	<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Value</span> = <span style="color:#e6db74">&#34;jon&#34;</span>
@@ -741,7 +740,7 @@ in, or user previously visited pages of the website). Cookies can also store for
 <li>Finally <code>c.SetCookie(cookie)</code> adds a <code>Set-Cookie</code> header in HTTP response.</li>
 </ul>
 <h2 id="read-a-cookie">Read a Cookie<a href="#read-a-cookie" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readCookie</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readCookie</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#a6e22e">cookie</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Cookie</span>(<span style="color:#e6db74">&#34;username&#34;</span>)
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
 		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
@@ -755,7 +754,7 @@ in, or user previously visited pages of the website). Cookies can also store for
 <li>Cookie attributes are accessed using <code>Getter</code> function.</li>
 </ul>
 <h2 id="read-all-the-cookies">Read all the Cookies<a href="#read-all-the-cookies" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readAllCookies</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readAllCookies</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">cookie</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Cookies</span>() {
 		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Name</span>)
 		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">cookie</span>.<span style="color:#a6e22e">Value</span>)
@@ -773,7 +772,6 @@ in, or user previously visited pages of the website). Cookies can also store for
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

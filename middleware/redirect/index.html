@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -683,41 +682,41 @@
 <p>HTTPS redirect middleware redirects http requests to https.
 For example, <a href="http://labstack.com">http://labstack.com</a> will be redirected to <a href="https://labstack.com">https://labstack.com</a>.</p>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Pre</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">HTTPSRedirect</span>())
 </code></pre></div><h2 id="https-www-redirect">HTTPS WWW Redirect<a href="#https-www-redirect" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>HTTPS WWW redirect redirects http requests to www https.
 For example, <a href="http://labstack.com">http://labstack.com</a> will be redirected to <a href="https://www.labstack.com">https://www.labstack.com</a>.</p>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Pre</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">HTTPSWWWRedirect</span>())
 </code></pre></div><h2 id="https-nonwww-redirect">HTTPS NonWWW Redirect<a href="#https-nonwww-redirect" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>HTTPS NonWWW redirect redirects http requests to https non www.
 For example, <a href="http://www.labstack.com">http://www.labstack.com</a> will be redirect to <a href="https://labstack.com">https://labstack.com</a>.</p>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Pre</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">HTTPSNonWWWRedirect</span>())
 </code></pre></div><h2 id="www-redirect">WWW Redirect<a href="#www-redirect" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>WWW redirect redirects non www requests to www.</p>
 <p>For example, <a href="http://labstack.com">http://labstack.com</a> will be redirected to <a href="http://www.labstack.com">http://www.labstack.com</a>.</p>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Pre</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">WWWRedirect</span>())
 </code></pre></div><h2 id="nonwww-redirect">NonWWW Redirect<a href="#nonwww-redirect" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>NonWWW redirect redirects www requests to non www.
 For example, <a href="http://www.labstack.com">http://www.labstack.com</a> will be redirected to <a href="http://labstack.com">http://labstack.com</a>.</p>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Pre</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">NonWWWRedirect</span>())
 </code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">HTTPSRedirectWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RedirectConfig</span>{
   <span style="color:#a6e22e">Code</span>: <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusTemporaryRedirect</span>,
 }))
 </code></pre></div><p>Example above will redirect the request HTTP to HTTPS with status code <code>307 - StatusTemporaryRedirect</code>.</p>
 <h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">RedirectConfig</span> <span style="color:#66d9ef">struct</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">RedirectConfig</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Skipper</span> <span style="color:#a6e22e">Skipper</span>
 
@@ -726,7 +725,7 @@ For example, <a href="http://www.labstack.com">http://www.labstack.com</a> will 
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Code</span> <span style="color:#66d9ef">int</span> <span style="color:#e6db74">`json:&#34;code&#34;`</span>
 }
 </code></pre></div><p><em>Default Configuration</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">DefaultRedirectConfig</span> = <span style="color:#a6e22e">RedirectConfig</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">DefaultRedirectConfig</span> = <span style="color:#a6e22e">RedirectConfig</span>{
   <span style="color:#a6e22e">Skipper</span>: <span style="color:#a6e22e">DefaultSkipper</span>,
   <span style="color:#a6e22e">Code</span>:    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusMovedPermanently</span>,
 }
@@ -741,7 +740,6 @@ For example, <a href="http://www.labstack.com">http://www.labstack.com</a> will 
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

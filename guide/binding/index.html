@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -688,12 +687,13 @@ application/x-www-form-urlencoded data based on the Content-Type header.</p>
 <ul>
 <li><code>query</code> - source is request query parameters.</li>
 <li><code>param</code> - source is route path parameter.</li>
+<li><code>header</code> - source is header parameter.</li>
 <li><code>form</code> - source is form. Values are taken from query and request body. Uses Go standard library form parsing.</li>
 <li><code>json</code> - source is request body. Uses Go <a href="https://golang.org/pkg/encoding/json/">json</a> package for unmarshalling.</li>
 <li><code>xml</code> - source is request body. Uses Go <a href="https://golang.org/pkg/encoding/xml/">xml</a> package for unmarshalling.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
-  <span style="color:#a6e22e">ID</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`param:&#34;id&#34; query:&#34;id&#34; form:&#34;id&#34; json:&#34;id&#34; xml:&#34;id&#34;`</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">ID</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`param:&#34;id&#34; query:&#34;id&#34; header:&#34;id&#34; form:&#34;id&#34; json:&#34;id&#34; xml:&#34;id&#34;`</span>
 }
 </code></pre></div><p>Request data is bound to the struct in given order:</p>
 <ol>
@@ -703,7 +703,7 @@ application/x-www-form-urlencoded data based on the Content-Type header.</p>
 </ol>
 <p>Notes:</p>
 <ul>
-<li>For <code>query</code>, <code>param</code>, <code>form</code> <strong>only</strong> fields <strong>with</strong> tags are bound.</li>
+<li>For <code>query</code>, <code>param</code>, <code>header</code>, <code>form</code> <strong>only</strong> fields <strong>with</strong> tags are bound.</li>
 <li>For <code>json</code> and <code>xml</code> can bind to <em>public</em> fields without tags but this is by their standard library implementation.</li>
 <li>Each step can overwrite bound fields from the previous step. This means if your json request has query param
 <code>&amp;name=query</code> and body is <code>{&quot;name&quot;: &quot;body&quot;}</code> then the result will be <code>User{Name: &quot;body&quot;}</code>.</li>
@@ -715,31 +715,36 @@ field <code>IsAdmin bool</code> and request body would contain <code>{IsAdmin: t
 from BOTH URL and BODY if content type is not MIMEMultipartForm. See documentation for <a href="https://golang.org/pkg/net/http/#Request.ParseForm">non-MIMEMultipartForm</a>
 and <a href="https://golang.org/pkg/net/http/#Request.ParseMultipartForm">MIMEMultipartForm</a></li>
 <li>To bind data only from request body use following code
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindBody</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindBody</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 }
 </code></pre></div></li>
 <li>To bind data only from query parameters use following code
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindQueryParams</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindQueryParams</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 }
 </code></pre></div></li>
 <li>To bind data only from path parameters use following code
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindPathParams</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindPathParams</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+}
+</code></pre></div></li>
+<li>To bind data only from header parameters use following code
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindHeaders</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">payload</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
 }
 </code></pre></div></li>
 </ul>
 <h3 id="example">Example<a href="#example" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Example below binds the request payload into <code>User</code> struct based on tags:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// User
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// User
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34; form:&#34;name&#34; query:&#34;name&#34;`</span>
   <span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;email&#34; form:&#34;email&#34; query:&#34;email&#34;`</span>
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">User</span>)
-  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">u</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">u</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
     <span style="color:#66d9ef">return</span>
   }
   <span style="color:#75715e">// To avoid security flaws try to avoid passing bound structs directly to other methods 
@@ -747,22 +752,22 @@ and <a href="https://golang.org/pkg/net/http/#Request.ParseMultipartForm">MIMEMu
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">user</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">UserDTO</span>{
     <span style="color:#a6e22e">Name</span>: <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Name</span>,
     <span style="color:#a6e22e">Email</span>: <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Email</span>,
-    <span style="color:#a6e22e">IsAdmin</span>: <span style="color:#66d9ef">false</span> <span style="color:#75715e">// because you could accidentally expose fields that should not be bind
+    <span style="color:#a6e22e">IsAdmin</span>: <span style="color:#66d9ef">false</span> <span style="color:#75715e">// because you could accidentally expose fields that should not be bound
 </span><span style="color:#75715e"></span>  }
   <span style="color:#a6e22e">executeSomeBusinessLogic</span>(<span style="color:#a6e22e">user</span>)
   
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">u</span>)
 }
 </code></pre></div><h3 id="json-data">JSON Data<a href="#json-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#39;Content-Type: application/json&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Joe&#34;,&#34;email&#34;:&#34;joe@labstack&#34;}&#39;</span>
 </code></pre></div><h3 id="form-data">Form Data<a href="#form-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST http://localhost:1323/users <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;name=Joe&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;email=joe@labstack.com&#39;</span>
 </code></pre></div><h3 id="query-parameters">Query Parameters<a href="#query-parameters" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X GET http://localhost:1323/users<span style="color:#ae81ff">\?</span>name<span style="color:#ae81ff">\=</span>Joe<span style="color:#ae81ff">\&amp;</span>email<span style="color:#ae81ff">\=</span>joe@labstack.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X GET http://localhost:1323/users<span style="color:#ae81ff">\?</span>name<span style="color:#ae81ff">\=</span>Joe<span style="color:#ae81ff">\&amp;</span>email<span style="color:#ae81ff">\=</span>joe@labstack.com
 </code></pre></div><h2 id="fast-binding-with-dedicated-helpers">Fast binding with dedicated helpers<a href="#fast-binding-with-dedicated-helpers" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>For binding data found in a request a handful of helper functions are provided. This will allow binding of query parameters, path parameters or data found in the body like forms or JSON data.</p>
 <p>Following functions provide a handful of methods for binding to Go native types from request query or path parameters. These binders offer a fluent syntax and can be chained to configure, execute binding and handle errors.</p>
@@ -776,7 +781,7 @@ With <code>FailFast()</code> the binder can be configured stop binding on the fi
 the binder call chain. Fail fast is enabled by default and should be disabled when using <code>BindErrors()</code>.</p>
 <p><code>BindError()</code> returns the first bind error from binder and resets all errors in this binder.
 <code>BindErrors()</code> returns all bind errors from binder and resets errors in binder.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// url =  &#34;/api/search?active=true&amp;id=1&amp;id=2&amp;id=3&amp;length=25&#34;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// url =  &#34;/api/search?active=true&amp;id=1&amp;id=2&amp;id=3&amp;length=25&#34;
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">opts</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#a6e22e">IDs</span> []<span style="color:#66d9ef">int64</span>
   <span style="color:#a6e22e">Active</span> <span style="color:#66d9ef">bool</span>
@@ -823,7 +828,7 @@ the binder call chain. Fail fast is enabled by default and should be disabled wh
 <p>for some slice types <code>BindWithDelimiter(&quot;param&quot;, &amp;dest, &quot;,&quot;)</code> supports splitting parameter values before type conversion is done. For example URL <code>/api/search?id=1,2,3&amp;id=1</code> can be bind to <code>[]int64{1,2,3,1}</code></p>
 <h2 id="custom-binder">Custom Binder<a href="#custom-binder" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Custom binder can be registered using <code>Echo#Binder</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CustomBinder</span> <span style="color:#66d9ef">struct</span> {}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CustomBinder</span> <span style="color:#66d9ef">struct</span> {}
 
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">cb</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CustomBinder</span>) <span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#75715e">// You may use default binder
@@ -846,7 +851,6 @@ the binder call chain. Fail fast is enabled by default and should be disabled wh
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

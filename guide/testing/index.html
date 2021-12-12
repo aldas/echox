@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -697,7 +696,7 @@
 <li>On error <code>404 - Not Found</code> if user is not found otherwise <code>500 - Internal Server Error</code></li>
 </ul>
 <p><code>handler.go</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">handler</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">handler</span>
 
 <span style="color:#f92672">import</span> (
 	<span style="color:#e6db74">&#34;net/http&#34;</span>
@@ -732,7 +731,7 @@
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">JSON</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#a6e22e">user</span>)
 }
 </code></pre></div><p><code>handler_test.go</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">handler</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">handler</span>
 
 <span style="color:#f92672">import</span> (
 	<span style="color:#e6db74">&#34;net/http&#34;</span>
@@ -785,17 +784,17 @@
 	}
 }
 </code></pre></div><h3 id="using-form-payload">Using Form Payload<a href="#using-form-payload" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// import &#34;net/url&#34;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// import &#34;net/url&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Values</span>)
 <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;Jon Snow&#34;</span>)
 <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;email&#34;</span>, <span style="color:#e6db74">&#34;jon@labstack.com&#34;</span>)
 <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>, <span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">NewReader</span>(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Encode</span>()))
 <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HeaderContentType</span>, <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MIMEApplicationForm</span>)
 </code></pre></div><h3 id="setting-path-params">Setting Path Params<a href="#setting-path-params" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamNames</span>(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;email&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamNames</span>(<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;email&#34;</span>)
 <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetParamValues</span>(<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;jon@labstack.com&#34;</span>)
 </code></pre></div><h3 id="setting-query-params">Setting Query Params<a href="#setting-query-params" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// import &#34;net/url&#34;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// import &#34;net/url&#34;
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Values</span>)
 <span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#e6db74">&#34;email&#34;</span>, <span style="color:#e6db74">&#34;jon@labstack.com&#34;</span>)
 <span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httptest</span>.<span style="color:#a6e22e">NewRequest</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>, <span style="color:#e6db74">&#34;/?&#34;</span><span style="color:#f92672">+</span><span style="color:#a6e22e">q</span>.<span style="color:#a6e22e">Encode</span>(), <span style="color:#66d9ef">nil</span>)
@@ -813,7 +812,6 @@
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

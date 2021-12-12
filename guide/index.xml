@@ -68,7 +68,7 @@ e.Use(func(next echo.HandlerFunc) echo.HandlerFunc { return func(c echo.</descri
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/guide/installation/</guid>
-      <description>Prerequisites  Install Go  Using go get $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ go get -u github.com/labstack/echo/v4 Using dep $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ dep ensure -add github.com/labstack/echo@^4.3 Using glide $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ glide get github.com/labstack/echo#~4.3 Using govendor $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ govendor fetch github.com/labstack/echo@v4.3 Echo follows semantic versioning managed through GitHub releases, specific version of Echo can be installed using a package manager.</description>
+      <description>Prerequisites  Install Go  Using go get $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ go get -u github.com/labstack/echo/v4 Using dep $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ dep ensure -add github.com/labstack/echo@^4 Using glide $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ glide get github.com/labstack/echo#~4 Using govendor $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ govendor fetch github.com/labstack/echo@v4 Echo follows semantic versioning managed through GitHub releases, specific version of Echo can be installed using a package manager.</description>
     </item>
     
     <item>
@@ -159,7 +159,7 @@ e := echo.New() e.Static(&amp;#34;/&amp;#34;, &amp;#34;assets&amp;#34;) Example 
       <description>Template Rendering Context#Render(code int, name string, data interface{}) error renders a template with data and sends a text/html response with status code. Templates can be registered by setting Echo.Renderer, allowing us to use any template engine.
 Example below shows how to use Go html/template:
   Implement echo.Renderer interface
-type Template struct { templates *template.Template } func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error { rn t.</description>
+type Template struct { templates *template.Template } func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error { return t.</description>
     </item>
     
     <item>

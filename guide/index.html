@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -677,14 +676,14 @@
 <h3 id="installation">Installation<a href="#installation" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>To install Echo Go v1.13 or higher is required. Go v1.12 has limited support and some middlewares will not be available.
 Make sure your project folder is outside your <code>$GOPATH</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ mkdir myapp <span style="color:#f92672">&amp;&amp;</span> cd myapp
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ mkdir myapp <span style="color:#f92672">&amp;&amp;</span> cd myapp
 $ go mod init myapp
 $ go get github.com/labstack/echo/v4
 </code></pre></div><p>If you are working with Go v1.14 or earlier use:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ GO111MODULE<span style="color:#f92672">=</span>on go get github.com/labstack/echo/v4
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ GO111MODULE<span style="color:#f92672">=</span>on go get github.com/labstack/echo/v4
 </code></pre></div><h3 id="hello-world">Hello, World!<a href="#hello-world" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Create <code>server.go</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
 <span style="color:#f92672">import</span> (
 	<span style="color:#e6db74">&#34;net/http&#34;</span>
@@ -700,16 +699,16 @@ $ go get github.com/labstack/echo/v4
 	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>))
 }
 </code></pre></div><p>Start server</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go run server.go
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ go run server.go
 </code></pre></div><p>Browse to <a href="http://localhost:1323">http://localhost:1323</a> and you should see
 Hello, World! on the page.</p>
 <h3 id="routing">Routing<a href="#routing" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#a6e22e">saveUser</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">POST</span>(<span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#a6e22e">saveUser</span>)
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/users/:id&#34;</span>, <span style="color:#a6e22e">getUser</span>)
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">PUT</span>(<span style="color:#e6db74">&#34;/users/:id&#34;</span>, <span style="color:#a6e22e">updateUser</span>)
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">DELETE</span>(<span style="color:#e6db74">&#34;/users/:id&#34;</span>, <span style="color:#a6e22e">deleteUser</span>)
 </code></pre></div><h3 id="path-parameters">Path Parameters<a href="#path-parameters" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// e.GET(&#34;/users/:id&#34;, getUser)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// e.GET(&#34;/users/:id&#34;, getUser)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getUser</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
   	<span style="color:#75715e">// User ID from path `users/:id`
 </span><span style="color:#75715e"></span>  	<span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Param</span>(<span style="color:#e6db74">&#34;id&#34;</span>)
@@ -718,7 +717,7 @@ Hello, World! on the page.</p>
 </code></pre></div><p>Browse to http://localhost:1323/users/Joe and you should see &lsquo;Joe&rsquo; on the page.</p>
 <h3 id="query-parameters">Query Parameters<a href="#query-parameters" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>/show?team=x-men&amp;member=wolverine</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//e.GET(&#34;/show&#34;, show)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//e.GET(&#34;/show&#34;, show)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">show</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#75715e">// Get team and member from the query string
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">team</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">QueryParam</span>(<span style="color:#e6db74">&#34;team&#34;</span>)
@@ -746,7 +745,7 @@ Hello, World! on the page.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// e.POST(&#34;/save&#34;, save)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// e.POST(&#34;/save&#34;, save)
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">save</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#75715e">// Get name and email
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">FormValue</span>(<span style="color:#e6db74">&#34;name&#34;</span>)
@@ -754,7 +753,7 @@ Hello, World! on the page.</p>
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;name:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;, email:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">email</span>)
 }
 </code></pre></div><p>Run the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -F <span style="color:#e6db74">&#34;name=Joe Smith&#34;</span> -F <span style="color:#e6db74">&#34;email=joe@labstack.com&#34;</span> http://localhost:1323/save
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -F <span style="color:#e6db74">&#34;name=Joe Smith&#34;</span> -F <span style="color:#e6db74">&#34;email=joe@labstack.com&#34;</span> http://localhost:1323/save
 // <span style="color:#f92672">=</span>&gt; name:Joe Smith, email:joe@labstack.com
 </code></pre></div><h3 id="form-multipartform-data">Form <code>multipart/form-data</code><a href="#form-multipartform-data" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>POST</code> <code>/save</code></p>
@@ -776,7 +775,7 @@ Hello, World! on the page.</p>
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">save</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">save</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#75715e">// Get name
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">FormValue</span>(<span style="color:#e6db74">&#34;name&#34;</span>)
 	<span style="color:#75715e">// Get avatar
@@ -807,10 +806,10 @@ Hello, World! on the page.</p>
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">HTML</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;&lt;b&gt;Thank you! &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&lt;/b&gt;&#34;</span>)
 }
 </code></pre></div><p>Run the following command.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -F <span style="color:#e6db74">&#34;name=Joe Smith&#34;</span> -F <span style="color:#e6db74">&#34;avatar=@/path/to/your/avatar.png&#34;</span> http://localhost:1323/save
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -F <span style="color:#e6db74">&#34;name=Joe Smith&#34;</span> -F <span style="color:#e6db74">&#34;avatar=@/path/to/your/avatar.png&#34;</span> http://localhost:1323/save
 // <span style="color:#f92672">=</span>&gt; &lt;b&gt;Thank you! Joe Smith&lt;/b&gt;
 </code></pre></div><p>For checking uploaded image, run the following command.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd &lt;project directory&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd &lt;project directory&gt;
 ls avatar.png
 // <span style="color:#f92672">=</span>&gt; avatar.png
 </code></pre></div><h3 id="handling-request">Handling Request<a href="#handling-request" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
@@ -819,7 +818,7 @@ ls avatar.png
 request header.</li>
 <li>Render response as <code>json</code> or <code>xml</code> with status code.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
 	<span style="color:#a6e22e">Name</span>  <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;name&#34; xml:&#34;name&#34; form:&#34;name&#34; query:&#34;name&#34;`</span>
 	<span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`json:&#34;email&#34; xml:&#34;email&#34; form:&#34;email&#34; query:&#34;email&#34;`</span>
 }
@@ -835,11 +834,11 @@ request header.</li>
 </span><span style="color:#75715e"></span>})
 </code></pre></div><h3 id="static-content">Static Content<a href="#static-content" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Serve any file from static directory for path <code>/static/*</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Static</span>(<span style="color:#e6db74">&#34;/static&#34;</span>, <span style="color:#e6db74">&#34;static&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Static</span>(<span style="color:#e6db74">&#34;/static&#34;</span>, <span style="color:#e6db74">&#34;static&#34;</span>)
 </code></pre></div><h4 id="learn-moreguidestatic-files"><a href="/guide/static-files">Learn More</a><a href="#learn-moreguidestatic-files" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h4>
 <h3 id="template-renderingguidetemplates"><a href="/guide/templates">Template Rendering</a><a href="#template-renderingguidetemplates" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <h3 id="middleware">Middleware<a href="#middleware" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Root level middleware
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Root level middleware
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Logger</span>())
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Recover</span>())
 
@@ -874,7 +873,6 @@ request header.</li>
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

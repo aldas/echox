@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -679,14 +678,12 @@
                 
               </ul>
               <h1>JWT Recipe</h1>
-                <ul>
+                <p><a href="/middleware/jwt">JWT middleware</a> configuration can be found <a href="/middleware/jwt#configuration">here</a>.</p>
+<p>This is cookbook for:</p>
+<ul>
 <li>JWT authentication using HS256 algorithm.</li>
 <li>JWT is retrieved from <code>Authorization</code> request header.</li>
 </ul>
-<h2 id="server-using-map-claims">Server using Map claims<a href="#server-using-map-claims" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
-<p><code>server.go</code></p>
-<pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/jwt/map-claims/server.go"></pre>
-
 <h2 id="server-using-custom-claims">Server using custom claims<a href="#server-using-custom-claims" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>server.go</code></p>
 <pre data-src="https://raw.githubusercontent.com/labstack/echox/master/cookbook/jwt/custom-claims/server.go"></pre>
@@ -699,17 +696,17 @@
 <p><code>curl</code></p>
 <h3 id="login">Login<a href="#login" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Login using username and password to retrieve a token.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST -d <span style="color:#e6db74">&#39;username=jon&#39;</span> -d <span style="color:#e6db74">&#39;password=shhh!&#39;</span> localhost:1323/login
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -X POST -d <span style="color:#e6db74">&#39;username=jon&#39;</span> -d <span style="color:#e6db74">&#39;password=shhh!&#39;</span> localhost:1323/login
 </code></pre></div><p><em>Response</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
   <span style="color:#e6db74">&#34;token&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjE5NTcxMzZ9.RB3arc4-OyzASAaUhC2W3ReWaXAt_z2Fd3BN4aWTgEY&#34;</span>
 }
 </code></pre></div><h3 id="request">Request<a href="#request" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>Request a restricted resource using the token in <code>Authorization</code> request header.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl localhost:1323/restricted -H <span style="color:#e6db74">&#34;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjE5NTcxMzZ9.RB3arc4-OyzASAaUhC2W3ReWaXAt_z2Fd3BN4aWTgEY&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl localhost:1323/restricted -H <span style="color:#e6db74">&#34;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NjE5NTcxMzZ9.RB3arc4-OyzASAaUhC2W3ReWaXAt_z2Fd3BN4aWTgEY&#34;</span>
 </code></pre></div><p><em>Response</em></p>
-<pre><code>Welcome Jon Snow!
-</code></pre><h2 id="source-codehahahugoshortcode-s3-hbhb"><a href="https://github.com/labstack/echox/tree/master/cookbook/jwt
+<pre tabindex="0"><code>Welcome Jon Snow!
+</code></pre><h2 id="source-codehahahugoshortcode-s2-hbhb"><a href="https://github.com/labstack/echox/tree/master/cookbook/jwt
 ">Source Code</a></h2>
 
             </section>
@@ -722,7 +719,6 @@
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

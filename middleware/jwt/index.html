@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -689,21 +688,21 @@
 <p><code>e.Use(middleware.JWT([]byte(&quot;secret&quot;)))</code></p>
 <h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><em>Usage</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTConfig</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTConfig</span>{
   <span style="color:#a6e22e">SigningKey</span>: []byte(<span style="color:#e6db74">&#34;secret&#34;</span>),
   <span style="color:#a6e22e">TokenLookup</span>: <span style="color:#e6db74">&#34;query:token&#34;</span>,
 }))
 </code></pre></div><p><em>Usage with different JWT library/repository</em></p>
-<blockquote>
-<p>Note: To be backwards compatible Echo still uses the currently unmaintained JWT implementation <code>dgrijalva/jwt-go</code>, which has known potential security risks. We strongly recommend using a maintained fork like <a href="https://github.com/golang-jwt/jwt">https://github.com/golang-jwt/jwt</a>.</p>
-</blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Use maintained fork (https://github.com/golang-jwt/jwt) instead of `dgrijalva/jwt-go`
-</span><span style="color:#75715e">// At this moment: go get github.com/golang-jwt/jwt@v3.2.1
-</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> (
-  <span style="color:#e6db74">&#34;github.com/golang-jwt/jwt&#34;</span>
-)
-</code></pre></div><p>To use a different JWT library you need to implement a custom <code>JWTConfig.ParseTokenFunc</code> function:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">signingKey</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#e6db74">&#34;secret&#34;</span>)
+<p>To use a different JWT library you need to implement a custom <code>JWTConfig.ParseTokenFunc</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
+<span style="color:#e6db74">&#34;github.com/golang-jwt/jwt&#34;</span> <span style="color:#75715e">// in this example we use `golang-jwt/jwt` as JWT implementation
+</span><span style="color:#75715e"></span>)
+
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">...</span>
+<span style="color:#f92672">...</span>
+
+<span style="color:#a6e22e">signingKey</span> <span style="color:#f92672">:=</span> []byte(<span style="color:#e6db74">&#34;secret&#34;</span>)
 
 <span style="color:#a6e22e">config</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTConfig</span>{
   <span style="color:#a6e22e">TokenLookup</span>: <span style="color:#e6db74">&#34;query:token&#34;</span>,
@@ -729,7 +728,7 @@
 
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTWithConfig</span>(<span style="color:#a6e22e">config</span>))
 </code></pre></div><h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">JWTConfig</span> <span style="color:#66d9ef">struct</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">JWTConfig</span> <span style="color:#66d9ef">struct</span> {
   <span style="color:#75715e">// Skipper defines a function to skip middleware.
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Skipper</span> <span style="color:#a6e22e">Skipper</span>
   
@@ -805,7 +804,7 @@
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ParseTokenFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">auth</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">interface</span>{}, <span style="color:#66d9ef">error</span>)
 }
 </code></pre></div><p><em>Default Configuration</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">DefaultJWTConfig</span> = <span style="color:#a6e22e">JWTConfig</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">DefaultJWTConfig</span> = <span style="color:#a6e22e">JWTConfig</span>{
   <span style="color:#a6e22e">Skipper</span>:       <span style="color:#a6e22e">DefaultSkipper</span>,
   <span style="color:#a6e22e">SigningMethod</span>: <span style="color:#a6e22e">AlgorithmHS256</span>,
   <span style="color:#a6e22e">ContextKey</span>:    <span style="color:#e6db74">&#34;user&#34;</span>,
@@ -825,7 +824,6 @@
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

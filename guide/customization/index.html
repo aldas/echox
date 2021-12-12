@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -687,16 +686,16 @@ to <code>DEBUG</code>.</p>
 <h3 id="log-header">Log Header<a href="#log-header" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Echo#Logger.SetHeader(string)</code> can be used to set the header for
 the logger. Default value:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;${time_rfc3339_nano}&#34;</span>,<span style="color:#f92672">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;${level}&#34;</span>,<span style="color:#f92672">&#34;prefix&#34;</span>:<span style="color:#e6db74">&#34;${prefix}&#34;</span>,<span style="color:#f92672">&#34;file&#34;</span>:<span style="color:#e6db74">&#34;${short_file}&#34;</span>,<span style="color:#f92672">&#34;line&#34;</span>:<span style="color:#e6db74">&#34;${line}&#34;</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;${time_rfc3339_nano}&#34;</span>,<span style="color:#f92672">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;${level}&#34;</span>,<span style="color:#f92672">&#34;prefix&#34;</span>:<span style="color:#e6db74">&#34;${prefix}&#34;</span>,<span style="color:#f92672">&#34;file&#34;</span>:<span style="color:#e6db74">&#34;${short_file}&#34;</span>,<span style="color:#f92672">&#34;line&#34;</span>:<span style="color:#e6db74">&#34;${line}&#34;</span>}
 </code></pre></div><p><em>Example</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/labstack/gommon/log&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/labstack/gommon/log&#34;</span>
 
 <span style="color:#75715e">/* ... */</span>
 
 <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Logger</span>); <span style="color:#a6e22e">ok</span> {
   <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">SetHeader</span>(<span style="color:#e6db74">&#34;${time_rfc3339} ${level}&#34;</span>)
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">2018-05-08T20:30:06-07:00 INFO info
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">2018-05-08T20:30:06-07:00 INFO info
 </code></pre></div><h4 id="available-tags">Available Tags<a href="#available-tags" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h4>
 <ul>
 <li><code>time_rfc3339</code></li>
@@ -729,7 +728,7 @@ a custom logger using <code>Echo#Logger</code>.</p>
 <h2 id="custom-listener">Custom Listener<a href="#custom-listener" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p><code>Echo#*Listener</code> can be used to run a custom listener.</p>
 <p><em>Example</em></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;:1323&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;:1323&#34;</span>)
 <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
   <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
 }
@@ -767,7 +766,6 @@ on request payload.</p>
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

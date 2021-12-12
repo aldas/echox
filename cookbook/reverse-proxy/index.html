@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -682,7 +681,7 @@
                 <h2 id="how-to-use-echo-as-a-reverse-proxy-server">How to use Echo as a reverse proxy server?<a href="#how-to-use-echo-as-a-reverse-proxy-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>This recipe demonstrates how you can use Echo as a reverse proxy server and load balancer in front of your favorite applications like WordPress, Node.js, Java, Python, Ruby or even Go. For simplicity, I will use Go upstream servers with WebSocket.</p>
 <h3 id="step-1-identify-upstream-target-urls">Step 1: Identify upstream target URLs<a href="#step-1-identify-upstream-target-urls" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">url1</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#e6db74">&#34;http://localhost:8081&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">url1</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">Parse</span>(<span style="color:#e6db74">&#34;http://localhost:8081&#34;</span>)
 <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
   <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
 }
@@ -700,9 +699,9 @@
 }
 </code></pre></div><h3 id="step-2-setup-proxy-middleware-with-upstream-targets">Step 2: Setup proxy middleware with upstream targets<a href="#step-2-setup-proxy-middleware-with-upstream-targets" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>In the following code snippet we are using round-robin load balancing technique. You may also use <code>middleware.NewRandomBalancer()</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Proxy</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">NewRoundRobinBalancer</span>(<span style="color:#a6e22e">targets</span>)))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Proxy</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">NewRoundRobinBalancer</span>(<span style="color:#a6e22e">targets</span>)))
 </code></pre></div><p>To setup proxy for a sub-route use <code>Echo#Group()</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">g</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Group</span>(<span style="color:#e6db74">&#34;/blog&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">g</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Group</span>(<span style="color:#e6db74">&#34;/blog&#34;</span>)
 <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Proxy</span>(<span style="color:#f92672">...</span>))
 </code></pre></div><h3 id="step-3-start-upstream-servers">Step 3: Start upstream servers<a href="#step-3-start-upstream-servers" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <ul>
@@ -711,10 +710,10 @@
 <li><code>go run server.go server2 :8082</code></li>
 </ul>
 <h3 id="step-3-start-the-proxy-server">Step 3: Start the proxy server<a href="#step-3-start-the-proxy-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go run server.go
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go run server.go
 </code></pre></div><h3 id="step-4-browse-to-httplocalhost1323">Step 4: Browse to http://localhost:1323<a href="#step-4-browse-to-httplocalhost1323" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p>You should see a webpage with HTTP request being served from &ldquo;server 1&rdquo; and WebSocket request from &ldquo;server 2&rdquo;.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">HTTP
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">HTTP
 
 Hello from upstream server server1
 
@@ -742,7 +741,6 @@ Hello from upstream server server2!
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

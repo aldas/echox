@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -685,7 +684,7 @@ from a unified location and send a customized HTTP response to the client.</p>
 <p>You can return a standard <code>error</code> or <code>echo.*HTTPError</code>.</p>
 <p>For example, when basic auth middleware finds invalid credentials it returns
 401 - Unauthorized error, aborting the current HTTP request.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
     <span style="color:#75715e">// Extract the credentials from HTTP request header and perform a security
 </span><span style="color:#75715e"></span>    <span style="color:#75715e">// check
@@ -701,7 +700,7 @@ from a unified location and send a customized HTTP response to the client.</p>
 as an error message. For example, &ldquo;Unauthorized&rdquo;.</p>
 <h2 id="default-http-error-handler">Default HTTP Error Handler<a href="#default-http-error-handler" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <p>Echo provides a default HTTP error handler which sends error in a JSON format.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;error connecting to redis&#34;</span>
 }
 </code></pre></div><p>For a standard <code>error</code>, response is sent as <code>500 - Internal Server Error</code>; however,
@@ -719,16 +718,16 @@ just a JSON response.</p>
 <p>The following custom HTTP error handler shows how to display error pages for different
 type of errors and logs the error. The name of the error page should be like <code>&lt;CODE&gt;.html</code> e.g. <code>500.html</code>. You can look into this project
 <a href="https://github.com/AndiDittrich/HttpErrorPages">https://github.com/AndiDittrich/HttpErrorPages</a> for pre-built error pages.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">customHTTPErrorHandler</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">customHTTPErrorHandler</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) {
 	<span style="color:#a6e22e">code</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusInternalServerError</span>
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">he</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">err</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HTTPError</span>); <span style="color:#a6e22e">ok</span> {
 		<span style="color:#a6e22e">code</span> = <span style="color:#a6e22e">he</span>.<span style="color:#a6e22e">Code</span>
 	}
+	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Logger</span>().<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>)
 	<span style="color:#a6e22e">errorPage</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%d.html&#34;</span>, <span style="color:#a6e22e">code</span>)
 	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">File</span>(<span style="color:#a6e22e">errorPage</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
 		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Logger</span>().<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>)
 	}
-	<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Logger</span>().<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>)
 }
 
 <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">HTTPErrorHandler</span> = <span style="color:#a6e22e">customHTTPErrorHandler</span>
@@ -746,7 +745,6 @@ type of errors and logs the error. The name of the error page should be like <co
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>

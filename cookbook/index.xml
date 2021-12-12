@@ -150,8 +150,9 @@ Server server.go
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/cookbook/jwt/</guid>
-      <description>JWT authentication using HS256 algorithm. JWT is retrieved from Authorization request header.  Server using Map claims server.go
- Server using custom claims server.go
+      <description>JWT middleware configuration can be found here.
+This is cookbook for:
+ JWT authentication using HS256 algorithm. JWT is retrieved from Authorization request header.  Server using custom claims server.go
  Server using a user-defined KeyFunc server.go
  Client curl
 Login Login using username and password to retrieve a token.
@@ -165,7 +166,7 @@ curl -X POST -d &amp;#39;username=jon&amp;#39; -d &amp;#39;password=shhh!&amp;#3
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/cookbook/load-balancing/</guid>
-      <description>This recipe demonstrates how you can use Nginx or Armor as a reverse proxy server and load balance between multiple Echo servers.
+      <description>This recipe demonstrates how you can use Nginx as a reverse proxy server and load balance between multiple Echo servers.
 How to setup Nginx proxy server with Echo? Step 1: Install Nginx https://www.nginx.com/resources/wiki/start/topics/tutorials/install
 Step 2: Configure Nginx Create a file /etc/nginx/sites-enabled/localhost with the following content:
   Change listen, server_name, access_log per your need.

@@ -42,7 +42,6 @@
     </span>
     <span class="menu hide-small hide-medium">
       <a href="https://github.com/labstack/echo/discussions">Forum</a>
-      <a href="https://gitter.im/labstack/echo">Chat</a>
     </span>
     <button class="hamburger hide-large" onclick="toggleSidenav()">
       <span></span>
@@ -55,7 +54,6 @@
   <div class="w3-container">
     <ul class="menu-top menu-l1 hide-large">
       <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
-      <li><a href="https://gitter.im/labstack/echo">Chat</a></li>
     </ul>
     
     <ul class="menu-l1">
@@ -627,9 +625,10 @@
     </ul>
   </div>
 </nav>
+
     <div class="main">
       <div class="w3-container ad">
-  <a href="https://code.labstack.com/new">
+  <a href="https://code.labstack.com/">
     <img
       style="margin-bottom: 8px;"
       src="https://echo.labstack.com//images/code.png"
@@ -685,9 +684,9 @@
 <h2 id="how-to-send-web-assets-using-http2-server-push">How to send web assets using HTTP/2 server push?<a href="#how-to-send-web-assets-using-http2-server-push" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <h3 id="step-1-generate-a-self-signed-x509-tls-certificatecookbookhttp2step-1-generate-a-self-signed-x-509-tls-certificate">Step 1: <a href="/cookbook/http2#step-1-generate-a-self-signed-x-509-tls-certificate">Generate a self-signed X.509 TLS certificate</a><a href="#step-1-generate-a-self-signed-x509-tls-certificatecookbookhttp2step-1-generate-a-self-signed-x-509-tls-certificate" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <h3 id="step-2-register-a-route-to-serve-web-assets">Step 2: Register a route to serve web assets<a href="#step-2-register-a-route-to-serve-web-assets" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Static</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;static&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Static</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#e6db74">&#34;static&#34;</span>)
 </code></pre></div><h3 id="step-3-create-a-handler-to-serve-indexhtml-and-push-its-dependencies">Step 3: Create a handler to serve <code>index.html</code> and push it&rsquo;s dependencies<a href="#step-3-create-a-handler-to-serve-indexhtml-and-push-its-dependencies" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
   <span style="color:#a6e22e">pusher</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">Writer</span>.(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Pusher</span>)
   <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> {
     <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">pusher</span>.<span style="color:#a6e22e">Push</span>(<span style="color:#e6db74">&#34;/app.css&#34;</span>, <span style="color:#66d9ef">nil</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
@@ -704,11 +703,11 @@
 })
 </code></pre></div><p>If <code>http.Pusher</code> is supported, web assets are pushed; otherwise, client makes separate requests to get them.</p>
 <h3 id="step-4-start-tls-server-using-certpem-and-keypem">Step 4: Start TLS server using <code>cert.pem</code> and <code>key.pem</code><a href="#step-4-start-tls-server-using-certpem-and-keypem" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartTLS</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>, <span style="color:#e6db74">&#34;cert.pem&#34;</span>, <span style="color:#e6db74">&#34;key.pem&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">StartTLS</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>, <span style="color:#e6db74">&#34;cert.pem&#34;</span>, <span style="color:#e6db74">&#34;key.pem&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
   <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
 }
 </code></pre></div><p>or use customized HTTP server with your own TLSConfig</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">s</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{
   <span style="color:#a6e22e">Addr</span>:    <span style="color:#e6db74">&#34;:8443&#34;</span>,
   <span style="color:#a6e22e">Handler</span>: <span style="color:#a6e22e">e</span>, <span style="color:#75715e">// set Echo as handler
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">TLSConfig</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tls</span>.<span style="color:#a6e22e">Config</span>{
@@ -720,7 +719,7 @@
   <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
 }
 </code></pre></div><h3 id="step-5-start-the-server-and-browse-to-httpslocalhost1323">Step 5: Start the server and browse to https://localhost:1323<a href="#step-5-start-the-server-and-browse-to-httpslocalhost1323" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Protocol: HTTP/2.0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Protocol: HTTP/2.0
 Host: localhost:1323
 Remote Address: <span style="color:#f92672">[</span>::1<span style="color:#f92672">]</span>:60288
 Method: GET
@@ -744,7 +743,6 @@ Path: /
               <hr>
               <h2>
                 <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
-                <a href="https://gitter.im/labstack/echo">Chat</a>
               </h2>
             </footer>
           </article>
