@@ -150,13 +150,11 @@ e := echo.New() e.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{  Ke
       
       <guid>https://echo.labstack.com/middleware/logger/</guid>
       <description>Logger middleware logs the information about each HTTP request.
-Usage
+Echo has 2 different logger middlewares:
+ Older string template based logger Logger - easy to start with but has limited capabilities Newer customizable function based logger RequestLogger - allows developer fully to customize what is logged and how it is logged. Suitable for usage with 3rd party logger libraries.  String template based Logger Usage
 e.Use(middleware.Logger())
 Sample Output
-{&amp;#34;time&amp;#34;:&amp;#34;2017-01-12T08:58:07.372015644-08:00&amp;#34;,&amp;#34;remote_ip&amp;#34;:&amp;#34;::1&amp;#34;,&amp;#34;host&amp;#34;:&amp;#34;localhost:1323&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;GET&amp;#34;,&amp;#34;uri&amp;#34;:&amp;#34;/&amp;#34;,&amp;#34;status&amp;#34;:200,&amp;#34;error&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;latency&amp;#34;:14743,&amp;#34;latency_human&amp;#34;:&amp;#34;14.743µs&amp;#34;,&amp;#34;bytes_in&amp;#34;:0,&amp;#34;bytes_out&amp;#34;:2} Custom Configuration Usage
-e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{  Format: &amp;#34;method=${method}, uri=${uri}, status=${status}\n&amp;#34;, })) Example above uses a Format which logs request method and request URI.
-Sample Output
-method=GET, uri=/, status=200 Configuration // LoggerConfig defines the config for Logger middleware. LoggerConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // Tags to construct the logger format.</description>
+{&amp;#34;time&amp;#34;:&amp;#34;2017-01-12T08:58:07.372015644-08:00&amp;#34;,&amp;#34;remote_ip&amp;#34;:&amp;#34;::1&amp;#34;,&amp;#34;host&amp;#34;:&amp;#34;localhost:1323&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;GET&amp;#34;,&amp;#34;uri&amp;#34;:&amp;#34;/&amp;#34;,&amp;#34;status&amp;#34;:200,&amp;#34;error&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;latency&amp;#34;:14743,&amp;#34;latency_human&amp;#34;:&amp;#34;14.743µs&amp;#34;,&amp;#34;bytes_in&amp;#34;:0,&amp;#34;bytes_out&amp;#34;:2} Custom Configuration Usage</description>
     </item>
     
     <item>
