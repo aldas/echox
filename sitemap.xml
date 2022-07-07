@@ -101,6 +101,10 @@
   </url>
   
   <url>
+    <loc>https://echo.labstack.com/v5/guide</loc>
+  </url>
+  
+  <url>
     <loc>https://echo.labstack.com/guide</loc>
   </url>
   
@@ -118,10 +122,6 @@
   
   <url>
     <loc>https://echo.labstack.com/cookbook/http2-server-push</loc>
-  </url>
-  
-  <url>
-    <loc>https://echo.labstack.com/guide/installation</loc>
   </url>
   
   <url>
@@ -170,10 +170,6 @@
   
   <url>
     <loc>https://echo.labstack.com/middleware</loc>
-  </url>
-  
-  <url>
-    <loc>https://echo.labstack.com/guide/migration</loc>
   </url>
   
   <url>
@@ -249,10 +245,6 @@
   </url>
   
   <url>
-    <loc>https://echo.labstack.com/support-echo</loc>
-  </url>
-  
-  <url>
     <loc>https://echo.labstack.com/tags</loc>
   </url>
   
@@ -278,6 +270,18 @@
   
   <url>
     <loc>https://echo.labstack.com/cookbook/twitter</loc>
+  </url>
+  
+  <url>
+    <loc>https://echo.labstack.com/guide/migration</loc>
+  </url>
+  
+  <url>
+    <loc>https://echo.labstack.com/v5/guide/upgrading-to-v5</loc>
+  </url>
+  
+  <url>
+    <loc>https://echo.labstack.com/v5</loc>
   </url>
   
   <url>

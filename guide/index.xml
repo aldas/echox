@@ -25,7 +25,7 @@ In the struct definitions each field can be tagged to restrict binding to specif
       <guid>https://echo.labstack.com/guide/context/</guid>
       <description>echo.Context represents the context of the current HTTP request. It holds request and response reference, path, path parameters, data, registered handler and APIs to read request and write response. As Context is an interface, it is easy to extend it with custom APIs.
 Extending Context Define a custom context
-type CustomContext struct { echo.Context } func (c *CustomContext) Foo() { println(&amp;#34;foo&amp;#34;) } func (c *CustomContext) Bar() { println(&amp;#34;bar&amp;#34;) } Create a middleware to extend default context</description>
+type CustomContext struct { 	echo.Context }  func (c *CustomContext) Foo() { 	println(&amp;#34;foo&amp;#34;) }  func (c *CustomContext) Bar() { 	println(&amp;#34;bar&amp;#34;) } Create a middleware to extend default context</description>
     </item>
     
     <item>
@@ -47,7 +47,7 @@ type CustomContext struct { echo.Context } func (c *CustomContext) Foo() { print
 Logging The default format for logging is JSON, which can be changed by modifying the header.
 Log Header Echo#Logger.SetHeader(string) can be used to set the header for the logger. Default value:
 {&amp;#34;time&amp;#34;:&amp;#34;${time_rfc3339_nano}&amp;#34;,&amp;#34;level&amp;#34;:&amp;#34;${level}&amp;#34;,&amp;#34;prefix&amp;#34;:&amp;#34;${prefix}&amp;#34;,&amp;#34;file&amp;#34;:&amp;#34;${short_file}&amp;#34;,&amp;#34;line&amp;#34;:&amp;#34;${line}&amp;#34;} Example
-import &amp;#34;github.com/labstack/gommon/log&amp;#34; /* ... */ if l, ok := e.Logger.(*log.Logger); ok { l.SetHeader(&amp;#34;${time_rfc3339} ${level}&amp;#34;) } 2018-05-08T20:30:06-07:00 INFO info Available Tags  time_rfc3339 time_rfc3339_nano level prefix long_file short_file line  Log Output Echo#Logger.</description>
+import &amp;#34;github.com/labstack/gommon/log&amp;#34;  /* ... */  if l, ok := e.Logger.(*log.Logger); ok {  l.SetHeader(&amp;#34;${time_rfc3339} ${level}&amp;#34;) } 2018-05-08T20:30:06-07:00 INFO info Available Tags  time_rfc3339 time_rfc3339_nano level prefix long_file short_file line  Log Output Echo#Logger.</description>
     </item>
     
     <item>
@@ -59,16 +59,7 @@ import &amp;#34;github.com/labstack/gommon/log&amp;#34; /* ... */ if l, ok := e.
       <description>Echo advocates for centralized HTTP error handling by returning error from middleware and handlers. Centralized error handler allows us to log errors to external services from a unified location and send a customized HTTP response to the client.
 You can return a standard error or echo.*HTTPError.
 For example, when basic auth middleware finds invalid credentials it returns 401 - Unauthorized error, aborting the current HTTP request.
-e.Use(func(next echo.HandlerFunc) echo.HandlerFunc { return func(c echo.</description>
-    </item>
-    
-    <item>
-      <title>Installation</title>
-      <link>https://echo.labstack.com/guide/installation/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://echo.labstack.com/guide/installation/</guid>
-      <description>Prerequisites  Install Go  Using go get $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ go get -u github.com/labstack/echo/v4 Using dep $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ dep ensure -add github.com/labstack/echo@^4 Using glide $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ glide get github.com/labstack/echo#~4 Using govendor $ cd &amp;lt;PROJECT IN $GOPATH&amp;gt; $ govendor fetch github.com/labstack/echo@v4 Echo follows semantic versioning managed through GitHub releases, specific version of Echo can be installed using a package manager.</description>
+e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {  return func(c echo.</description>
     </item>
     
     <item>
@@ -82,23 +73,14 @@ However, it is not trivial to retrieve the real IP address from requests especia
     </item>
     
     <item>
-      <title>Migration</title>
-      <link>https://echo.labstack.com/guide/migration/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://echo.labstack.com/guide/migration/</guid>
-      <description>Change Log  Automatic TLS certificates via Let&amp;rsquo;s Encrypt Built-in support for graceful shutdown Utility functions to wrap standard handler and middleware Map type as shorthand for map[string]interface{} Context now wraps standard net/http Request and Response New configuration  Echo#ShutdownTimeout Echo#DisableHTTP2   New API  Echo#Start() Echo#StartTLS() Echo#StartAutoTLS() Echo#StartServer() Echo#Shutdown() Echo#ShutdownTLS() Context#Scheme() Context#RealIP() Context#IsTLS()   Exposed the following properties instead of setter / getter functions on Echo instance:  Binder Renderer HTTPErrorHandler Debug Logger   Enhanced redirect and CORS middleware Dropped static middleware in favor of Echo#Static Dropped API  Echo#Run() Context#P()   Dropped standard Context support Dropped support for fasthttp Dropped deprecated API Moved Logger interface to root level Moved website and examples to the main repo Updated docs and fixed numerous issues  Cookbook </description>
-    </item>
-    
-    <item>
       <title>Request</title>
       <link>https://echo.labstack.com/guide/request/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/guide/request/</guid>
       <description>Retrieve Data Form Data Form data can be retrieved by name using Context#FormValue(name string).
-// Handler func(c echo.Context) error { name := c.FormValue(&amp;#34;name&amp;#34;) return c.String(http.StatusOK, name) } curl -X POST http://localhost:1323 -d &amp;#39;name=Joe&amp;#39; To bind a custom data type, you can implement Echo#BindUnmarshaler interface.
-type Timestamp time.Time func (t *Timestamp) UnmarshalParam(src string) error { ts, err := time.Parse(time.RFC3339, src) *t = Timestamp(ts) return err } Query Parameters Query parameters can be retrieved by name using Context#QueryParam(name string).</description>
+// Handler func(c echo.Context) error {  name := c.FormValue(&amp;#34;name&amp;#34;)  return c.String(http.StatusOK, name) } curl -X POST http://localhost:1323 -d &amp;#39;name=Joe&amp;#39; To bind a custom data type, you can implement Echo#BindUnmarshaler interface.
+type Timestamp time.Time  func (t *Timestamp) UnmarshalParam(src string) error {  ts, err := time.Parse(time.RFC3339, src)  *t = Timestamp(ts)  return err } Query Parameters Query parameters can be retrieved by name using Context#QueryParam(name string).</description>
     </item>
     
     <item>
@@ -109,9 +91,9 @@ type Timestamp time.Time func (t *Timestamp) UnmarshalParam(src string) error { 
       <guid>https://echo.labstack.com/guide/response/</guid>
       <description>Send String Context#String(code int, s string) can be used to send plain text response with status code.
 Example
-func(c echo.Context) error { return c.String(http.StatusOK, &amp;#34;Hello, World!&amp;#34;) } Send HTML (Reference to templates) Context#HTML(code int, html string) can be used to send simple HTML response with status code. If you are looking to send dynamically generate HTML see templates.
+func(c echo.Context) error {  return c.String(http.StatusOK, &amp;#34;Hello, World!&amp;#34;) } Send HTML (Reference to templates) Context#HTML(code int, html string) can be used to send simple HTML response with status code. If you are looking to send dynamically generate HTML see templates.
 Example
-func(c echo.Context) error { return c.HTML(http.StatusOK, &amp;#34;&amp;lt;strong&amp;gt;Hello, World!&amp;lt;/strong&amp;gt;&amp;#34;) } Send HTML Blob Context#HTMLBlob(code int, b []byte) can be used to send HTML blob with status code.</description>
+func(c echo.Context) error {  return c.HTML(http.StatusOK, &amp;#34;&amp;lt;strong&amp;gt;Hello, World!&amp;lt;/strong&amp;gt;&amp;#34;) } Send HTML Blob Context#HTMLBlob(code int, b []byte) can be used to send HTML blob with status code.</description>
     </item>
     
     <item>
@@ -122,7 +104,7 @@ func(c echo.Context) error { return c.HTML(http.StatusOK, &amp;#34;&amp;lt;stron
       <guid>https://echo.labstack.com/guide/routing/</guid>
       <description>Echo&amp;rsquo;s router is based on radix tree, making route lookup really fast. It leverages sync pool to reuse memory and achieve zero dynamic memory allocation with no GC overhead.
 Routes can be registered by specifying HTTP method, path and a matching handler. For example, code below registers a route for method GET, path /hello and a handler which sends Hello, World! HTTP response.
-// Handler func hello(c echo.Context) error { return c.</description>
+// Handler func hello(c echo.Context) error {  return c.</description>
     </item>
     
     <item>
@@ -133,7 +115,7 @@ Routes can be registered by specifying HTTP method, path and a matching handler.
       <guid>https://echo.labstack.com/guide/http_server/</guid>
       <description>Echo provides following convenience methods to start HTTP server with Echo as a request handler:
  Echo.Start(address string) Echo.StartTLS(address string, certFile, keyFile interface{}) Echo.StartAutoTLS(address string) Echo.StartH2CServer(address string, h2s *http2.Server) Echo.StartServer(s *http.Server)  HTTP Server Echo.Start is convenience method that starts http server with Echo serving requests.
-func main() { e := echo.New() // add middleware and routes  // ...  if err := e.Start(&amp;#34;:8080&amp;#34;); err != http.ErrServerClosed { log.Fatal(err) } } Following is equivalent to Echo.</description>
+func main() {  e := echo.New()  // add middleware and routes  // ...  if err := e.Start(&amp;#34;:8080&amp;#34;); err != http.ErrServerClosed {  log.</description>
     </item>
     
     <item>
@@ -159,7 +141,7 @@ e := echo.New() e.Static(&amp;#34;/&amp;#34;, &amp;#34;assets&amp;#34;) Example 
       <description>Template Rendering Context#Render(code int, name string, data interface{}) error renders a template with data and sends a text/html response with status code. Templates can be registered by setting Echo.Renderer, allowing us to use any template engine.
 Example below shows how to use Go html/template:
   Implement echo.Renderer interface
-type Template struct { templates *template.Template } func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error { return t.</description>
+type Template struct {  templates *template.Template }  func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error { 	return t.</description>
     </item>
     
     <item>
@@ -173,6 +155,15 @@ Handler below retrieves user by id from the database. If user is not found it re
 CreateUser POST /users
  Accepts JSON payload On success 201 - Created On error 500 - Internal Server Error  GetUser GET /users/:email
  On success 200 - OK On error 404 - Not Found if user is not found otherwise 500 - Internal Server Error  handler.</description>
+    </item>
+    
+    <item>
+      <title>Upgrading to V4</title>
+      <link>https://echo.labstack.com/guide/migration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://echo.labstack.com/guide/migration/</guid>
+      <description>Change Log  Automatic TLS certificates via Let&amp;rsquo;s Encrypt Built-in support for graceful shutdown Utility functions to wrap standard handler and middleware Map type as shorthand for map[string]interface{} Context now wraps standard net/http Request and Response New configuration  Echo#ShutdownTimeout Echo#DisableHTTP2   New API  Echo#Start() Echo#StartTLS() Echo#StartAutoTLS() Echo#StartServer() Echo#Shutdown() Echo#ShutdownTLS() Context#Scheme() Context#RealIP() Context#IsTLS()   Exposed the following properties instead of setter / getter functions on Echo instance:  Binder Renderer HTTPErrorHandler Debug Logger   Enhanced redirect and CORS middleware Dropped static middleware in favor of Echo#Static Dropped API  Echo#Run() Context#P()   Dropped standard Context support Dropped support for fasthttp Dropped deprecated API Moved Logger interface to root level Moved website and examples to the main repo Updated docs and fixed numerous issues  Cookbook </description>
     </item>
     
   </channel>

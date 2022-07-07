@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Upgrading to V5 | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@echo">
+    <meta name="twitter:creator" content="@labstack">
+    <meta name="twitter:title" content="Upgrading to V5 | Echo - High performance, minimalist Go web framework">
+    <meta name="twitter:description"
+          content="Upgrading to V5 | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+    <meta name="twitter:image" content="https://echo.labstack.com/images/share.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Upgrading to V5">
+    <meta property="og:title" content="Upgrading to V5 | Echo - High performance, minimalist Go web framework">
+    <meta property="og:description"
+          content="Upgrading to V5 | Echo is a high performance, extensible, minimalist web framework for Go (Golang).">
+    <meta property="og:url" content="https://echo.labstack.com/">
+    <meta property="og:image" content="https://echo.labstack.com/images/share.png">
+    <title>
+        Upgrading to V5 | Echo - High performance, minimalist Go web framework
+    </title>
+    <link rel="stylesheet" href="https://unpkg.com/docsearch.js@2.2.1/dist/cdn/docsearch.min.css">
+    <link rel="stylesheet" href="/styles/icomoon.css">
+    <link rel="stylesheet" href="/styles/w3.css">
+    <link rel="stylesheet" href="/styles/prism.css">
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="icon"
+          type="image/png"
+          href="https://cdn.labstack.com/images/labstack-icon.png">
+</head>
+
+<body class="docs">
+<div class="topnav">
+  <nav class="w3-content">
+    <a href="/"><img class="logo" src="https://cdn.labstack.com/images/echo-logo.svg" alt="Echo"></a>
+    <span class="hide-small">
+      <i class="fa fa-search w3-text-gray"></i>
+      <input id="search-box" type="text" class="w3-input">
+    </span>
+    <span class="menu hide-small hide-medium">
+      <a href="https://github.com/labstack/echo/discussions">Forum</a>
+    </span>
+    <button class="hamburger hide-large" onclick="toggleSidenav()">
+      <span></span>
+    </button>
+  </nav>
+</div>
+
+<div class="w3-content">
+    <nav class="sidenav2">
+    <div class="w3-container">
+        <ul class="menu-top menu-l1 hide-large">
+            <li><a href="https://github.com/labstack/echo/discussions">Forum</a></li>
+        </ul>
+
+        <select id="version-select" class="version-select">
+            <option selected value="/v5/guide">V5-alpha</option>
+            <option  value="/guide">V4 (current)</option>
+        </select>
+
+        
+        <ul class="menu-l1">
+            
+            
+                
+            
+            
+            <a href="/v5/guide">
+                <i class='fas fa-book'></i> Guide</a>
+            <ul class="menu-l2">
+                
+                <li>
+                    <a
+                                                                   href="/v5/guide/upgrading-to-v5">
+                         Upgrading to V5
+                    </a>
+                    <ul class="menu-l3">
+                        
+                    </ul>
+                </li>
+                
+            </ul>
+            
+        </ul>
+    </div>
+</nav>
+
+    <div class="main">
+        <div class="w3-row-padding">
+            <div class="w3-col s12 m10 l10">
+                <article class="content">
+                    <section>
+                        
+                        
+                        <style>
+                            .hanchor {
+                                font-size: 80%;
+                                visibility: hidden;
+                                color: silver;
+                            }
+
+                            h1:hover a, h2:hover a, h3:hover a, h4:hover a {
+                                visibility: visible;
+                            }
+                        </style>
+
+                        
+                        <blockquote class="warning">
+                            Version 5 is still in alpha stage. Visit our
+                            <a href="https://github.com/labstack/echo/discussions/2000">Github discussions page</a> for details and feedback.
+                        </blockquote>
+                        
+
+                        <ul class="breadcrumb">
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <li><a href='https://echo.labstack.com/v5'>v5</a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li><a href='https://echo.labstack.com/v5/guide'>guide</a></li>
+                            
+                            
+                            
+                            
+                            
+                            <li><a href='https://echo.labstack.com/v5/guide/upgrading-to-v5'>upgrading-to-v5</a></li>
+                            
+                            
+                            
+                            
+                            
+                            
+                        </ul>
+                        <h1>Upgrading to V5</h1>
+
+
+                        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#error-and-handling-of-errors">Error and handling of errors</a>
+      <ul>
+        <li><a href="#error-handler">Error handler</a></li>
+        <li><a href="#echohttperror-struct"><code>echo.HTTPError</code> struct</a></li>
+      </ul>
+    </li>
+    <li><a href="#echoecho-struct"><code>echo.Echo</code> struct</a>
+      <ul>
+        <li><a href="#methods-related-to-running-https-server">Methods related to running HTTP(S) server</a></li>
+        <li><a href="#echostartconfig-provides-advanced-ways-to-configure-server"><code>echo.StartConfig</code> provides advanced ways to configure server</a></li>
+      </ul>
+    </li>
+    <li><a href="#echogroup-has-similar-changes-as-echoecho"><code>echo.Group</code> has similar changes as <code>echo.Echo</code></a></li>
+    <li><a href="#echocontext-interface-has-multiple-breaking-changes"><code>echo.Context</code> interface has multiple breaking changes.</a></li>
+    <li><a href="#router">Router</a>
+      <ul>
+        <li><a href="#router-interface">Router interface</a></li>
+        <li><a href="#routable-interface">Routable interface</a></li>
+        <li><a href="#routeinfo-interface">RouteInfo interface:</a></li>
+        <li><a href="#routableconfig-interface">RoutableConfig interface</a></li>
+        <li><a href="#other-router-changes">Other router changes</a></li>
+      </ul>
+    </li>
+    <li><a href="#logger">Logger</a></li>
+    <li><a href="#binder">Binder</a></li>
+    <li><a href="#middlewares">Middlewares</a>
+      <ul>
+        <li><a href="#general">General</a></li>
+        <li><a href="#basicauth">BasicAuth</a></li>
+        <li><a href="#bodydump">BodyDump</a></li>
+        <li><a href="#bodylimit">BodyLimit</a></li>
+        <li><a href="#gzip">Gzip</a></li>
+        <li><a href="#cors">CORS</a></li>
+        <li><a href="#csrf">CSRF</a></li>
+        <li><a href="#decompress">Decompress</a></li>
+        <li><a href="#jwt">JWT</a></li>
+        <li><a href="#keyauth">KeyAuth</a></li>
+        <li><a href="#logger-1">Logger</a></li>
+        <li><a href="#methodoverride">MethodOverride</a></li>
+        <li><a href="#proxy">Proxy</a></li>
+        <li><a href="#ratelimiter">RateLimiter</a></li>
+        <li><a href="#recover">Recover</a></li>
+        <li><a href="#requestid">RequestID</a></li>
+        <li><a href="#redirect">Redirect</a></li>
+        <li><a href="#rewrite">Rewrite</a></li>
+        <li><a href="#secure">Secure</a></li>
+        <li><a href="#addremovetrailing-slash">(Add/Remove)trailing slash</a></li>
+        <li><a href="#static">Static</a></li>
+        <li><a href="#timeout">Timeout</a></li>
+      </ul>
+    </li>
+    <li><a href="#general-changes">General changes</a></li>
+  </ul>
+</nav>
+
+                        <h2 id="error-and-handling-of-errors">Error and handling of errors<a href="#error-and-handling-of-errors" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="error-handler">Error handler<a href="#error-handler" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>
+<p>Changed default error handler signature:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HTTPErrorHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HTTPErrorHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div></li>
+<li>
+<p>Changed <code>echo.NotFoundHandler</code> to private. Replaced places where it was called with actual error. 404 (
+echo.ErrNotFound)
+should now be handled in global error handler and not be replaced.</p>
+</li>
+<li>
+<p>Changed <code>echo.MethodNotAllowedHandler</code> to private. Replaced places where it was called with actual error. 405 (
+echo.ErrMethodNotAllowed)
+should now be handled in global error handler and not be replaced.</p>
+<p>If you need to get route name even for 404/405 you can access it with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;executing middleware for route named: %s&#34;</span>, <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">RouteInfo</span>().<span style="color:#a6e22e">Name</span>())
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>will be values of constants<code>echo.NotFoundRouteName</code> for 404 and <code>echo.MethodNotAllowedRouteName</code> for 405</p>
+</li>
+</ul>
+<h3 id="echohttperror-struct"><code>echo.HTTPError</code> struct<a href="#echohttperror-struct" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added: function <code>echo.NewHTTPErrorWithInternal()</code> to help creating errors with internal error.</li>
+<li>Added: <code>echo.HTTPError.WithInternal(err error)</code> method to help creating errors with internal error. Example:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ErrUnauthorized</span>.<span style="color:#a6e22e">WithInternal</span>(<span style="color:#a6e22e">err</span>)
+</span></span></code></pre></div></li>
+<li>Removed <code>echo.HTTPError.SetInternal()</code> method as it allowed to mutate global errors. Use <code>HTTPError.WithInternal(err)</code>
+instead.</li>
+</ul>
+<h2 id="echoecho-struct"><code>echo.Echo</code> struct<a href="#echoecho-struct" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<ul>
+<li>
+<p>Removed field <code>Echo.ListenerNetwork</code>. Now part of <code>echo.StartConfig</code> as field <code>ListenerNetwork</code></p>
+</li>
+<li>
+<p>Removed field <code>Echo.HidePort</code>. Now part of <code>echo.StartConfig</code> as field <code>HidePort</code></p>
+</li>
+<li>
+<p>Removed field <code>Echo.HideBanner</code>. Now part of <code>echo.StartConfig</code> as field <code>HideBanner</code></p>
+</li>
+<li>
+<p>Removed field <code>Echo.DisableHTTP2</code>. Now part of <code>echo.StartConfig</code> as field <code>DisableHTTP2</code></p>
+</li>
+<li>
+<p>Removed field <code>Echo.AutoTLSManager</code>. AutoTLS is now started with <code>echo.StartConfig.StartAutoTLS()</code>. Can not be
+directly passed anymore. Create custom <code>http.Server</code> to have same functionality.</p>
+</li>
+<li>
+<p>Removed field <code>Echo.TLSListener</code>. Now part of <code>echo.StartConfig</code>. TLS can be configured
+with <code>StartConfig.TLSConfigFunc</code> callback</p>
+</li>
+<li>
+<p>Removed field <code>Echo.Listener</code>. Replaced with <code>echo.StartConfig</code> implementation. Can not be directly passed anymore.
+Create custom <code>http.Server</code> to have same functionality.</p>
+</li>
+<li>
+<p>Removed field <code>Echo.TLSServer</code>. Replaced with <code>echo.StartConfig</code> implementation. Can not be directly passed anymore.
+Create custom <code>http.Server</code> to have same functionality.</p>
+</li>
+<li>
+<p>Removed field <code>Echo.Server</code>. Replaced with <code>echo.StartConfig</code> implementation. Can not be directly passed anymore.</p>
+</li>
+<li>
+<p>Removed field <code>Echo.notFoundHandler</code>.</p>
+</li>
+<li>
+<p>Removed field <code>Echo.colorer</code>. No colored logger messages anymore. Removed as it is not useful in production env.</p>
+</li>
+<li>
+<p>Removed field <code>Echo.StdLogger</code> . Now part of <code>echo.StartConfig</code></p>
+</li>
+<li>
+<p>Removed field <code>Echo.startupMutex</code>. Removed as server functionality is in <code>echo.StartConfig</code> struct now.</p>
+</li>
+<li>
+<p>Moved Echo method <code>Echo.DefaultHTTPErrorHandler(err error, c Context)</code> to be separate function that is created
+with <code>DefaultHTTPErrorHandler(exposeError bool) HTTPErrorHandler</code> function. Note functionality that <code>e.Debug</code> provided
+is now available with <code>exposeError bool</code> argument.</p>
+</li>
+<li>
+<p>Changed <code>Echo.Router()</code> returns now <code>Router</code> interface instead of <code>*Router</code> struct.</p>
+</li>
+<li>
+<p>Changed <code>Echo.Routers()</code> returns now <code>map[string]Router</code> instead of <code>map[string]*Router</code>.</p>
+</li>
+<li>
+<p>Added field <code>Echo.NewContextFunc func(e *Echo, pathParamAllocSize int) EditableContext</code> function called to create new context
+instance.</p>
+<p>Echo now supports custom <code>echo.Context</code> implementations to serve requests (<code>echo.Echo.ServeHTTP()</code>). Setup context creation callback
+with <code>Echo.NewContextFunc</code> and when request is being served and context being borrowed from the context pool, then
+context will be created by that callback. Note: Using custom context is slightly slower than default context as cast
+to interface is slightly slower than to struct.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">myCustomContext</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">DefaultContext</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">myCustomContext</span>) <span style="color:#a6e22e">QueryParam</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;prefix_&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">DefaultContext</span>.<span style="color:#a6e22e">QueryParam</span>(<span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">NewContextFunc</span> = <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">ec</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Echo</span>, <span style="color:#a6e22e">pathParamAllocSize</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ServableContext</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">PathParams</span>, <span style="color:#a6e22e">pathParamAllocSize</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">myCustomContext</span>{
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">DefaultContext</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">NewDefaultContext</span>(<span style="color:#a6e22e">ec</span>, <span style="color:#a6e22e">pathParamAllocSize</span>),
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Added <code>Echo.RouterFor(host string) Router</code> to get vhost Router instance by its hostname. This is useful for example cases
+when you want to list all registered routes with that vhost.</p>
+</li>
+<li>
+<p>Added <code>Echo.ResetRouterCreator(creator func(e *Echo) Router)</code> to allow users set custom callback to use/create custom
+Router implementations. This allows you to change router implementation that Echo is using.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ResetRouterCreator</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Echo</span>) <span style="color:#a6e22e">Router</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">mySpecialRouter</span>{}
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div></li>
+<li>
+<p>Added <code>Echo.AddRoute(route Routable) (RouteInfo, error)</code> which allows adding route using <code>echo.Route</code> structure
+or <code>Routable</code> interface and to handle invalid routes with error instead of panic as other method do.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>  <span style="color:#a6e22e">route</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Route</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Method</span>:      <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Path</span>:        <span style="color:#e6db74">&#34;/users&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Handler</span>:     <span style="color:#a6e22e">handler</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Middlewares</span>: []<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span>{<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Logger</span>()},
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span>:        <span style="color:#e6db74">&#34;my_users&#34;</span>, <span style="color:#75715e">// &lt;-- now only way to add name to the route
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">AddRoute</span>(<span style="color:#a6e22e">route</span>) <span style="color:#75715e">// ignore returned values
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">ri</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">AddRoute</span>(<span style="color:#a6e22e">route</span>) <span style="color:#75715e">// or check for error
+</span></span></span></code></pre></div></li>
+<li>
+<p>Changed Echo route adding method signatures to return immutable <code>RouteInfo</code> instead of reference to added route. Now
+only way to add route with predefined name is: see above for example.</p>
+<ul>
+<li>
+<p><code>Echo.CONNECT</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+<p>Signature is now: <code>CONNECT(path string, h HandlerFunc, m ...MiddlewareFunc) RouteInfo</code></p>
+</li>
+<li>
+<p><code>Echo.DELETE</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.GET</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.HEAD</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.OPTIONS</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.PATCH</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.POST</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.PUT</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.TRACE</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.Any</code> returns now <code>[]RouteInfo</code> instead of <code>[]*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.Match</code> returns now <code>[]RouteInfo</code> instead of <code>[]*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.File</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+<li>
+<p><code>Echo.Add</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Changed <code>Echo.Static</code> returns <code>RouteInfo</code> and change to accept middlewares as arguments.
+NOW: <code>Static(prefix, root string, middleware ...MiddlewareFunc) RouteInfo</code></p>
+</li>
+<li>
+<p>Removed <code>Echo.Routes() []*Route</code>. Equivalent is <code>e.Router().Routes()</code></p>
+</li>
+<li>
+<p>Removed <code>Echo.Reverse(name string, params ...interface{}) string</code>. Equivalent
+is <code>e.Router().Routes().Reverse(&quot;routeName&quot;, 123)</code></p>
+</li>
+<li>
+<p>Removed <code>Echo.URI(handler HandlerFunc, params ...interface{}) string</code>. Equivalent same as <code>Reverse</code></p>
+</li>
+<li>
+<p>Removed <code>Echo.URL(h HandlerFunc, params ...interface{}) string</code>. Equivalent same as <code>Reverse</code></p>
+</li>
+</ul>
+<h3 id="methods-related-to-running-https-server">Methods related to running HTTP(S) server<a href="#methods-related-to-running-https-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>All method related to starting <code>http.Server</code> of <code>echo.Echo</code> have been moved to the new <code>echo.StartConfig</code> struct.</p>
+<ul>
+<li>
+<p>Only <code>Echo.Start(address string) error</code> was left in place for creating short demos/poc/examples.
+Details:</p>
+<ul>
+<li>Internally calls <code>StartConfig.Start()</code></li>
+<li>Supports now <code>ctrl-c</code> to shutdown the server (note: <code>Echo.Shutdown</code> is removed)</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// only start* method that was left to `e` instance. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Shorthand for demos/examples/proof-of-concepts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">StartConfig</span>{ <span style="color:#75715e">// `StartConfig` contains now fields related to running server
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Address</span>: <span style="color:#e6db74">&#34;:8080&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// functionally identical to `e.Start(&#34;:8080&#34;)`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">e</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Removed <code>Echo.Shutdown(ctx stdContext.Context) error</code>. When using <code>StartConfig</code> started server it can be shutdown
+with <code>StartConfig.GracefulShutdown</code> struct that can have <code>context.Context</code> which closing will close server.</p>
+<p>Replacement example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">gracefulCtx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">NotifyContext</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Interrupt</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">StartConfig</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Address</span>: <span style="color:#e6db74">&#34;:8080&#34;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">GracefulContext</span>: <span style="color:#a6e22e">gracefulCtx</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//GracefulTimeout:  0, // defaults to 10 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">e</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Removed <code>Echo.Close() error</code>. When using <code>StartConfig</code> started server it can be shutdown
+with <code>StartConfig.GracefulShutdown</code> struct that can have <code>context.Context</code> which closing will close server.</p>
+</li>
+<li>
+<p>Removed <code>Echo.TLSListenerAddr() net.Addr</code>. To get listener address when <code>StartConfig</code> is started use
+callback <code>StartConfig.ListenerAddrFunc func(addr net.Addr)</code> which allows to access listener before server is started.</p>
+<p>Replacement example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">sc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">StartConfig</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Address</span>: <span style="color:#e6db74">&#34;:0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ListenerAddrFunc</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">addr</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Addr</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;server listening at: %v&#34;</span>, <span style="color:#a6e22e">addr</span>.<span style="color:#a6e22e">String</span>())
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>} 
+</span></span></code></pre></div></li>
+<li>
+<p>Removed <code>Echo.ListenerAddr() net.Addr</code>. To get listener address when <code>StartConfig</code> is started use
+callback <code>StartConfig.ListenerAddrFunc func(addr net.Addr)</code> which allows to access listener before server is started.</p>
+</li>
+<li>
+<p>Removed <code>Echo.StartServer(s *http.Server) (err error)</code>. Equivalent would be using
+callback <code>StartConfig.BeforeServeFunc func(s *http.Server) error</code> and starting server with <code>StartConfig.Start(e)</code> or
+using <code>http.Server</code> directly.</p>
+</li>
+<li>
+<p>Removed <code>Echo.StartH2CServer(address string, h2s *http2.Server) (err error)</code></p>
+<p>Replacement example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// `e.StartH2CServer(address string, h2s *http2.Server)`  replacement would be:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">sc</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">StartConfig</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Address</span>: <span style="color:#e6db74">&#34;:8080&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">BeforeServeFunc</span>: <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">h2s</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http2</span>.<span style="color:#a6e22e">Server</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">MaxConcurrentStreams</span>: <span style="color:#ae81ff">250</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">MaxReadFrameSize</span>:     <span style="color:#ae81ff">1048576</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">IdleTimeout</span>:          <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">Handler</span> = <span style="color:#a6e22e">h2c</span>.<span style="color:#a6e22e">NewHandler</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">h2s</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">e</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Removed <code>Echo.StartAutoTLS(address string) error</code>, replaced with <code>StartConfig.StartAutoTLS(e *Echo) error</code></p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// `e.StartAutoTLS(address string)` replacement would be:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">autoTLSManager</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">autocert</span>.<span style="color:#a6e22e">Manager</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Prompt</span>: <span style="color:#a6e22e">autocert</span>.<span style="color:#a6e22e">AcceptTOS</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Cache</span>:  <span style="color:#a6e22e">autocert</span>.<span style="color:#a6e22e">DirCache</span>(<span style="color:#e6db74">&#34;/var/www/.cache&#34;</span>),
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sc</span> = <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">StartConfig</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Address</span>: <span style="color:#e6db74">&#34;:443&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">TLSConfigFunc</span>: <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">tlsConfig</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tls</span>.<span style="color:#a6e22e">Config</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tlsConfig</span>.<span style="color:#a6e22e">GetCertificate</span> = <span style="color:#a6e22e">autoTLSManager</span>.<span style="color:#a6e22e">GetCertificate</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tlsConfig</span>.<span style="color:#a6e22e">NextProtos</span> = []<span style="color:#66d9ef">string</span>{<span style="color:#a6e22e">acme</span>.<span style="color:#a6e22e">ALPNProto</span>}
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">e</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Removed <code>Echo.StartTLS(address string, certFile, keyFile interface{}) (err error)</code>, replace
+with <code>StartConfig.StartTLS(e *Echo, certFile, keyFile interface{}) error</code></p>
+<p>Replacement example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// `e.StartTLS(address string, certFile, keyFile interface{})`  replacement would be:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">StartTLS</span>(<span style="color:#a6e22e">e</span>, <span style="color:#a6e22e">certFile</span>, <span style="color:#a6e22e">keyFile</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Removed internal support for custom <code>tcpKeepAliveListener</code> for setting TCP keep-alive timeouts. Since Go 1.13 this can be
+configured as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;OK&#34;</span>)
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">server</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>{<span style="color:#a6e22e">Handler</span>: <span style="color:#a6e22e">e</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">ListenConfig</span>{<span style="color:#a6e22e">KeepAlive</span>: <span style="color:#ae81ff">15</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>}
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ln</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lc</span>.<span style="color:#a6e22e">Listen</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#e6db74">&#34;tcp&#34;</span>, <span style="color:#e6db74">&#34;:8080&#34;</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ln</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">Serve</span>(<span style="color:#a6e22e">ln</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalln</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="echostartconfig-provides-advanced-ways-to-configure-server"><code>echo.StartConfig</code> provides advanced ways to configure server<a href="#echostartconfig-provides-advanced-ways-to-configure-server" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>StartConfig provides advanced ways to configure server. New config struct fields are following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// StartConfig is for creating configured http.Server instance to start serve http(s) requests 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// with given Echo instance
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StartConfig</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Address for the server to listen on (if not using custom listener)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Address</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ListenerNetwork allows setting listener network (see net.Listen for allowed values)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Optional: defaults to &#34;tcp&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ListenerNetwork</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// CertFilesystem is file system used to load certificates and keys (if certs/keys are given 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// as paths)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CertFilesystem</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">FS</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// DisableHTTP2 disables supports for HTTP2 in TLS server
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">DisableHTTP2</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// HideBanner does not log Echo banner on server startup
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">HideBanner</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// HidePort does not log port on server startup
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">HidePort</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// GracefulContext is context that completion signals graceful shutdown start
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">GracefulContext</span> <span style="color:#a6e22e">stdContext</span>.<span style="color:#a6e22e">Context</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// GracefulTimeout is period which server allows listeners to finish serving ongoing requests.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// If this time is exceeded process is exited
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Defaults to 10 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">GracefulTimeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// OnShutdownError allows customization of what happens when (graceful) server Shutdown 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// method returns an error.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Defaults to calling e.logger.Error(err)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">OnShutdownError</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// TLSConfigFunc allows modifying TLS configuration before listener is created with it.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">TLSConfigFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">tlsConfig</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tls</span>.<span style="color:#a6e22e">Config</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ListenerAddrFunc allows getting listener address before server starts serving 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// requests on listener. Useful when address is set as random (`:0`) port.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ListenerAddrFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">addr</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Addr</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// BeforeServeFunc allows customizing/accessing server before server starts serving 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// requests on listener.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BeforeServeFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Server</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>See example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Logger</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Recover</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusOK</span>, <span style="color:#e6db74">&#34;OK&#34;</span>)
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">gracefulCtx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">NotifyContext</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Interrupt</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">StartConfig</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">Address</span>: <span style="color:#e6db74">&#34;:0&#34;</span>, <span style="color:#75715e">// start on random free port
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//ListenerNetwork:  &#34;&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//CertFilesystem:   nil,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//DisableHTTP2:     false,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//HideBanner:       false,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//HidePort:         false,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">GracefulContext</span>: <span style="color:#a6e22e">gracefulCtx</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//GracefulTimeout:  0, // defaults to 10 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//OnShutdownError:  nil,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">//TLSConfigFunc:    nil,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">ListenerAddrFunc</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">addr</span> <span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">Addr</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;server listening at: %v&#34;</span>, <span style="color:#a6e22e">addr</span>.<span style="color:#a6e22e">String</span>())
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">//BeforeServeFunc:  nil,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sc</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#a6e22e">e</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//err := sc.StartTLS(e, &#34;cert&#34;, &#34;key&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="echogroup-has-similar-changes-as-echoecho"><code>echo.Group</code> has similar changes as <code>echo.Echo</code><a href="#echogroup-has-similar-changes-as-echoecho" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<ul>
+<li>
+<p>Changed <code>Group.Use</code> does not add anymore 2 additional (<code>&quot;&quot;</code> and <code>&quot;/*&quot;</code>) ANY routes. This was
+meant to handle situations when you create group without adding any routes to it and wondering why any of the middleware
+was not executed. Usually when you are dealing with <code>Static</code> or <code>Logger</code> middleware. To remediate this - these 2
+hidden routes were added so middleware would be executed.
+This hidden behaviour is removed as nothing stops you to create two or some group with identical paths with different
+middlewares and in that case last group that calls <code>g.Use</code> will override in Router previous route additional routes
+creating hard to understand bug or &ldquo;feature&rdquo;.</p>
+<p>If you want group middlewares to match requests - you need to create routes explicitly - possibly <code>ANY /*</code> route.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">g</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Group</span>(<span style="color:#e6db74">&#34;/api&#34;</span>, <span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Logger</span>()) <span style="color:#75715e">// `Group` also calls internally `Use`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">Recover</span>())
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Any</span>(<span style="color:#e6db74">&#34;/*&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">ErrNotFound</span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>This <code>ANY /*</code> route will match all requests to <code>/api/*</code> and therefore execute Logger and Recover middlewares</p>
+</li>
+<li>
+<p>Changed route adding method signatures to return error instead of added route reference</p>
+<ul>
+<li><code>Group.CONNECT</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.DELETE</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.GET</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.HEAD</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.OPTIONS</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.PATCH</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.POST</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.PUT</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.TRACE</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+<li><code>Group.Any</code> returns now <code>[]RouteInfo</code> instead of <code>[]*Route</code>.</li>
+<li><code>Group.Match</code> returns now <code>[]RouteInfo</code> instead of <code>[]*Route</code>.</li>
+<li><code>Group.Add</code> returns now <code>RouteInfo</code> instead of <code>*Route</code>.</li>
+</ul>
+</li>
+<li>
+<p>Added <code>Group.AddRoute(route Routable) (RouteInfo, error)</code> which allows adding route using <code>echo.Route</code> structure
+or <code>Routable</code> interface.</p>
+</li>
+<li>
+<p>Changed <code>Group.Static</code> returns error and change to accept middlewares as arguments.
+NOW: <code>Static(prefix, root string, middleware ...MiddlewareFunc) RouteInfo</code></p>
+</li>
+<li>
+<p>Changed <code>Group.File</code> returns error and change to accept middlewares as arguments.
+NOW: <code>File(path, file string, middleware ...MiddlewareFunc) RouteInfo </code></p>
+</li>
+</ul>
+<h2 id="echocontext-interface-has-multiple-breaking-changes"><code>echo.Context</code> interface has multiple breaking changes.<a href="#echocontext-interface-has-multiple-breaking-changes" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<ul>
+<li>
+<p>Renamed <code>echo.context</code> to <code>echo.DefaultContext</code>. You can now create your own Context implementations that embeds and
+possibly extends <code>DefaultContext</code> behaviour. See <code>Echo.NewContextFunc</code> above for example.</p>
+</li>
+<li>
+<p>Added <code>FileFS(file string, filesystem fs.FS) erro</code> to serve file from given filesystem.</p>
+</li>
+<li>
+<p>Added <code>QueryParamDefault(name, defaultValue string) string</code> allows getting default value if query param does not exist.</p>
+</li>
+<li>
+<p>Added <code>FormValueDefault(name, defaultValue string) string</code> allows getting default value if form value does not exist.</p>
+</li>
+<li>
+<p>Added <code>RouteInfo() RouteInfo</code> to return route info to which this request was matched to. As <code>RouteInfo</code> is interface
+then users can create custom implementation that can be added to router through <code>echo.Echo.AddRoute(Routable)</code>
+method. <code>Routable</code> is interface that is responsible for creating <code>RouteInfo</code> inside router when route is being added.</p>
+</li>
+<li>
+<p>Renamed <code>FormParams() (url.Values, error)</code> to <code>FormValues() (url.Values, error)</code>.</p>
+</li>
+<li>
+<p>Renamed <code>Param(name string) string</code> to <code>PathParam(name string) string</code>.</p>
+</li>
+<li>
+<p>Renamed <code>ParamNames() []string</code> to <code>PathParams() PathParams</code></p>
+</li>
+<li>
+<p>Renamed <code>SetParamNames(names ...string)</code> to <code>SetPathParams(params PathParams)</code></p>
+<p>Reasoning for that is: Method name <code>Param</code> is too ambiguous. Context interface already has methods like:</p>
+<blockquote>
+<p>QueryParam(name string) string
+FormValue(name string) string</p>
+</blockquote>
+<p>which explicitly describe where that <code>*Param</code> or <code>*Value</code> data comes/originates from. <code>PathParam</code> is explicit as those
+methods.</p>
+</li>
+<li>
+<p>Removed <code>ParamValues() []string</code> as <code>PathParams</code> result contains both name and value in <code>PathParam</code> struct</p>
+</li>
+<li>
+<p>Removed <code>Logger() Logger</code>. Usage of Echo own logger is discouraged and use whatever logger library you choose and if
+needed put it into context with <code>e.Set()</code> and fetch with <code>e.Get()</code></p>
+</li>
+<li>
+<p>Removed <code>SetLogger(l Logger)</code></p>
+</li>
+<li>
+<p>Removed <code>Handler()</code> method.</p>
+</li>
+<li>
+<p>Removed <code>SetHandler()</code> method.</p>
+</li>
+<li>
+<p>Removed <code>Error(err error)</code> method. This method was confusing. Return errors instead of writing error response immediately to client.
+Echo assumes that you return errors and allow upstream middleware to possibly handle them. If you absolutely need to handle error
+then global error handler can be accessed as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Echo</span>().<span style="color:#a6e22e">HTTPErrorHandler</span>(<span style="color:#a6e22e">err</span>)
+</span></span></code></pre></div></li>
+</ul>
+<p>Move to <code>echo.RoutableContext</code></p>
+<ul>
+<li><code>SetParamValues(values ...string)</code></li>
+</ul>
+<p>Note: <code>RoutableContext</code> interface is only for Echo internal usage to setup Context after route match has been found,
+just before handler chain will be called. Contains setters that should not be touched in middleware or handler.</p>
+<p>Note: internally Context now 2 distinct fields to hold path parameters. <code>context.pathParams</code> lifecycle (allocation) is
+handled by Echo to reduce allocation. This field is not directly accessible to user. <code>context.currentParams</code> is meant
+for cases when middlewares are mutating path params and get copy of <code>pathParams</code> values on first usage. This field is
+settable for user.</p>
+<h2 id="router">Router<a href="#router" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="router-interface">Router interface<a href="#router-interface" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>Introduced interface for router. This will allow using custom router implementations with Echo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Router is interface for routing request contexts to registered routes.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Router</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Add registers Routable with the Router and returns registered RouteInfo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">routable</span> <span style="color:#a6e22e">Routable</span>) (<span style="color:#a6e22e">RouteInfo</span>, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Remove removes route from the Router
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Remove</span>(<span style="color:#a6e22e">method</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Routes returns information about all registered routes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Routes</span>() <span style="color:#a6e22e">Routes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Route searches Router for matching route and applies it to the given context. In case when 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// no matching method was not found (405) or no matching route exists for path (404), router 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// will return its implementation of 405/404 handler function.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// When implementing custom Router make sure to populate Context during Router.Route call with:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// * RoutableContext.SetPath
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// * RoutableContext.SetRawPathParams (IMPORTANT! with same slice pointer that 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">//   c.RawPathParams() returns)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// * RoutableContext.SetRouteInfo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// And optionally can set additional information to Context with RoutableContext.Set
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Route</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">RoutableContext</span>) <span style="color:#a6e22e">HandlerFunc</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="routable-interface">Routable interface<a href="#routable-interface" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>Routable is interface for registering Route with Router. During route registration process the Router will convert
+Routable to RouteInfo with ToRouteInfo method. By creating custom implementation of Routable additional information
+about registered route can be stored in Routes (i.e. privileges used with route etc.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Routable is interface for registering Route with Router. During route registration process the 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Router will convert Routable to RouteInfo with ToRouteInfo method. By creating custom 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// implementation of Routable additional information about registered route can be stored in 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Routes (i.e. privileges used with route etc.)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Routable</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ToRouteInfo converts Routable to RouteInfo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// This method is meant to be used by Router after it parses url for path parameters, to 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// store information about route just added.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ToRouteInfo</span>(<span style="color:#a6e22e">params</span> []<span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">RouteInfo</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ToRoute converts Routable to Route which Router uses to register the method handler 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// for path.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// This method is meant to be used by Router to get fields (including handler and 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// middleware functions) needed to add Route to Router.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ToRoute</span>() <span style="color:#a6e22e">Route</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ForGroup recreates routable with added group prefix and group middlewares it is
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// grouped to.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Is necessary for Echo.Group to be able to add/register Routable with Router and
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// having group prefix and group middlewares included in actually registered Route.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ForGroup</span>(<span style="color:#a6e22e">pathPrefix</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">middlewares</span> []<span style="color:#a6e22e">MiddlewareFunc</span>) <span style="color:#a6e22e">Routable</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="routeinfo-interface">RouteInfo interface:<a href="#routeinfo-interface" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>When you add route with <code>Echo.AddRoute(route Routable) error</code> that route is added to router
+with <code>Add(routable Routable)</code> and <code>RouteInfo</code> of that route (which is created by <code>Routable.ToRouteInfo()</code> method) is
+accessible from <code>router.Routes()</code>. This all means that you can pass in your own custom types
+(than can have extra information about route included in that type) and you are able to have your own routeinfo
+implementations when you access ask for route list with <code>e.Router().Routes()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// RouteInfo describes registered route base fields.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Method+Path pair uniquely identifies the Route. Name can have duplicates.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RouteInfo</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Method</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Path</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Params</span>() []<span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Reverse</span>(<span style="color:#a6e22e">params</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// NOTE: handler and middlewares are not exposed because handler could be already wrapping
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// middlewares and therefore it is not always 100% known if handler function already wraps
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// middlewares or not. In Echo handler could be one function or several functions wrapping 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// each other.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="routableconfig-interface">RoutableConfig interface<a href="#routableconfig-interface" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>RoutableConfig is meant to limit methods that Router implementation should be able to change. Although router could
+cast provided context to any type it wants, this interface communicates which methods should be used.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// RoutableContext is additional interface that structures implementing Context must implement.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Methods inside this interface are meant for request routing purposes and should not be used 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// in middlewares.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RoutableContext</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Request returns `*http.Request`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Request</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// RawPathParams returns raw path pathParams value. Allocation of PathParams is handled by
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Context.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">RawPathParams</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">PathParams</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// SetRawPathParams replaces any existing param values with new values for this context 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// lifetime (request).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// Do not set any other value than what you got from RawPathParams as allocation of PathParams
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// is handled by Context.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SetRawPathParams</span>(<span style="color:#a6e22e">params</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">PathParams</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// SetPath sets the registered path for the handler.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SetPath</span>(<span style="color:#a6e22e">p</span> <span style="color:#66d9ef">string</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// SetRouteInfo sets the route info of this request to the context.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">SetRouteInfo</span>(<span style="color:#a6e22e">ri</span> <span style="color:#a6e22e">RouteInfo</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Set saves data in the context. Allows router to store arbitrary (that only router has 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// access to) data in context for later use in middlewares/handler.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">interface</span>{})
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="other-router-changes">Other router changes<a href="#other-router-changes" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Changed: It is now possible to add same path with different params names i.e. <code>GET /users/:id</code>
+and <code>POST /users/:userID</code></li>
+<li>Changed: any arbitrary http method type is now supported.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#e6db74">&#34;PROPPATCH&#34;</span>, <span style="color:#e6db74">&#34;/users&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#ae81ff">200</span>, <span style="color:#e6db74">&#34;OK&#34;</span>) })
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// or
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">AddRoute</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Route</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Method</span>:  <span style="color:#e6db74">&#34;PROPPATCH&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Path</span>:    <span style="color:#e6db74">&#34;/users&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Handler</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">String</span>(<span style="color:#ae81ff">200</span>, <span style="color:#e6db74">&#34;OK&#34;</span>) },
+</span></span><span style="display:flex;"><span>  })
+</span></span></code></pre></div></li>
+</ul>
+<p>Default router behaviour can be configured:</p>
+<ul>
+<li>Added: <code>RouterConfig.AllowOverwritingRoute</code> will instruct <code>DefaultRouter</code> (not to) to generate error when duplicate
+route (method+path) is added</li>
+<li>Added: <code>RouterConfig.UnescapePathParamValues</code> will instruct <code>DefaultRouter</code> to unescape path parameter values for
+matched route. People did this with middlewares and possible messed up maxParams size with that.</li>
+<li>Added: <code>RouterConfig.UseEscapedPathForMatching</code> will instruct <code>DefaultRouter</code> to use escaped path for matching routes.</li>
+<li>Added: <code>RouterConfig.NotFoundHandler</code> will instruct <code>DefaultRouter</code> to use custom not found handler (404) cases.</li>
+<li>Added: <code>RouterConfig.MethodNotAllowedHandler</code> will instruct <code>DefaultRouter</code> to use custom handler for method not found handler (405) cases.</li>
+<li>Added: <code>RouterConfig.OptionsMethodHandler</code> will instruct <code>DefaultRouter</code> to use custom handler for OPTIONS requests.</li>
+<li>Example for configuring default router with custom options:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">RouterConfig</span>{
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">AllowOverwritingRoute</span>:     <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">UnescapePathParamValues</span>:   <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">UseEscapedPathForMatching</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">NotFoundHandler</span>:           <span style="color:#66d9ef">nil</span>,
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">MethodNotAllowedHandler</span>:   <span style="color:#66d9ef">nil</span>,
+</span></span><span style="display:flex;"><span>  	<span style="color:#a6e22e">OptionsMethodHandler</span>:      <span style="color:#66d9ef">nil</span>,
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">ResetRouterCreator</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">_</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Echo</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Router</span> {
+</span></span><span style="display:flex;"><span>  	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewRouter</span>(<span style="color:#a6e22e">rc</span>)
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ErrServerClosed</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="logger">Logger<a href="#logger" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<p>Logger is trimmed down and used only for logging Echo internal stuff and/or used as <code>http.Server.Errorlog</code> field for
+capturing http server logged errors. For logging in handlers/middlewares use logger library of your own choosing.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Logger defines the logging interface that Echo uses internally in few places.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// For logging in handlers use your own logger instance (dependency injected or package/public
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// variable) from logging framework of your choice.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Logger</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Write provides writer interface for http.Server `ErrorLog` and for logging startup messages.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// `http.Server.ErrorLog` logs errors from accepting connections, unexpected behavior from 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// handlers, and underlying FileSystem errors.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// `logger` middleware will use this method to write its JSON payload.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">p</span> []<span style="color:#66d9ef">byte</span>) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Error logs the error
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="binder">Binder<a href="#binder" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<ul>
+<li>
+<p><code>e.Bind()</code> and <code>DefaultBinder</code> to be precise do not clear values when binding for base types (ints, bool, float).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SearchOpts</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ID</span>       <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`query:&#34;id&#34;`</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">opts</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">SearchOpts</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Length</span>:   <span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Bind</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">opts</span>)
+</span></span></code></pre></div><p>Previously <code>opts.Length</code> would be <code>0</code> after bind if that field did not exists in query. Now it stays <code>100</code> (value is
+not touched).</p>
+</li>
+<li>
+<p>Moved following <code>echo.DefaultBinder</code> methods to be functions instead:</p>
+<ul>
+<li><code>echo.BindPathParams(c Context, i interface{}) error</code></li>
+<li><code>echo.BindQueryParams(c Context, i interface{}) error</code></li>
+<li><code>echo.BindHeaders(c Context, i interface{}) error</code></li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> (<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">DefaultBinder</span>{}).<span style="color:#a6e22e">BindBody</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">body</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {  <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">BindBody</span>(<span style="color:#a6e22e">c</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">body</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {  <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div></li>
+</ul>
+<h2 id="middlewares">Middlewares<a href="#middlewares" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="general">General<a href="#general" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Introduced interface for creating middleware functions without panics on configuration errors
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MiddlewareConfigurator</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ToMiddleware</span>() (<span style="color:#a6e22e">MiddlewareFunc</span>, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>All middleware configuration structs now implement that interface and allow you to create middleware function and
+check if there are errors. Existing creator functions stay as they are - same signature and panicing on invalid
+configuration.</li>
+</ul>
+<h3 id="basicauth">BasicAuth<a href="#basicauth" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>DefaultBasicAuthConfig</code> struct. Middleware creator func will set now default values.</li>
+<li>Added <code>BasicAuthConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create basic auth middleware without panics.</li>
+<li>Changed <code>middleware.BasicAuthConfig.Validator</code> signature.
+Example:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">BasicAuthValidator</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">BasicAuthValidator</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">user</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">password</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div></li>
+</ul>
+<h3 id="bodydump">BodyDump<a href="#bodydump" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>DefaultBodyDumpConfig</code> struct. Middleware creator func will set now default values.</li>
+<li>Added <code>BodyDumpConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create body dump middleware without panics.</li>
+<li>Changed <code>middleware.BodyDumpConfig.Handler</code> signature.
+Example:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">BodyDumpHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, []<span style="color:#66d9ef">byte</span>, []<span style="color:#66d9ef">byte</span>) <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">BodyDumpHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">reqBody</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">resBody</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div></li>
+</ul>
+<h3 id="bodylimit">BodyLimit<a href="#bodylimit" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>DefaultBodyLimitConfig</code> struct. Middleware creator func will set now default values.</li>
+<li>Added <code>BodyLimitConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create body limit middleware without panics.</li>
+<li>Changed <code>BodyLimitConfig.LimitBytes</code> from <code>string</code> to <code>int64</code> (allowed size in bytes).</li>
+</ul>
+<h3 id="gzip">Gzip<a href="#gzip" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>DefaultGzipConfig</code> struct. Middleware creator func will set now default values.</li>
+<li>Added <code>GzipConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create Gzip middleware without panics.</li>
+</ul>
+<h3 id="cors">CORS<a href="#cors" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>CORSConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create CORS middleware without panics.</li>
+</ul>
+<h3 id="csrf">CSRF<a href="#csrf" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>CSRFConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create CSRF middleware without panics.</li>
+<li>Added <code>CSRFConfig.Generator func() string</code> a function to generate token.</li>
+<li>Changed how errors are in case of token extraction failure (400). Errors are now of type <code>middleware.ValueExtractorError</code>.
+If you rely on error messages this could be important change.</li>
+</ul>
+<h3 id="decompress">Decompress<a href="#decompress" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>DefaultDecompressConfig</code> struct. Middleware creator func will set now default values.</li>
+<li>Added <code>DecompressConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create decompress middleware without panics.</li>
+</ul>
+<h3 id="jwt">JWT<a href="#jwt" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p>JWT middleware was refactored not to depend any JWT library. To use JWT user must provide own token extraction method.</p>
+<ul>
+<li>
+<p>Changed how errors are in case of extraction failure (400). Errors are now of type <code>middleware.ValueExtractorError</code></p>
+</li>
+<li>
+<p>Changed cases when no token was found/extracted (<code>ErrJWTMissing</code>) to return <code>http.StatusUnauthorized 401</code> status code
+instead of <code>http.StatusBadRequest 400</code>. If you rely on error messages this could be important change.</p>
+</li>
+<li>
+<p>Renamed <code>ErrorHandlerWithContext</code> to <code>ErrorHandler</code>. Signatures
+is now <code>JWTErrorHandlerWithContext func(c echo.Context, err error) error</code></p>
+</li>
+<li>
+<p>Removed configuration fields related to specific JWT token parsing implementations</p>
+<ul>
+<li>Removed <code>JWTConfig.SigningKey</code> field.</li>
+<li>Removed <code>JWTConfig.SigningKeys</code> field.</li>
+<li>Removed <code>JWTConfig.SigningMethod</code> field.</li>
+<li>Removed <code>JWTConfig.Claims</code> field.</li>
+</ul>
+<p>Added example in <code>jwt_external_test.go</code> how to use JWT library with <code>golang-jwt/jwt</code> library. Middleware is to be
+created as:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// see `jwt_external_test.go` for `CreateJWTGoParseTokenFunc` implementation
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTWithConfig</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWTConfig</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ParseTokenFunc</span>: <span style="color:#a6e22e">CreateJWTGoParseTokenFunc</span>([]byte(<span style="color:#e6db74">&#34;secret&#34;</span>), <span style="color:#66d9ef">nil</span>), 
+</span></span><span style="display:flex;"><span>}))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">JWT</span>(<span style="color:#a6e22e">CreateJWTGoParseTokenFunc</span>([]byte(<span style="color:#e6db74">&#34;secret&#34;</span>), <span style="color:#66d9ef">nil</span>))) <span style="color:#75715e">// or shorter way
+</span></span></span></code></pre></div></li>
+<li>
+<p>Added <code>JWTConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create JWT middleware without panics.</p>
+</li>
+</ul>
+<h3 id="keyauth">KeyAuth<a href="#keyauth" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>KeyAuthConfig.AuthScheme</code> field. Use <code>KeyAuthConfig.KeyLookup = &quot;header:Authorization:Bearer &quot;</code> instead (NB:
+space at the end is important).</li>
+<li>Changed how errors are in case of extraction failure (400). Errors are now of type <code>middleware.ValueExtractorError</code>.
+If you rely on error messages this could be important change.</li>
+<li>Changed <code>middleware.KeyAuthConfig.Validator</code> signature.
+Example:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">KeyAuthValidator</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">auth</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">KeyAuthValidator</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div></li>
+<li>Changed <code>middleware.KeyAuthConfig.ErrorHandler</code> signature.
+Example:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">KeyAuthErrorHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">KeyAuthErrorHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div></li>
+<li>Added <code>KeyAuthConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create key auth middleware without panics.</li>
+</ul>
+<h3 id="logger-1">Logger<a href="#logger-1" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed coloring support.</li>
+<li>Changed middleware not to call <code>c.Error()</code> and return error to be handled up in caller chain (or global error handler)</li>
+<li>Added <code>LoggerConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create logger middleware without panics.</li>
+</ul>
+<h3 id="methodoverride">MethodOverride<a href="#methodoverride" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>MethodOverrideConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create method override middleware without
+panics.</li>
+</ul>
+<h3 id="proxy">Proxy<a href="#proxy" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>ProxyConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create proxy middleware without panics.</li>
+</ul>
+<h3 id="ratelimiter">RateLimiter<a href="#ratelimiter" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>RateLimiterConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create rate limiter middleware without
+panics.</li>
+</ul>
+<h3 id="recover">Recover<a href="#recover" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>RecoverConfig.LogLevel</code> field.</li>
+<li>Changed middleware not to call <code>c.Error()</code> and <code>c.Logger()</code>. Recovered error/value will bubble up and be handled
+eventually in global error handler.</li>
+<li>Added <code>RecoverConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create recover middleware without panics.</li>
+</ul>
+<h3 id="requestid">RequestID<a href="#requestid" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Removed <code>DefaultRequestIDConfig</code> struct</li>
+<li>Added <code>RequestIDConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create request ID middleware without panics.</li>
+</ul>
+<h3 id="redirect">Redirect<a href="#redirect" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>RedirectConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create redirect middleware without panics.</li>
+<li>Added default configs for:
+<ul>
+<li><code>middleware.RedirectHTTPSConfig</code> is the HTTPS Redirect middleware config</li>
+<li><code>middleware.RedirectHTTPSWWWConfig</code> is the HTTPS WWW Redirect middleware config.</li>
+<li><code>middleware.RedirectNonHTTPSWWWConfig</code> is the non HTTPS WWW Redirect middleware config.</li>
+<li><code>middleware.RedirectWWWConfig</code> is the WWW Redirect middleware config.</li>
+<li><code>middleware.RedirectNonWWWConfig</code> is the non WWW Redirect middleware config.</li>
+</ul>
+</li>
+</ul>
+<h3 id="rewrite">Rewrite<a href="#rewrite" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>RewriteConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create redirect middleware without panics.</li>
+</ul>
+<h3 id="secure">Secure<a href="#secure" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>SecureConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create secure middleware without panics.</li>
+</ul>
+<h3 id="addremovetrailing-slash">(Add/Remove)trailing slash<a href="#addremovetrailing-slash" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Changed <code>TrailingSlashConfig</code> to <code>AddTrailingSlashConfig</code> and <code>RemoveTrailingSlashConfig</code></li>
+<li>Added <code>AddTrailingSlashConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create add trailing slash middleware
+without panics.</li>
+<li>Added <code>RemoveTrailingSlashConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create remove trailing slash
+middleware without panics.</li>
+</ul>
+<h3 id="static">Static<a href="#static" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Added <code>StaticConfig.Filesystem</code> field which will be <code>fs.FS</code> used to serve file. Defaults to <code>echo.Echo.Filesystem</code>
+value.</li>
+<li>Added <code>StaticConfig.DisablePathUnescaping</code> field disable path escaping when serving the file.</li>
+<li>Added <code>StaticConfig.DirectoryListTemplate</code> field to allow developer to specify custom html template for directory
+listings.</li>
+<li>Added <code>StaticConfig.ToMiddleware() (echo.MiddlewareFunc, error)</code> to create static middleware without panics.</li>
+</ul>
+<h3 id="timeout">Timeout<a href="#timeout" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<ul>
+<li>Moved to <a href="https://github.com/labstack/echo-contrib">https://github.com/labstack/echo-contrib</a> repository</li>
+</ul>
+<h2 id="general-changes">General changes<a href="#general-changes" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<ul>
+<li>
+<p>Bumped minimal Go version to 1.16 as <code>fs.FS</code> filesystem was introduced in that version as we use it for field
+<code>echo.Filesystem</code> that is used in methods <code>e.File()</code> and <code>e.Static()</code>.</p>
+</li>
+<li>
+<p>Changed logged greeting messages to be single line to work better with structured logging</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2022-01-30T23:44:29.952718371+02:00&#34;</span>,<span style="color:#f92672">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;INFO&#34;</span>,<span style="color:#f92672">&#34;prefix&#34;</span>:<span style="color:#e6db74">&#34;echo&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;Echo (v5.0.X). High performance, minimalist Go web framework https://echo.labstack.com&#34;</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{<span style="color:#f92672">&#34;time&#34;</span>:<span style="color:#e6db74">&#34;2022-01-30T23:44:29.952771385+02:00&#34;</span>,<span style="color:#f92672">&#34;level&#34;</span>:<span style="color:#e6db74">&#34;INFO&#34;</span>,<span style="color:#f92672">&#34;prefix&#34;</span>:<span style="color:#e6db74">&#34;echo&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&#34;message&#34;</span>:<span style="color:#e6db74">&#34;http(s) server started on [::]:8080&#34;</span>}
+</span></span></code></pre></div></li>
+<li>
+<p>Changed function fields that have <code>echo.Context</code> as an argument have it as a first argument. Most notable is default
+error handler signature change:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HTTPErrorHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Context</span>) <span style="color:#75715e">// &lt;-- previously
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HTTPErrorHandler</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#75715e">// &lt;-- now
+</span></span></span></code></pre></div><p>This is to normalize how callback function are defined. Previously <code>Context</code> was sometimes first sometimes at some
+other place.</p>
+</li>
+<li>
+<p>Changed how type definitions are written from</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Binder is the interface that wraps the Bind method.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">Binder</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>to</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Binder is the interface that wraps the Bind method.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Binder</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Bind</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This is because in that way it is easier to copy/paste Echo code when there are multiple definitions in one <code>()</code>
+block.</p>
+</li>
+</ul>
+
+                    </section>
+                    <footer>
+                        Caught a mistake?
+                        <a
+                                href="https://github.com/labstack/echox/blob/master/website/content/v5/guide/upgrading-to-v5.md">
+                            <i class="far fa-edit"></i> Edit this page on GitHub!
+                        </a>
+                        <hr>
+                        <h2>
+                            <a href="https://github.com/labstack/echo/discussions">Forum</a> ✧
+                        </h2>
+                    </footer>
+                </article>
+            </div>
+        </div>
+        <footer class="w3-content w3-container w3-padding-48 w3-center footer">
+  <p>
+    <strong>Echo</strong> by <a href="https://labstack.com">LabStack</a> © 2022 LabStack
+  </p>
+  <p>
+    <a class="icon" href="https://labstack.com/blog">
+      <i class="fas fa-rss"></i>
+    </a>
+    <a class="icon" href="https://github.com/labstack">
+      <i class="fab fa-github"></i>
+    </a>
+    <a class="icon" href="https://facebook.com/labstack">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a class="icon" href="https://twitter.com/labstack">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a class="icon" href="mailto:hello@labstack.com?Subject=Hello" target="_top">
+      <i class="far fa-envelope"></i>
+    </a>
+  </p>
+</footer>
+<script type="text/javascript" src="https://unpkg.com/docsearch.js@2.2.1/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript">
+docsearch({
+  apiKey: '69dfc65b57ccba29ec34b68aa5b274ed',
+  indexName: 'labstack',
+  inputSelector: '#search-box'
+});
+</script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script src="/scripts/prism.js"></script>
+<script src="/scripts/base.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-85059636-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </div>
+</div>
+</body>
+</html>

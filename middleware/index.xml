@@ -14,7 +14,7 @@
       <guid>https://echo.labstack.com/middleware/basic-auth/</guid>
       <description>Basic auth middleware provides an HTTP basic authentication.
  For valid credentials it calls the next handler. For missing or invalid credentials, it sends &amp;ldquo;401 - Unauthorized&amp;rdquo; response.  Usage
-e.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) { // Be careful to use constant time comparison to prevent timing attacks 	if subtle.ConstantTimeCompare([]byte(username), []byte(&amp;#34;joe&amp;#34;)) == 1 &amp;amp;&amp;amp; subtle.ConstantTimeCompare([]byte(password), []byte(&amp;#34;secret&amp;#34;)) == 1 { return true, nil } return false, nil })) Custom Configuration Usage</description>
+e.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) { 	// Be careful to use constant time comparison to prevent timing attacks 	if subtle.ConstantTimeCompare([]byte(username), []byte(&amp;#34;joe&amp;#34;)) == 1 &amp;amp;&amp;amp; 	subtle.ConstantTimeCompare([]byte(password), []byte(&amp;#34;secret&amp;#34;)) == 1 { 	return true, nil 	} 	return false, nil })) Custom Configuration Usage</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@ e.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool
       <description>Body dump middleware captures the request and response payload and calls the registered handler. Generally used for debugging/logging purpose. Avoid using it if your request/response payload is huge e.g. file upload/download, but if you still need to, add an exception for your endpoints in the skipper function.
 Usage
 e := echo.New() e.Use(middleware.BodyDump(func(c echo.Context, reqBody, resBody []byte) { })) Custom Configuration Usage
-e := echo.New() e.Use(middleware.BodyDumpWithConfig(middleware.BodyDumpConfig{})) Configuration BodyDumpConfig struct { // Skipper defines a function to skip middleware.</description>
+e := echo.New() e.Use(middleware.BodyDumpWithConfig(middleware.BodyDumpConfig{})) Configuration BodyDumpConfig struct {  // Skipper defines a function to skip middleware.</description>
     </item>
     
     <item>
@@ -59,7 +59,7 @@ Limit can be specified as 4x or 4xB, where x is one of the multiple from K, M, G
 Usage
 e.Use(middleware.CORS())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.CORSWithConfig(middleware.CORSConfig{ AllowOrigins: []string{&amp;#34;https://labstack.com&amp;#34;, &amp;#34;https://labstack.net&amp;#34;}, AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept}, })) Configuration CORSConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // AllowOrigin defines a list of origins that may access the resource.  // Optional. Default value []string{&amp;#34;*&amp;#34;}.  AllowOrigins []string `yaml:&amp;#34;allow_origins&amp;#34;` // AllowOriginFunc is a custom function to validate the origin.</description>
+e := echo.New() e.Use(middleware.CORSWithConfig(middleware.CORSConfig{  AllowOrigins: []string{&amp;#34;https://labstack.com&amp;#34;, &amp;#34;https://labstack.net&amp;#34;},  AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept}, })) Configuration CORSConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // AllowOrigin defines a list of origins that may access the resource.  // Optional. Default value []string{&amp;#34;*&amp;#34;}.</description>
     </item>
     
     <item>
@@ -72,7 +72,7 @@ e := echo.New() e.Use(middleware.CORSWithConfig(middleware.CORSConfig{ AllowOrig
 Usage
 e.Use(middleware.CSRF())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{ TokenLookup: &amp;#34;header:X-XSRF-TOKEN&amp;#34;, })) Example above uses X-XSRF-TOKEN request header to extract CSRF token.
+e := echo.New() e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{  TokenLookup: &amp;#34;header:X-XSRF-TOKEN&amp;#34;, })) Example above uses X-XSRF-TOKEN request header to extract CSRF token.
 Accessing CSRF Token Server-side CSRF token can be accessed from Echo#Context using ContextKey and passed to the client via template.</description>
     </item>
     
@@ -86,8 +86,8 @@ Accessing CSRF Token Server-side CSRF token can be accessed from Echo#Context us
 Usage
 e.Use(middleware.Decompress())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.DecompressWithConfig(middleware.DecompressConfig{ Skipper: Skipper })) Configuration DecompressConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper } Default Configuration
-DefaultDecompressConfig = DecompressConfig{ Skipper: DefaultSkipper, } </description>
+e := echo.New() e.Use(middleware.DecompressWithConfig(middleware.DecompressConfig{  Skipper: Skipper })) Configuration DecompressConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper } Default Configuration
+DefaultDecompressConfig = DecompressConfig{  Skipper: DefaultSkipper, } </description>
     </item>
     
     <item>
@@ -100,8 +100,8 @@ DefaultDecompressConfig = DecompressConfig{ Skipper: DefaultSkipper, } </descrip
 Usage
 e.Use(middleware.Gzip())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.GzipWithConfig(middleware.GzipConfig{ Level: 5, })) Configuration GzipConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Gzip compression level.  // Optional. Default value -1.  Level int `json:&amp;#34;level&amp;#34;` } Default Configuration
-DefaultGzipConfig = GzipConfig{ Skipper: DefaultSkipper, Level: -1, } Middleware Skipper A middleware skipper can be passed to avoid gzip to certain URLs:</description>
+e := echo.New() e.Use(middleware.GzipWithConfig(middleware.GzipConfig{  Level: 5, })) Configuration GzipConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // Gzip compression level.  // Optional. Default value -1.  Level int `json:&amp;#34;level&amp;#34;` } Default Configuration
+DefaultGzipConfig = GzipConfig{  Skipper: DefaultSkipper,  Level: -1, } Middleware Skipper A middleware skipper can be passed to avoid gzip to certain URLs:</description>
     </item>
     
     <item>
@@ -112,7 +112,7 @@ DefaultGzipConfig = GzipConfig{ Skipper: DefaultSkipper, Level: -1, } Middleware
       <guid>https://echo.labstack.com/middleware/jaegertracing/</guid>
       <description>Trace requests on Echo framework with Jaeger Tracing Middleware.
 Usage
-package main import ( &amp;#34;github.com/labstack/echo-contrib/jaegertracing&amp;#34; &amp;#34;github.com/labstack/echo/v4&amp;#34; ) func main() { e := echo.New() // Enable tracing middleware  c := jaegertracing.New(e, nil) defer c.Close() e.Logger.Fatal(e.Start(&amp;#34;:1323&amp;#34;)) } Enabling the tracing middleware creates a tracer and a root tracing span for every request.
+package main import (  &amp;#34;github.com/labstack/echo-contrib/jaegertracing&amp;#34;  &amp;#34;github.com/labstack/echo/v4&amp;#34; ) func main() {  e := echo.New()  // Enable tracing middleware  c := jaegertracing.New(e, nil)  defer c.Close()   e.Logger.Fatal(e.Start(&amp;#34;:1323&amp;#34;)) } Enabling the tracing middleware creates a tracer and a root tracing span for every request.
 Custom Configuration By default, traces are sent to localhost Jaeger agent instance. To configure an external Jaeger, start your application with environment variables.</description>
     </item>
     
@@ -126,7 +126,8 @@ Custom Configuration By default, traces are sent to localhost Jaeger agent insta
  For valid token, it sets the user in context and calls next handler. For invalid token, it sends &amp;ldquo;401 - Unauthorized&amp;rdquo; response. For missing or invalid Authorization header, it sends &amp;ldquo;400 - Bad Request&amp;rdquo;.  Usage
 e.Use(middleware.JWT([]byte(&amp;quot;secret&amp;quot;)))
 Custom Configuration Usage
-e.Use(middleware.JWTWithConfig(middleware.JWTConfig{ SigningKey: []byte(&amp;#34;secret&amp;#34;), TokenLookup: &amp;#34;query:token&amp;#34;, })) Usage with different JWT library/repository
+e.Use(middleware.JWTWithConfig(middleware.JWTConfig{  SigningKey: []byte(&amp;#34;secret&amp;#34;),  TokenLookup: &amp;#34;query:token&amp;#34;, })) Usage with different JWT library/repository
+This middleware uses the github.com/golang-jwt/jwt library.
 To use a different JWT library you need to implement a custom JWTConfig.</description>
     </item>
     
@@ -138,8 +139,8 @@ To use a different JWT library you need to implement a custom JWTConfig.</descri
       <guid>https://echo.labstack.com/middleware/key-auth/</guid>
       <description>Key auth middleware provides a key based authentication.
  For valid key it calls the next handler. For invalid key, it sends &amp;ldquo;401 - Unauthorized&amp;rdquo; response. For missing key, it sends &amp;ldquo;400 - Bad Request&amp;rdquo; response.  Usage
-e.Use(middleware.KeyAuth(func(key string, c echo.Context) (bool, error) { return key == &amp;#34;valid-key&amp;#34;, nil })) Custom Configuration Usage
-e := echo.New() e.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{ KeyLookup: &amp;#34;query:api-key&amp;#34;, Validator: func(key string, c echo.Context) (bool, error) { return key == &amp;#34;valid-key&amp;#34;, nil }, })) Configuration KeyAuthConfig struct { // Skipper defines a function to skip middleware.</description>
+e.Use(middleware.KeyAuth(func(key string, c echo.Context) (bool, error) {  return key == &amp;#34;valid-key&amp;#34;, nil })) Custom Configuration Usage
+e := echo.New() e.Use(middleware.KeyAuthWithConfig(middleware.KeyAuthConfig{  KeyLookup: &amp;#34;query:api-key&amp;#34;,  Validator: func(key string, c echo.Context) (bool, error) { 	return key == &amp;#34;valid-key&amp;#34;, nil 	}, })) Configuration KeyAuthConfig struct {  // Skipper defines a function to skip middleware.</description>
     </item>
     
     <item>
@@ -153,9 +154,9 @@ Usage
 e.Use(middleware.Logger())
 Sample Output
 {&amp;#34;time&amp;#34;:&amp;#34;2017-01-12T08:58:07.372015644-08:00&amp;#34;,&amp;#34;remote_ip&amp;#34;:&amp;#34;::1&amp;#34;,&amp;#34;host&amp;#34;:&amp;#34;localhost:1323&amp;#34;,&amp;#34;method&amp;#34;:&amp;#34;GET&amp;#34;,&amp;#34;uri&amp;#34;:&amp;#34;/&amp;#34;,&amp;#34;status&amp;#34;:200,&amp;#34;error&amp;#34;:&amp;#34;&amp;#34;,&amp;#34;latency&amp;#34;:14743,&amp;#34;latency_human&amp;#34;:&amp;#34;14.743µs&amp;#34;,&amp;#34;bytes_in&amp;#34;:0,&amp;#34;bytes_out&amp;#34;:2} Custom Configuration Usage
-e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{ Format: &amp;#34;method=${method}, uri=${uri}, status=${status}\n&amp;#34;, })) Example above uses a Format which logs request method and request URI.
+e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{  Format: &amp;#34;method=${method}, uri=${uri}, status=${status}\n&amp;#34;, })) Example above uses a Format which logs request method and request URI.
 Sample Output
-method=GET, uri=/, status=200 Configuration // LoggerConfig defines the config for Logger middleware. LoggerConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Tags to construct the logger format.  //  // - time_unix  // - time_unix_nano  // - time_rfc3339  // - time_rfc3339_nano  // - time_custom  // - id (Request ID)  // - remote_ip  // - uri  // - host  // - method  // - path  // - protocol  // - referer  // - user_agent  // - status  // - error  // - latency (In nanoseconds)  // - latency_human (Human readable)  // - bytes_in (Bytes received)  // - bytes_out (Bytes sent)  // - header:&amp;lt;NAME&amp;gt;  // - query:&amp;lt;NAME&amp;gt;  // - form:&amp;lt;NAME&amp;gt;  //  // Example &amp;#34;${remote_ip} ${status}&amp;#34;  //  // Optional.</description>
+method=GET, uri=/, status=200 Configuration // LoggerConfig defines the config for Logger middleware. LoggerConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // Tags to construct the logger format.</description>
     </item>
     
     <item>
@@ -169,7 +170,7 @@ For security reasons, only POST method can be overridden.
 Usage
 e.Pre(middleware.MethodOverride())
 Custom Configuration Usage
-e := echo.New() e.Pre(middleware.MethodOverrideWithConfig(middleware.MethodOverrideConfig{ Getter: middleware.MethodFromForm(&amp;#34;_method&amp;#34;), })) Configuration MethodOverrideConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Getter is a function that gets overridden method from the request.  // Optional. Default values MethodFromHeader(echo.</description>
+e := echo.New() e.Pre(middleware.MethodOverrideWithConfig(middleware.MethodOverrideConfig{  Getter: middleware.MethodFromForm(&amp;#34;_method&amp;#34;), })) Configuration MethodOverrideConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // Getter is a function that gets overridden method from the request.</description>
     </item>
     
     <item>
@@ -180,8 +181,8 @@ e := echo.New() e.Pre(middleware.MethodOverrideWithConfig(middleware.MethodOverr
       <guid>https://echo.labstack.com/middleware/prometheus/</guid>
       <description>Prometheus middleware generates metrics for HTTP requests.
 Usage
-package main import ( &amp;#34;github.com/labstack/echo/v4&amp;#34; &amp;#34;github.com/labstack/echo-contrib/prometheus&amp;#34; ) func main() { e := echo.New() // Enable metrics middleware  p := prometheus.NewPrometheus(&amp;#34;echo&amp;#34;, nil) p.Use(e) e.Logger.Fatal(e.Start(&amp;#34;:1323&amp;#34;)) } Sample Output
-curl http://localhost:1323/metrics # HELP echo_request_duration_seconds The HTTP request latencies in seconds. # TYPE echo_request_duration_seconds summary echo_request_duration_seconds_sum 0.41086482 echo_request_duration_seconds_count 1 # HELP echo_request_size_bytes The HTTP request sizes in bytes. # TYPE echo_request_size_bytes summary echo_request_size_bytes_sum 56 echo_request_size_bytes_count 1 # HELP echo_requests_total How many HTTP requests processed, partitioned by status code and HTTP method.</description>
+package main import (  &amp;#34;github.com/labstack/echo/v4&amp;#34;  &amp;#34;github.com/labstack/echo-contrib/prometheus&amp;#34; ) func main() {  e := echo.New()  // Enable metrics middleware  p := prometheus.NewPrometheus(&amp;#34;echo&amp;#34;, nil)  p.Use(e)   e.Logger.Fatal(e.Start(&amp;#34;:1323&amp;#34;)) } Sample Output
+curl http://localhost:1323/metrics  # HELP echo_request_duration_seconds The HTTP request latencies in seconds. # TYPE echo_request_duration_seconds summary echo_request_duration_seconds_sum 0.41086482 echo_request_duration_seconds_count 1 # HELP echo_request_size_bytes The HTTP request sizes in bytes.</description>
     </item>
     
     <item>
@@ -191,7 +192,7 @@ curl http://localhost:1323/metrics # HELP echo_request_duration_seconds The HTTP
       
       <guid>https://echo.labstack.com/middleware/proxy/</guid>
       <description>Proxy provides an HTTP/WebSocket reverse proxy middleware. It forwards a request to upstream server using a configured load balancing technique.
-Usage url1, err := url.Parse(&amp;#34;http://localhost:8081&amp;#34;) if err != nil { e.Logger.Fatal(err) } url2, err := url.Parse(&amp;#34;http://localhost:8082&amp;#34;) if err != nil { e.Logger.Fatal(err) } e.Use(middleware.Proxy(middleware.NewRoundRobinBalancer([]*middleware.ProxyTarget{ { URL: url1, }, { URL: url2, }, }))) Custom Configuration Usage e := echo.New() e.Use(middleware.ProxyWithConfig(middleware.ProxyConfig{})) Configuration // ProxyConfig defines the config for Proxy middleware.  ProxyConfig struct { // Skipper defines a function to skip middleware.</description>
+Usage url1, err := url.Parse(&amp;#34;http://localhost:8081&amp;#34;) if err != nil {  e.Logger.Fatal(err) } url2, err := url.Parse(&amp;#34;http://localhost:8082&amp;#34;) if err != nil {  e.Logger.Fatal(err) } e.Use(middleware.Proxy(middleware.NewRoundRobinBalancer([]*middleware.ProxyTarget{  {  URL: url1,  },  {  URL: url2,  }, }))) Custom Configuration Usage e := echo.New() e.Use(middleware.ProxyWithConfig(middleware.ProxyConfig{})) Configuration // ProxyConfig defines the config for Proxy middleware.</description>
     </item>
     
     <item>
@@ -215,8 +216,8 @@ Usage To add a rate limit to your application simply add the RateLimiter middlwa
 Usage
 e.Use(middleware.Recover())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{ StackSize: 1 &amp;lt;&amp;lt; 10, // 1 KB  LogLevel: log.ERROR, })) Example above uses a StackSize of 1 KB, LogLevel of error and default values for DisableStackAll and DisablePrintStack.
-Configuration RecoverConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Size of the stack to be printed.</description>
+e := echo.New() e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{  StackSize: 1 &amp;lt;&amp;lt; 10, // 1 KB  LogLevel: log.ERROR, })) Example above uses a StackSize of 1 KB, LogLevel of error and default values for DisableStackAll and DisablePrintStack.
+Configuration RecoverConfig struct {  // Skipper defines a function to skip middleware.</description>
     </item>
     
     <item>
@@ -243,7 +244,7 @@ Usage</description>
 Usage
 e.Use(middleware.RequestID())
 Custom Configuration Usage
-e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{ Generator: func() string { return customGenerator() }, })) Configuration RequestIDConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // Generator defines a function to generate an ID.  // Optional. Default value random.String(32).  Generator func() string // TargetHeader defines what header to look for to populate the id  TargetHeader string } Default Configuration</description>
+e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{  Generator: func() string {  return customGenerator()  }, })) Configuration RequestIDConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // Generator defines a function to generate an ID.  // Optional. Default value random.String(32).  Generator func() string   // TargetHeader defines what header to look for to populate the id  TargetHeader string } Default Configuration</description>
     </item>
     
     <item>
@@ -253,7 +254,7 @@ e.Use(middleware.RequestIDWithConfig(middleware.RequestIDConfig{ Generator: func
       
       <guid>https://echo.labstack.com/middleware/rewrite/</guid>
       <description>Rewrite middleware allows to rewrite an URL path based on provided rules. It can be helpful for backward compatibility or just creating cleaner and more descriptive links.
-Usage e.Pre(middleware.Rewrite(map[string]string{ &amp;#34;/old&amp;#34;: &amp;#34;/new&amp;#34;, &amp;#34;/api/*&amp;#34;: &amp;#34;/$1&amp;#34;, &amp;#34;/js/*&amp;#34;: &amp;#34;/public/javascripts/$1&amp;#34;, &amp;#34;/users/*/orders/*&amp;#34;: &amp;#34;/user/$1/order/$2&amp;#34;, })) The values captured in asterisk can be retrieved by index e.g. $1, $2 and so on. Each asterisk will be non-greedy (translated to a capture group (.*?)) and if using multiple asterisk a trailing * will match the &amp;ldquo;rest&amp;rdquo; of the path.</description>
+Usage e.Pre(middleware.Rewrite(map[string]string{  &amp;#34;/old&amp;#34;: &amp;#34;/new&amp;#34;,  &amp;#34;/api/*&amp;#34;: &amp;#34;/$1&amp;#34;,  &amp;#34;/js/*&amp;#34;: &amp;#34;/public/javascripts/$1&amp;#34;,  &amp;#34;/users/*/orders/*&amp;#34;: &amp;#34;/user/$1/order/$2&amp;#34;, })) The values captured in asterisk can be retrieved by index e.g. $1, $2 and so on. Each asterisk will be non-greedy (translated to a capture group (.*?)) and if using multiple asterisk a trailing * will match the &amp;ldquo;rest&amp;rdquo; of the path.</description>
     </item>
     
     <item>
@@ -266,8 +267,8 @@ Usage e.Pre(middleware.Rewrite(map[string]string{ &amp;#34;/old&amp;#34;: &amp;#
 Usage
 e.Use(middleware.Secure())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.SecureWithConfig(middleware.SecureConfig{ XSSProtection: &amp;#34;&amp;#34;, ContentTypeNosniff: &amp;#34;&amp;#34;, XFrameOptions: &amp;#34;&amp;#34;, HSTSMaxAge: 3600, ContentSecurityPolicy: &amp;#34;default-src &amp;#39;self&amp;#39;&amp;#34;, })) Passing empty XSSProtection, ContentTypeNosniff, XFrameOptions or ContentSecurityPolicy disables that protection.
-Configuration SecureConfig struct { // Skipper defines a function to skip middleware.  Skipper Skipper // XSSProtection provides protection against cross-site scripting attack (XSS)  // by setting the `X-XSS-Protection` header.</description>
+e := echo.New() e.Use(middleware.SecureWithConfig(middleware.SecureConfig{ 	XSSProtection: &amp;#34;&amp;#34;, 	ContentTypeNosniff: &amp;#34;&amp;#34;, 	XFrameOptions: &amp;#34;&amp;#34;, 	HSTSMaxAge: 3600, 	ContentSecurityPolicy: &amp;#34;default-src &amp;#39;self&amp;#39;&amp;#34;, })) Passing empty XSSProtection, ContentTypeNosniff, XFrameOptions or ContentSecurityPolicy disables that protection.
+Configuration SecureConfig struct {  // Skipper defines a function to skip middleware.  Skipper Skipper   // XSSProtection provides protection against cross-site scripting attack (XSS)  // by setting the `X-XSS-Protection` header.</description>
     </item>
     
     <item>
@@ -278,8 +279,8 @@ Configuration SecureConfig struct { // Skipper defines a function to skip middle
       <guid>https://echo.labstack.com/middleware/session/</guid>
       <description>Session middleware facilitates HTTP session management backed by gorilla sessions. The default implementation provides cookie and filesystem based session store; however, you can take advantage of community maintained implementation for various backends.
  Echo community contribution
- Dependencies import ( &amp;#34;github.com/gorilla/sessions&amp;#34; &amp;#34;github.com/labstack/echo-contrib/session&amp;#34; ) Usage
-e := echo.New() e.Use(session.Middleware(sessions.NewCookieStore([]byte(&amp;#34;secret&amp;#34;)))) e.GET(&amp;#34;/&amp;#34;, func(c echo.Context) error { sess, _ := session.Get(&amp;#34;session&amp;#34;, c) sess.Options = &amp;amp;sessions.Options{ Path: &amp;#34;/&amp;#34;, MaxAge: 86400 * 7, HttpOnly: true, } sess.</description>
+ Dependencies import (  &amp;#34;github.com/gorilla/sessions&amp;#34;  &amp;#34;github.com/labstack/echo-contrib/session&amp;#34; ) Usage
+e := echo.New() e.Use(session.Middleware(sessions.NewCookieStore([]byte(&amp;#34;secret&amp;#34;))))  e.GET(&amp;#34;/&amp;#34;, func(c echo.Context) error {  sess, _ := session.Get(&amp;#34;session&amp;#34;, c)  sess.Options = &amp;amp;sessions.Options{  Path: &amp;#34;/&amp;#34;,  MaxAge: 86400 * 7,  HttpOnly: true,  }  sess.</description>
     </item>
     
     <item>
@@ -292,7 +293,7 @@ e := echo.New() e.Use(session.Middleware(sessions.NewCookieStore([]byte(&amp;#34
 Usage
 e := echo.New() e.Use(middleware.Static(&amp;#34;/static&amp;#34;)) This serves static files from static directory. For example, a request to /js/main.js will fetch and serve static/js/main.js file.
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.StaticWithConfig(middleware.StaticConfig{ Root: &amp;#34;static&amp;#34;, Browse: true, })) This serves static files from static directory and enables directory browsing.
+e := echo.New() e.Use(middleware.StaticWithConfig(middleware.StaticConfig{  Root: &amp;#34;static&amp;#34;,  Browse: true, })) This serves static files from static directory and enables directory browsing.
 Default behavior when using with non root URL paths is to append the URL path to the filesystem path.</description>
     </item>
     
@@ -306,7 +307,7 @@ Default behavior when using with non root URL paths is to append the URL path to
 Usage
 e.Use(middleware.Timeout())
 Custom Configuration Usage
-e := echo.New() e.Use(middleware.TimeoutWithConfig(middleware.TimeoutConfig{ Skipper: Skipper, ErrorHandler: func(err error, e echo.Context) error { // you can handle your error here, the returning error will be  // passed down the middleware chain  return err }, Timeout: 30*time.Second, })) Configuration // TimeoutConfig defines the config for Timeout middleware. TimeoutConfig struct { // Skipper defines a function to skip middleware.</description>
+e := echo.New() e.Use(middleware.TimeoutWithConfig(middleware.TimeoutConfig{  Skipper: Skipper,  ErrorHandler: func(err error, e echo.Context) error {  // you can handle your error here, the returning error will be  // passed down the middleware chain  return err  },  Timeout: 30*time.Second, })) Configuration // TimeoutConfig defines the config for Timeout middleware.</description>
     </item>
     
     <item>
@@ -320,8 +321,8 @@ Usage
 e := echo.New() e.Pre(middleware.AddTrailingSlash()) Remove Trailing Slash Remove trailing slash middleware removes a trailing slash from the request URI.
 Usage
 e := echo.New() e.Pre(middleware.RemoveTrailingSlash()) Custom Configuration Usage
-e := echo.New() e.Use(middleware.AddTrailingSlashWithConfig(middleware.TrailingSlashConfig{ RedirectCode: http.StatusMovedPermanently, })) Example above will add a trailing slash to the request URI and redirect with 301 - StatusMovedPermanently.
-Configuration TrailingSlashConfig struct { // Skipper defines a function to skip middleware.</description>
+e := echo.New() e.Use(middleware.AddTrailingSlashWithConfig(middleware.TrailingSlashConfig{  RedirectCode: http.StatusMovedPermanently, })) Example above will add a trailing slash to the request URI and redirect with 301 - StatusMovedPermanently.
+Configuration TrailingSlashConfig struct {  // Skipper defines a function to skip middleware.</description>
     </item>
     
   </channel>
