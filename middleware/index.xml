@@ -122,13 +122,11 @@ Custom Configuration By default, traces are sent to localhost Jaeger agent insta
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/middleware/jwt/</guid>
-      <description>JWT provides a JSON Web Token (JWT) authentication middleware.
+      <description>JWT provides a JSON Web Token (JWT) authentication middleware. Echo JWT middleware is located at https://github.com/labstack/echo-jwt
+Basic middleware behaviour:
  For valid token, it sets the user in context and calls next handler. For invalid token, it sends &amp;ldquo;401 - Unauthorized&amp;rdquo; response. For missing or invalid Authorization header, it sends &amp;ldquo;400 - Bad Request&amp;rdquo;.  Usage
-e.Use(middleware.JWT([]byte(&amp;quot;secret&amp;quot;)))
-Custom Configuration Usage
-e.Use(middleware.JWTWithConfig(middleware.JWTConfig{  SigningKey: []byte(&amp;#34;secret&amp;#34;),  TokenLookup: &amp;#34;query:token&amp;#34;, })) Usage with different JWT library/repository
-This middleware uses the github.com/golang-jwt/jwt library.
-To use a different JWT library you need to implement a custom JWTConfig.</description>
+Add JWT middleware dependency with
+go get github.com/labstack/echo-jwt/v4 import &amp;#34;github.com/labstack/echo-jwt/v4&amp;#34;  //...  e.Use(echojwt.JWT([]byte(&amp;#34;secret&amp;#34;))) Custom Configuration Usage</description>
     </item>
     
     <item>
