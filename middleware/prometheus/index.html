@@ -736,7 +736,12 @@
 
                         <nav id="TableOfContents">
   <ul>
-    <li><a href="#custom-configuration">Custom Configuration</a></li>
+    <li><a href="#custom-configuration">Custom Configuration</a>
+      <ul>
+        <li><a href="#serving-custom-prometheus-metrics">Serving custom Prometheus Metrics</a></li>
+        <li><a href="#skipping-certain-urls">Skipping certain URLs</a></li>
+      </ul>
+    </li>
     <li><a href="#complex-scenarios">Complex scenarios</a></li>
   </ul>
 </nav>
@@ -776,6 +781,95 @@
 </span></span><span style="display:flex;"><span>echo_response_size_bytes_count <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>...
 </span></span></code></pre></div><h2 id="custom-configuration">Custom Configuration<a href="#custom-configuration" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
+<h3 id="serving-custom-prometheus-metrics">Serving custom Prometheus Metrics<a href="#serving-custom-prometheus-metrics" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
+<p><em>Usage</em></p>
+<p>When creating a new Prometheus middleware, you can pass down a list of extra []*Metric array you can use.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/labstack/echo-contrib/prometheus&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/labstack/echo/v4&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">prom</span> <span style="color:#e6db74">&#34;github.com/prometheus/client_golang/prometheus&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cKeyMetrics</span> = <span style="color:#e6db74">&#34;custom_metrics&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// See the NewMetrics func for proper descriptions and prometheus names!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// In case you add a metric here later, make sure to include it in the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// MetricsList method or you&#39;ll going to have a bad time.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Metrics</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">customCnt</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">Metric</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">customDur</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">Metric</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Needed by echo-contrib so echo can register and collect these metrics
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Metrics</span>) <span style="color:#a6e22e">MetricList</span>() []<span style="color:#f92672">*</span><span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">Metric</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">Metric</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// ADD EVERY METRIC HERE!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">customCnt</span>,
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">customDur</span>,
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Creates and populates a new Metrics struct
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// This is where all the prometheus metrics, names and labels are specified
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewMetrics</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Metrics</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Metrics</span>{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">customCnt</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">Metric</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Name</span>:        <span style="color:#e6db74">&#34;custom_total&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Description</span>: <span style="color:#e6db74">&#34;Custom counter events.&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Type</span>:        <span style="color:#e6db74">&#34;counter_vec&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Args</span>:        []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;label_one&#34;</span>, <span style="color:#e6db74">&#34;label_two&#34;</span>},
+</span></span><span style="display:flex;"><span>		},
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">customDur</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">Metric</span>{
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Name</span>:        <span style="color:#e6db74">&#34;custom_duration_seconds&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Description</span>: <span style="color:#e6db74">&#34;Custom duration observations.&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Type</span>:        <span style="color:#e6db74">&#34;histogram_vec&#34;</span>,
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Args</span>:        []<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;label_one&#34;</span>, <span style="color:#e6db74">&#34;label_two&#34;</span>},
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Buckets</span>:     <span style="color:#a6e22e">prom</span>.<span style="color:#a6e22e">DefBuckets</span>, <span style="color:#75715e">// or your Buckets
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		},
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// This will push your metrics object into every request context for later use
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Metrics</span>) <span style="color:#a6e22e">AddCustomMetricsMiddleware</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">cKeyMetrics</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Metrics</span>) <span style="color:#a6e22e">IncCustomCnt</span>(<span style="color:#a6e22e">labelOne</span>, <span style="color:#a6e22e">labelTwo</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">labels</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">prom</span>.<span style="color:#a6e22e">Labels</span>{<span style="color:#e6db74">&#34;label_one&#34;</span>: <span style="color:#a6e22e">labelOne</span>, <span style="color:#e6db74">&#34;label_two&#34;</span>: <span style="color:#a6e22e">labelTwo</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">customCnt</span>.<span style="color:#a6e22e">MetricCollector</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">prom</span>.<span style="color:#a6e22e">CounterVec</span>).<span style="color:#a6e22e">With</span>(<span style="color:#a6e22e">labels</span>).<span style="color:#a6e22e">Inc</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Metrics</span>) <span style="color:#a6e22e">ObserveCustomDur</span>(<span style="color:#a6e22e">labelOne</span>, <span style="color:#a6e22e">labelTwo</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">labels</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">prom</span>.<span style="color:#a6e22e">Labels</span>{<span style="color:#e6db74">&#34;label_one&#34;</span>: <span style="color:#a6e22e">labelOne</span>, <span style="color:#e6db74">&#34;label_two&#34;</span>: <span style="color:#a6e22e">labelTwo</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">customCnt</span>.<span style="color:#a6e22e">MetricCollector</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">prom</span>.<span style="color:#a6e22e">HistogramVec</span>).<span style="color:#a6e22e">With</span>(<span style="color:#a6e22e">labels</span>).<span style="color:#a6e22e">Observe</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Seconds</span>())
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewMetrics</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Enable metrics middleware
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">prometheus</span>.<span style="color:#a6e22e">NewPrometheus</span>(<span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">MetricList</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">e</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">AddCustomMetricsMiddleware</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">GET</span>(<span style="color:#e6db74">&#34;/custom&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">metrics</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">cKeyMetrics</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">Metrics</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">metrics</span>.<span style="color:#a6e22e">IncCustomCnt</span>(<span style="color:#e6db74">&#34;any&#34;</span>, <span style="color:#e6db74">&#34;value&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>	})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Logger</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:1323&#34;</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="skipping-certain-urls">Skipping certain URLs<a href="#skipping-certain-urls" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><em>Usage</em></p>
 <p>A middleware skipper can be passed to avoid generating metrics to certain URLs:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>

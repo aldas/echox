@@ -45,7 +45,7 @@ a:hover {
     color: #00afd1
 }
 
-.ad a, .plotly a, .sidenav2 a, .topnav a, a.icon {
+.sponsor a, .ad a, .plotly a, .sidenav2 a, .topnav a, a.icon {
     border-bottom: none
 }
 
@@ -445,6 +445,10 @@ ul.breadcrumb li + li:before {
 .sponsors {
     display: flex;
     flex-flow: row wrap;
+}
+
+.sponsor {
+    padding: 0 16px
 }
 
 .ad {

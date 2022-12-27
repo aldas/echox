@@ -12,9 +12,9 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/guide/binding/</guid>
-      <description>Bind using struct tags Echo provides following method to bind data from different sources (path params, query params, request body) to structure using Context#Bind(i interface{}) method. The default binder supports decoding application/json, application/xml and application/x-www-form-urlencoded data based on the Content-Type header.
-In the struct definitions each field can be tagged to restrict binding to specific source.
- query - source is request query parameters. param - source is route path parameter.</description>
+      <description>Parsing request data is a crucial part of a web application. In Echo this is done with a process called binding. This is done with information passed by the client in the following parts of an HTTP request:
+ URL Path parameter URL Query parameter Header Request body  Echo provides different ways to perform binding, each described in the sections below.
+Struct Tag Binding With struct binding you define a Go struct with tags specifying the data source and corresponding key.</description>
     </item>
     
     <item>
