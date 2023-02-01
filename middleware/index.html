@@ -749,8 +749,9 @@
 to <code>Echo#Context</code> which it uses to perform a specific action, for example, logging
 every request or limiting the number of requests.</p>
 <p>Handler is processed in the end after all middleware are finished executing.</p>
-<p>Middleware registered using <code>Echo#Use()</code> is only executed for paths which are
-registered after <code>Echo#Use()</code> has been called.</p>
+<p>Middleware registered using <code>Echo#Use()</code> is executed for paths which are
+registered both before and after <code>Echo#Use()</code> has been called. These middlewares are executed along with the group and handler
+middlewares after routing has done.</p>
 <h2 id="levels">Levels<a href="#levels" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h2>
 <h3 id="root-level-before-router">Root Level (Before router)<a href="#root-level-before-router" class="hanchor" ariaLabel="Anchor"> 🔗</a> </h3>
 <p><code>Echo#Pre()</code> can be used to register a middleware which is executed before router
@@ -834,7 +835,7 @@ for that each middleware has an option to define a function <code>Skipper func(c
         </div>
         <footer class="w3-content w3-container w3-padding-48 w3-center footer">
   <p>
-    <strong>Echo</strong> by <a href="https://labstack.com">LabStack</a> © 2022 LabStack
+    <strong>Echo</strong> by <a href="https://labstack.com">LabStack</a> © 2023 LabStack
   </p>
   <p>
     <a class="icon" href="https://labstack.com/blog">

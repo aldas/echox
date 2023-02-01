@@ -213,7 +213,7 @@ Usage
 e.Use(middleware.Recover())
 Custom Configuration Usage
 e := echo.New() e.Use(middleware.RecoverWithConfig(middleware.RecoverConfig{  StackSize: 1 &amp;lt;&amp;lt; 10, // 1 KB  LogLevel: log.ERROR, })) Example above uses a StackSize of 1 KB, LogLevel of error and default values for DisableStackAll and DisablePrintStack.
-Configuration RecoverConfig struct {  // Skipper defines a function to skip middleware.</description>
+Configuration // LogErrorFunc defines a function for custom logging in the middleware.</description>
     </item>
     
     <item>

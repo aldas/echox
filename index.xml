@@ -244,8 +244,9 @@ request header.&lt;/li&gt;
 to &lt;code&gt;Echo#Context&lt;/code&gt; which it uses to perform a specific action, for example, logging
 every request or limiting the number of requests.&lt;/p&gt;
 &lt;p&gt;Handler is processed in the end after all middleware are finished executing.&lt;/p&gt;
-&lt;p&gt;Middleware registered using &lt;code&gt;Echo#Use()&lt;/code&gt; is only executed for paths which are
-registered after &lt;code&gt;Echo#Use()&lt;/code&gt; has been called.&lt;/p&gt;
+&lt;p&gt;Middleware registered using &lt;code&gt;Echo#Use()&lt;/code&gt; is executed for paths which are
+registered both before and after &lt;code&gt;Echo#Use()&lt;/code&gt; has been called. These middlewares are executed along with the group and handler
+middlewares after routing has done.&lt;/p&gt;
 &lt;h2 id=&#34;levels&#34;&gt;Levels&lt;/h2&gt;
 &lt;h3 id=&#34;root-level-before-router&#34;&gt;Root Level (Before router)&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;Echo#Pre()&lt;/code&gt; can be used to register a middleware which is executed before router
