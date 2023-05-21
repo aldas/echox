@@ -451,6 +451,10 @@ ul.breadcrumb li + li:before {
     padding: 0 16px
 }
 
+.sponsor img {
+    height: auto;
+}
+
 .ad {
     width: 160px;
     position: fixed;
