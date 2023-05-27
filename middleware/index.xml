@@ -176,9 +176,9 @@ e := echo.New() e.Pre(middleware.MethodOverrideWithConfig(middleware.MethodOverr
       
       <guid>https://echo.labstack.com/middleware/prometheus/</guid>
       <description>Prometheus middleware generates metrics for HTTP requests.
-Usage
-package main import (  &amp;#34;github.com/labstack/echo/v4&amp;#34;  &amp;#34;github.com/labstack/echo-contrib/prometheus&amp;#34; ) func main() {  e := echo.New()  // Enable metrics middleware  p := prometheus.NewPrometheus(&amp;#34;echo&amp;#34;, nil)  p.Use(e)   e.Logger.Fatal(e.Start(&amp;#34;:1323&amp;#34;)) } Sample Output
-curl http://localhost:1323/metrics  # HELP echo_request_duration_seconds The HTTP request latencies in seconds. # TYPE echo_request_duration_seconds summary echo_request_duration_seconds_sum 0.41086482 echo_request_duration_seconds_count 1 # HELP echo_request_size_bytes The HTTP request sizes in bytes.</description>
+There are 2 versions of Prometheus middleware:
+ latest (recommended) https://github.com/labstack/echo-contrib/blob/master/echoprometheus.go old (deprecated) https://github.com/labstack/echo-contrib/blob/master/prometheus/prometheus.go)  Migration guide from old to newer middleware can found here.
+Usage  Add needed module go get -u github.com/labstack/echo-contrib Add Prometheus middleware and metrics serving route e := echo.New() e.Use(echoprometheus.NewMiddleware(&amp;#34;myapp&amp;#34;)) // adds middleware to gather metrics e.GET(&amp;#34;/metrics&amp;#34;, echoprometheus.NewHandler()) // adds route to serve gathered metrics   Examples: Example: serve metric from the same server as where metrics is gathered</description>
     </item>
     
     <item>
