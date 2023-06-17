@@ -199,7 +199,7 @@ Usage url1, err := url.Parse(&amp;#34;http://localhost:8081&amp;#34;) if err != 
       <guid>https://echo.labstack.com/middleware/rate-limiter/</guid>
       <description>RateLimiter provides a Rate Limiter middleware for limiting the amount of requests to the server from a particular IP or id within a time period.
 By default an in-memory store is used for keeping track of requests. The default in-memory implementation is focused on correctness and may not be the best option for a high number of concurrent requests or a large number of different identifiers (&amp;gt;16k).
-Usage To add a rate limit to your application simply add the RateLimiter middlware.</description>
+Usage To add a rate limit to your application simply add the RateLimiter middleware.</description>
     </item>
     
     <item>
