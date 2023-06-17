@@ -25,7 +25,7 @@ Browse to https://&amp;lt;DOMAIN&amp;gt;. If everything goes fine, you should se
       <guid>https://echo.labstack.com/cookbook/cors/</guid>
       <description>Server using a list of allowed origins server.go
  Server using a custom function to allow origins server.go
- Source Code </description>
+ Source Code See</description>
     </item>
     
     <item>
@@ -49,8 +49,9 @@ Create User curl -X POST \  -H &amp;#39;Content-Type: application/json&amp;#39; 
       
       <guid>https://echo.labstack.com/cookbook/embed-resources/</guid>
       <description>With go 1.16 embed feature server.go
- Source Code With go.rice server.go
- Source Code </description>
+ Source Code See
+With go.rice server.go
+ Source Code See</description>
     </item>
     
     <item>
@@ -98,7 +99,7 @@ Create User curl -X POST \  -H &amp;#39;Content-Type: application/json&amp;#39; 
       <guid>https://echo.labstack.com/cookbook/graceful-shutdown/</guid>
       <description>Using http.Server#Shutdown() server.go
   Requires go1.8+
- Source Code </description>
+ Source Code See</description>
     </item>
     
     <item>
@@ -108,7 +109,7 @@ Create User curl -X POST \  -H &amp;#39;Content-Type: application/json&amp;#39; 
       
       <guid>https://echo.labstack.com/cookbook/hello-world/</guid>
       <description>Server server.go
- Source Code </description>
+ Source Code See</description>
     </item>
     
     <item>
@@ -141,7 +142,7 @@ go run $GOROOT/src/crypto/tls/generate_cert.go --host localhost  For demo purpos
       <description>JSONP is a method that allows cross-domain server calls. You can read more about it at the JSON versus JSONP Tutorial.
 Server server.go
  Client index.html
- Source Code </description>
+ Source Code See</description>
     </item>
     
     <item>
@@ -183,7 +184,7 @@ Step 4: Start upstream servers  cd upstream go run server.</description>
       <description>How to write a custom middleware?  Middleware to collect request count, statuses and uptime. Middleware to write custom Server header to the response.  Server server.go
  Response Headers
 Content-Length:122 Content-Type:application/json; charset=utf-8 Date:Thu, 14 Apr 2016 20:31:46 GMT Server:Echo/3.0 Body
-{  &amp;#34;uptime&amp;#34;: &amp;#34;2016-04-14T13:28:48.486548936-07:00&amp;#34;,  &amp;#34;requestCount&amp;#34;: 5,  &amp;#34;statuses&amp;#34;: {  &amp;#34;200&amp;#34;: 4,  &amp;#34;404&amp;#34;: 1  } } Source Code </description>
+{  &amp;#34;uptime&amp;#34;: &amp;#34;2016-04-14T13:28:48.486548936-07:00&amp;#34;,  &amp;#34;requestCount&amp;#34;: 5,  &amp;#34;statuses&amp;#34;: {  &amp;#34;200&amp;#34;: 4,  &amp;#34;404&amp;#34;: 1  } } Source Code See</description>
     </item>
     
     <item>
@@ -202,8 +203,8 @@ Step 1: Identify upstream target URLs url1, err := url.Parse(&amp;#34;http://loc
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://echo.labstack.com/cookbook/streaming-response/</guid>
-      <description> Send data as it is produced Streaming JSON response with chunked transfer encoding  Server server.go
- Client $ curl localhost:1323 Output {&amp;#34;Altitude&amp;#34;:-97,&amp;#34;Latitude&amp;#34;:37.819929,&amp;#34;Longitude&amp;#34;:-122.478255} {&amp;#34;Altitude&amp;#34;:1899,&amp;#34;Latitude&amp;#34;:39.096849,&amp;#34;Longitude&amp;#34;:-120.032351} {&amp;#34;Altitude&amp;#34;:2619,&amp;#34;Latitude&amp;#34;:37.865101,&amp;#34;Longitude&amp;#34;:-119.538329} {&amp;#34;Altitude&amp;#34;:42,&amp;#34;Latitude&amp;#34;:33.812092,&amp;#34;Longitude&amp;#34;:-117.918974} {&amp;#34;Altitude&amp;#34;:15,&amp;#34;Latitude&amp;#34;:37.77493,&amp;#34;Longitude&amp;#34;:-122.419416} Source Code </description>
+      <description>Send data as it is produced Streaming JSON response with chunked transfer encoding  Server server.go
+ Client $ curl localhost:1323 Output {&amp;#34;Altitude&amp;#34;:-97,&amp;#34;Latitude&amp;#34;:37.819929,&amp;#34;Longitude&amp;#34;:-122.478255} {&amp;#34;Altitude&amp;#34;:1899,&amp;#34;Latitude&amp;#34;:39.096849,&amp;#34;Longitude&amp;#34;:-120.032351} {&amp;#34;Altitude&amp;#34;:2619,&amp;#34;Latitude&amp;#34;:37.865101,&amp;#34;Longitude&amp;#34;:-119.538329} {&amp;#34;Altitude&amp;#34;:42,&amp;#34;Latitude&amp;#34;:33.812092,&amp;#34;Longitude&amp;#34;:-117.918974} {&amp;#34;Altitude&amp;#34;:15,&amp;#34;Latitude&amp;#34;:37.77493,&amp;#34;Longitude&amp;#34;:-122.419416} Source Code See</description>
     </item>
     
     <item>
@@ -213,7 +214,7 @@ Step 1: Identify upstream target URLs url1, err := url.Parse(&amp;#34;http://loc
       
       <guid>https://echo.labstack.com/cookbook/subdomains/</guid>
       <description>server.go
- Source Code </description>
+ Source Code See</description>
     </item>
     
     <item>
@@ -223,7 +224,7 @@ Step 1: Identify upstream target URLs url1, err := url.Parse(&amp;#34;http://loc
       
       <guid>https://echo.labstack.com/cookbook/timeouts/</guid>
       <description>server.go
- Source Code </description>
+ Source Code See</description>
     </item>
     
     <item>
@@ -254,7 +255,7 @@ Models user.go
  Client index.html
  Output Client
 Hello, Client! Hello, Client! Hello, Client! Hello, Client! Hello, Client! Server
-Hello, Server! Hello, Server! Hello, Server! Hello, Server! Hello, Server! Source Code </description>
+Hello, Server! Hello, Server! Hello, Server! Hello, Server! Hello, Server! Source Code See</description>
     </item>
     
   </channel>

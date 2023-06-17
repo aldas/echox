@@ -125,11 +125,12 @@ func main() {  e := echo.New()  // add middleware and routes  // ...  if err := 
       
       <guid>https://echo.labstack.com/guide/static-files/</guid>
       <description>Images, JavaScript, CSS, PDF, Fonts and so on&amp;hellip;
-Using Static Middleware Using Echo#Static() Echo#Static(prefix, root string) registers a new route with path prefix to serve static files from the provided root directory.
+Using Static Middleware See
+Using Echo#Static() Echo#Static(prefix, root string) registers a new route with path prefix to serve static files from the provided root directory.
 Usage 1
 e := echo.New() e.Static(&amp;#34;/static&amp;#34;, &amp;#34;assets&amp;#34;) Example above will serve any file from the assets directory for path /static/*. For example, a request to /static/js/main.js will fetch and serve assets/js/main.js file.
 Usage 2
-e := echo.New() e.Static(&amp;#34;/&amp;#34;, &amp;#34;assets&amp;#34;) Example above will serve any file from the assets directory for path /*.</description>
+e := echo.New() e.</description>
     </item>
     
     <item>

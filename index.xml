@@ -311,7 +311,8 @@ for that each middleware has an option to define a function &lt;code&gt;Skipper 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	},
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}))
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Example above skips Logger middleware when request host starts with localhost.&lt;/p&gt;
-&lt;h2 id=&#34;writing-custom-middlewarehahahugoshortcode-s0-hbhb&#34;&gt;&lt;a href=&#34;https://echo.labstack.com/cookbook/middleware/&#34;&gt;Writing Custom Middleware&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&#34;writing-custom-middleware&#34;&gt;Writing Custom Middleware&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://echo.labstack.com/cookbook/middleware/&#34;&gt;See&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
