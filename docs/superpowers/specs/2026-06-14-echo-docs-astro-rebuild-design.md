@@ -1,138 +1,136 @@
-# Echo Docs — from-scratch rebuild (Astro, "Terminal" design)
+# Echo Docs — rebuild on Astro Starlight ("Terminal" theme)
 
-**Date:** 2026-06-14
-**Status:** Design — awaiting review
-**Repo:** `labstack/echox` (the docs site lives in `website/`)
+**Date:** 2026-06-14 (rev. 2 — post-review)
+**Status:** Design — hardened after architecture + docs-platform review
+**Repo:** `labstack/echox` (docs site in `website/`), branch `docs-astro-rebuild`
 
 ## 1. Goal
 
-Replace the current Docusaurus docs site with a custom-built, professional docs
-platform that matches the quality and feel of `docs.openclaw.ai`, branded for Echo.
-The look kept reading as "default/amateur" because it used generic system-sans on a
-cool palette; the new design commits to a **monospace, terminal-precise** aesthetic.
+Replace the current Docusaurus docs with a professional, `docs.openclaw.ai`-grade site
+branded for Echo. The previous attempts read as "default/amateur" because of generic
+system-sans on a cool palette; the new design commits to a **terminal-precise** aesthetic.
 
-## 2. Locked decisions
+## 2. Locked decisions (rev. 2)
 
-| Decision | Choice | Why |
+| Decision | Choice | Notes |
 |---|---|---|
-| Build approach | **Astro** (custom, no docs preset) | Total design control like a hand-build, but routing / MDX / i18n / fast builds / image+font optimization come free; stays free & self-hosted. |
-| Design direction | **"Terminal"** | Chosen from 3 directions. Closest to OpenClaw, most "Go developer". |
-| Body font | **Fragment Mono** (Google) | Exact font OpenClaw declares; the defining trait. |
-| Heading font | **DM Sans** 700/800 | Heavy sans against mono body = OpenClaw's contrast. |
-| Palette | Warm near-black `#0d0b0b`, warm grays, **Echo cyan `#00AFD1`→`#4AE1FF`** | Cyan pulled from the Echo logo; warm dark from OpenClaw. |
-| Theme | **Dark-first**, light theme also shipped | Matches the chosen aesthetic; light is a polished secondary. |
-| Content | **Rewritten fresh** | User chose a clean-slate content pass (new IA + new prose), not a Docusaurus auto-port. |
-| Coverage goal | **Full** (all guide/cookbook/middleware/API topics) | Sequenced in phases (§8). |
+| Platform | **Astro Starlight** (base) + custom Terminal theme | *Changed from full-custom Astro after review.* Starlight gives sidebar, i18n+fallback, Pagefind search, prev/next, TOC, edit links, last-updated, per-page SEO/OG, sitemap, 404, theme toggle, mobile drawer, a11y baseline — we override the theme for the look. Far less to build/own. |
+| Design direction | **Terminal** | Locked via mockups (`refine-terminal.html`, `home.html`). |
+| Fonts | **DM Sans** for prose & headings · **Fragment Mono** for code + UI chrome (nav, sidebar, labels, ⌘K) | *Changed from mono-everywhere* for long-form readability; terminal feel kept in chrome/code. |
+| Palette | warm near-black `#0d0b0b`, warm grays, **Echo cyan** | Cyan from logo; **contrast-tuned** (see §6). |
+| Theme | dark-first + light | Starlight toggle; dark default. |
+| Content | rewritten fresh, **seeded by porting existing pages** | Avoid blank-page risk on 61 existing pages (review). |
+| Launch versioning | **v5 only**; v4 added later via `starlight-versions` | Defers Starlight's one weak area. |
+| Search + Ask Echo | **unified ⌘K** with Search (Pagefind) + Ask tabs | Override Starlight `Search` component. |
+| Deploy | **Cloudflare Pages** (+ `_redirects`) | Fast, Pagefind-friendly, native 301s. |
 
-## 3. Must-have features
+## 3. What Starlight gives us vs. what we build
 
-1. **Versioning** — separate docs trees for **v4** and **v5** with a version switcher.
-2. **i18n** — locale routing + language switcher (en first; zh-Hans/ja/es/fr scaffolded).
-3. **Full-text search** — **Pagefind** (static, free, self-hosted; indexes the built site).
-4. **Ask Echo (AI)** — ⌘K command palette with streamed answers + cited sources. UI ships
-   now; wired to a provider (**kapa.ai** OSS tier or self-hosted Inkeep) via a single
-   integration point — answers are stubbed until a key is supplied.
+- **Starlight (free):** content collections, sidebar config, prev/next, TOC, Pagefind ⌘K,
+  i18n routing + en-fallback, per-page `<title>`/description/canonical/OG/Twitter, sitemap,
+  `404`, edit-on-GitHub (`editLink`), `lastUpdated` from git, dark/light toggle + persistence,
+  mobile drawer, keyboard-accessible nav.
+- **We build/own:**
+  1. **Terminal theme** — `src/styles/terminal.css` (Starlight CSS custom props + targeted
+     overrides), Shiki theme JSON, font wiring (DM Sans prose / Fragment Mono chrome+code).
+  2. **Unified ⌘K** — override `components.Search` with `CommandPalette.tsx` (Pagefind tab + Ask tab).
+  3. **Ask Echo** — provider-pluggable island; stub stream now, `askProvider(query, locale)` hook
+     for kapa.ai / Inkeep + key later.
+  4. **DocActions** — Copy page / Open in ChatGPT / Open in Claude (Edit + Last-updated already from Starlight).
+  5. **Homepage** — custom `index.astro` (Starlight `splash` template or standalone): split hero
+     + code window + stats + feature grid.
+  6. **Redirect map, analytics, contrast/a11y tuning, cutover** (§6, §7).
 
-## 4. Architecture (Astro)
+## 4. Architecture
 
 ```
-website/                      # Astro project (replaces Docusaurus)
-  astro.config.mjs            # integrations: mdx, sitemap, pagefind; i18n routing
+website/
+  astro.config.mjs            # starlight() integration: title, logo, social, editLink,
+                              #   lastUpdated, sidebar, locales, components overrides, sitemap
   src/
-    content/
-      config.ts               # content collections schema (docs)
-      docs/<version>/<locale>/...   # MDX content, e.g. docs/v5/en/core/routing.mdx
-    components/
-      Nav.astro  Sidebar.astro  Toc.astro  DocActions.astro
-      CodeBlock.astro  Callout.astro  Card.astro  VersionSwitcher.astro
-      LocaleSwitcher.astro  AskEcho.tsx  Search.astro  Hero.astro
-    layouts/
-      Base.astro              # <head>, fonts, theme bootstrap, nav, footer
-      DocLayout.astro         # sidebar + content + toc + doc actions
-    pages/
-      index.astro             # homepage (hero + features)
-      [...slug].astro         # docs routes from the content collection
+    content/docs/             # MDX content (Starlight collection)
+      index.mdx               # homepage (splash) OR pages/index.astro
+      <locale>/core/routing.mdx  ...    # en authored first
+    components/               # Starlight component overrides
+      Search.astro            # mounts CommandPalette island (unified ⌘K)
+      CommandPalette.tsx      # island: Search (Pagefind JS API) + Ask Echo tabs
+      DocActions.astro        # copy / ChatGPT / Claude toolbar (in PageFrame or content)
     styles/
-      tokens.css              # design tokens (the design system)
-      global.css
-  public/                     # logo, favicon, og image
+      terminal.css            # the design system (tokens + overrides)
+    shiki/echo-terminal.json  # custom Shiki theme (warm bg, cyan keywords)
+  public/
+    logo-*.svg  og-*.png  robots.txt  _redirects   # Cloudflare 301 map
 ```
 
-**Design-for-isolation:** each component has one purpose and a clear prop interface —
-`Sidebar` (nav tree in → highlighted list out), `Toc` (headings in → list out),
-`AskEcho` (self-contained island), `CodeBlock` (lang + code in → highlighted out). The
-content collection is the single source of truth; layouts compose components; pages are
-thin. Versioning and i18n are expressed in the content path (`docs/<version>/<locale>/…`)
-and resolved by `[...slug].astro`, so no component needs to know about them internally.
+**Isolation:** the theme is pure CSS over Starlight's documented custom properties → no fork
+of Starlight internals; only two component overrides (`Search`, optionally `Head`/`PageFrame`
+for DocActions). `CommandPalette.tsx` and `AskEcho` logic are self-contained islands. Content
+is the single source of truth; everything else is configuration + theme.
 
-## 5. Design system (`tokens.css`)
+## 5. Design system (`terminal.css`)
 
-- **Type:** `--font-body: "Fragment Mono", ui-monospace, …`; `--font-head: "DM Sans", …`;
-  base 13.5–14px, line-height 1.7; headings 700/800, tracking −0.02em.
-- **Color (dark):** bg `#0d0b0b`, surface `#151210`, line `#221e1c`/`#2d2724`,
-  text `#aaa19d`, heading `#f4f1ef`, muted `#817a76`, accent `#00afd1`/`#4ae1ff`,
-  accent-soft `rgba(0,175,209,.12)`.
-- **Color (light):** warm paper `#faf8f7`, ink `#1a1614`, accent darkened cyan for contrast.
-- **Radius** 9–13px; hairline 1px borders; single soft cyan glow top-right; faint grain.
-- **Code:** `#0a0908` bg, cyan keywords, warm strings, muted comments (Shiki theme tuned to match).
+- **Fonts:** `--sl-font: "DM Sans", ui-sans-serif, system-ui, sans-serif` (prose+headings);
+  `--sl-font-mono: "Fragment Mono", ui-monospace, SFMono-Regular, Menlo, monospace` (code).
+  Apply Fragment Mono to UI chrome (`.sidebar`, site nav, `.sl-markdown-content` inline UI,
+  labels, ⌘K) via targeted selectors. **Self-host both fonts** (woff2, subset), `font-display:swap`,
+  `preload` the prose font (FOUT fix).
+- **Color (dark):** bg `#0d0b0b`, surface `#151210`, line `#221e1c`/`#2d2724`, text `#aaa19d`,
+  heading `#f4f1ef`, muted `#817a76`. Map to Starlight `--sl-color-*`.
+- **Accent (contrast-tuned):** use brighter cyan **`#33c9e6`** for small text/links on dark
+  (≥ ~7:1) and reserve `#00afd1`→`#4ae1ff` for fills/large/decorative — fixes the ~5.9:1 issue.
+- Light theme: warm paper `#faf8f7`, ink `#1a1614`, darker cyan for AA.
+- Radius 9–13px; hairline borders; one soft cyan glow; faint grain (disabled under
+  `prefers-reduced-motion`).
 
-## 6. Information architecture
+## 6. Production / launch requirements (added per review)
 
-- **Top nav:** logo + `v5` version pill, primary links (Guide, Cookbook, Middleware, API),
-  prominent **Search ⌘K**, locale switcher, GitHub.
-- **Sidebar:** sectioned (Getting Started / Core / Guides / …), mono uppercase captions,
-  cyan active pill with left bar.
-- **Doc page:** breadcrumb → H1 → **DocActions** (Ask Echo / Copy / ChatGPT / Claude) →
-  content (MDX) → right-hand **On this page** TOC. Floating **Ask Echo ⌘K** launcher.
-- **Homepage:** split hero (headline + CTAs + `go get` line beside a code terminal window),
-  stat strip, "Why Echo" feature grid, footer. Hero = **split-with-code** variant; feature
-  icons = **Phosphor** (consistency). (Both adjustable.)
+- **SEO:** rely on Starlight per-page title/description/canonical/OG; ensure every MDX has
+  `title` + `description` frontmatter. Add **JSON-LD** (`TechArticle` + `BreadcrumbList`) and
+  `public/robots.txt` → sitemap. Set **v5 as `rel=canonical`** version.
+- **Redirects (deliverable):** crawl the live site, produce an explicit **old→new 301 table**
+  in `public/_redirects`. Cover the 3 alias families (`/guide`, `/cookbook`, `/middleware`),
+  the one-off redirects, and any old slug with no 1:1 new home (resolve each). No silent drops.
+- **Analytics:** carry over **GA4 `G-H19TMZLQFN`** (anonymizeIP) via Starlight `head` inject;
+  confirm whether to keep or replace.
+- **Broken-link gate:** CI step (`lychee`/`astro-broken-link-checker`) that **fails the build**,
+  matching the old `onBrokenLinks: throw`.
+- **Accessibility:** WCAG-AA contrast audit of every token pair; `:focus-visible` rings;
+  `prefers-reduced-motion` disables glow/grain; the ⌘K palette uses an accessible
+  combobox pattern (focus trap, `aria-activedescendant`, SR announcements).
+- **Responsive:** Starlight handles sidebar/TOC drawers; we ensure the **homepage hero stacks**
+  (terminal window below headline) on mobile.
+- **i18n realism:** keep non-en locales **behind a flag** until real translations exist; add
+  `hreflang` + `x-default` when they ship; Ask Echo answers carry a `locale` param with an
+  "answers in English" note where the provider lacks localization.
+- **CodeBlock features:** copy button, language label, filename, line-highlighting, and
+  tabbed examples (Starlight Expressive-Code or our wrapper).
 
-## 7. Feature design detail
+## 7. Implementation phasing
 
-- **Versioning:** content keyed by version dir; default version = latest (v5). Version
-  switcher rewrites the path to the same page in the other version (fallback to that
-  version's index if the page doesn't exist). v4 is LTS until 2026-12-31.
-- **i18n:** Astro i18n routing; locale dir under each version; `LocaleSwitcher` swaps the
-  locale segment; untranslated pages fall back to `en`.
-- **Search:** Pagefind runs as a post-build step over `dist/`; `Search.astro` mounts the
-  Pagefind UI behind the ⌘K shortcut (separate from Ask Echo, or unified — see open Qs).
-- **Ask Echo:** `AskEcho.tsx` island; ⌘K + floating launcher; streamed answer + sources.
-  Integration point: `askProvider(query) -> stream` — swap the stub for kapa.ai/Inkeep
-  with one function + an API key. Answers honor the active locale.
+- **Phase 1 — Platform + theme + slice (first plan).** Starlight scaffold in `website/`
+  (replacing Docusaurus), `terminal.css` design system + Shiki theme + self-hosted fonts,
+  `Search`→`CommandPalette` override with Ask Echo island (stubbed), `DocActions`, custom
+  **homepage**, contrast/a11y tokens, and a real **content slice** (Quickstart, Routing w/ code,
+  one nested page). Final `/...` URL/Pagefind/i18n config in place. Dark+light. Shippable to a
+  **preview** subdomain.
+- **Phase 2 — Content.** Author full v5/en docs (Guide, Core, Cookbook, Middleware, API),
+  seeded by porting+editing existing pages. Site is launch-ready at completion.
+- **Phase 3 — Versioning + locales + cutover.** `starlight-versions` for v4, enable locales +
+  translations, finalize `_redirects`, GA, JSON-LD, broken-link CI, **cutover runbook**
+  (preview → verify redirects/SEO/search → domain swap on `echo.labstack.com` → keep old
+  Docusaurus deployable ~2 weeks for rollback).
 
-## 8. Implementation phasing (within the full-coverage goal)
+## 8. Out of scope (now)
 
-- **Phase 1 — Platform + design system + slice.** Astro scaffold, `tokens.css`, Base/Doc
-  layouts, Nav/Sidebar/Toc/DocActions/CodeBlock/Callout/Card, homepage, and a
-  representative content slice (Quickstart, Routing w/ code, one nested page). Dark+light.
-  *This is the first implementation plan.*
-- **Phase 2 — Content.** Author the full docs set fresh (Guide, Core, Cookbook,
-  Middleware, API) as MDX in the collection.
-- **Phase 3 — Features.** Versioning (v4/v5), i18n locales, Pagefind search, Ask Echo
-  provider wiring, deploy pipeline (GitHub/Cloudflare Pages), redirects from old URLs.
+Live AI provider keys (UI + hook only); real translations (scaffold only); marketing pages
+beyond the homepage; v4 content (Phase 3).
 
-## 9. Out of scope (now)
+## 9. Risks
 
-- Live AI backend account/keys (UI + integration point only).
-- Full translations (locale scaffolding only; en authored).
-- Marketing pages beyond the homepage.
-
-## 10. Risks / notes
-
-- **Content rewrite is the largest cost** — it's a writing effort independent of the
-  platform; Phase 2 may itself need decomposition by section.
-- Old URL structure must be preserved via redirects (Docusaurus had `/guide`, `/cookbook`,
-  `/middleware` aliases) to avoid breaking inbound links and SEO.
-- `onBrokenLinks`-style checking must be re-established in the Astro build.
-
-## 11. Open questions (with my recommended default)
-
-1. Search & Ask Echo — **recommend: one ⌘K** with tabs (Search | Ask Echo); single,
-   familiar entry point. Alt: two separate launchers.
-2. Versioning at launch — **recommend: v5-only first**, add v4 in Phase 3 (don't block the
-   rebuild on porting v4 content). Alt: both from day one.
-3. Deploy target — **recommend: Cloudflare Pages** (fast, Pagefind-friendly) with redirects
-   from the old paths. Alt: stay on GitHub Pages.
-
-Defaults above are assumed unless you say otherwise.
+- **Content rewrite is the largest cost** (61 pages × locales) — Phase 2 may need its own
+  decomposition; mitigate by porting existing prose rather than blank-page rewriting.
+- **Starlight theming ceiling:** the Terminal look must be achievable via custom props +
+  light component overrides; if a surface resists theming, prefer a small component override
+  over forking Starlight. (Low risk — the look was already achieved via CSS on Docusaurus.)
+- **`starlight-versions` maturity** for v4 in Phase 3 — re-evaluate at that point; v5-only
+  launch de-risks it.
