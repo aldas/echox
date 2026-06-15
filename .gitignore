@@ -5,3 +5,5 @@ vendor
 .hugo_build.lock
 
 .superpowers/
+.serena/
+.playwright-mcp/

@@ -9,7 +9,7 @@ const darkTheme = themes.dracula;
 const config = {
   title: 'Echo',
   tagline: 'High performance, extensible, minimalist Go web framework',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
 
   // Set the production url of your site here
   url: 'https://echo.labstack.com/',
@@ -32,8 +32,15 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'zh-Hans', 'ja', 'es', 'fr'],
   },
+
+  // Phosphor icon set (used by the Ask Echo palette and doc action toolbar).
+  stylesheets: [
+    'https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css',
+    'https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css',
+    'https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css',
+  ],
 
   presets: [
     [
@@ -103,8 +110,12 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      // Echo social card (1200×630) — the old docusaurus-social-card.jpg never existed.
+      image: 'img/echo-social-card.png',
+      colorMode: {
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
+      },
       navbar: {
         logo: {
           alt: 'Echo',
@@ -127,6 +138,10 @@ const config = {
           {
             href: 'https://github.com/labstack/echo',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
             position: 'right',
           },
         ],
