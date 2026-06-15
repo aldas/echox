@@ -11,15 +11,15 @@ import Default from '@astrojs/starlight/components/Search.astro';
     <div class="echo-search-empty">
       <div class="ess-group">
         <div class="ess-label">Start here</div>
-        <a class="ess-link" href="/guide/quickstart/"><i class="ph ph-rocket-launch"></i> Quickstart <span class="ess-sec">Guide</span></a>
-        <a class="ess-link" href="/guide/routing/"><i class="ph ph-signpost"></i> Routing <span class="ess-sec">Guide</span></a>
-        <a class="ess-link" href="/guide/binding/"><i class="ph ph-brackets-curly"></i> Binding <span class="ess-sec">Guide</span></a>
+        <a class="ess-link" href="/guide/quickstart/"><i aria-hidden="true" class="ph ph-rocket-launch"></i> Quickstart <span class="ess-sec">Guide</span></a>
+        <a class="ess-link" href="/guide/routing/"><i aria-hidden="true" class="ph ph-signpost"></i> Routing <span class="ess-sec">Guide</span></a>
+        <a class="ess-link" href="/guide/binding/"><i aria-hidden="true" class="ph ph-brackets-curly"></i> Binding <span class="ess-sec">Guide</span></a>
       </div>
       <div class="ess-group">
         <div class="ess-label">Popular</div>
-        <a class="ess-link" href="/middleware/jwt/"><i class="ph ph-lock-key"></i> JWT <span class="ess-sec">Middleware</span></a>
-        <a class="ess-link" href="/middleware/cors/"><i class="ph ph-globe"></i> CORS <span class="ess-sec">Middleware</span></a>
-        <a class="ess-link" href="/cookbook/hello-world/"><i class="ph ph-cube"></i> Hello World <span class="ess-sec">Cookbook</span></a>
+        <a class="ess-link" href="/middleware/jwt/"><i aria-hidden="true" class="ph ph-lock-key"></i> JWT <span class="ess-sec">Middleware</span></a>
+        <a class="ess-link" href="/middleware/cors/"><i aria-hidden="true" class="ph ph-globe"></i> CORS <span class="ess-sec">Middleware</span></a>
+        <a class="ess-link" href="/cookbook/hello-world/"><i aria-hidden="true" class="ph ph-cube"></i> Hello World <span class="ess-sec">Cookbook</span></a>
       </div>
       <div class="ess-foot">
         <span><kbd>↵</kbd>open</span><span><kbd>↑</kbd><kbd>↓</kbd>navigate</span><span><kbd>esc</kbd>close</span>
@@ -39,5 +39,14 @@ import Default from '@astrojs/starlight/components/Search.astro';
   if (!inject()) {
     const obs = new MutationObserver(() => { if (inject()) obs.disconnect(); });
     obs.observe(document.body, { childList: true, subtree: true });
+    // Bound the observer: if Pagefind never mounts (disabled in dev, or the
+    // Starlight markup changed on upgrade), stop watching so it can't run for
+    // the page's lifetime. Losing the launchpad is harmless; search still works.
+    setTimeout(() => {
+      obs.disconnect();
+      if (import.meta.env.DEV && !document.querySelector('.echo-search-empty')) {
+        console.warn('[search] empty-state panel not injected — .pagefind-ui selectors may have changed');
+      }
+    }, 10000);
   }
 </script>
