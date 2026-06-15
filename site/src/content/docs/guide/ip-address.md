@@ -76,9 +76,9 @@ e.IPExtractor = echo.ExtractIPFromXFFHeader()
 
 By default it trusts internal IP addresses — loopback, link-local unicast,
 private-use, and unique local addresses from
-[RFC 6890](https://tools.ietf.org/html/rfc6890),
-[RFC 4291](https://tools.ietf.org/html/rfc4291), and
-[RFC 4193](https://tools.ietf.org/html/rfc4193). Control this with `TrustOption`s:
+[RFC 6890](https://datatracker.ietf.org/doc/html/rfc6890),
+[RFC 4291](https://datatracker.ietf.org/doc/html/rfc4291), and
+[RFC 4193](https://datatracker.ietf.org/doc/html/rfc4193). Control this with `TrustOption`s:
 
 ```go
 e.IPExtractor = echo.ExtractIPFromXFFHeader(

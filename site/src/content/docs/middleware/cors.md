@@ -5,7 +5,7 @@ sidebar:
   order: 6
 ---
 
-CORS middleware implements the [CORS](http://www.w3.org/TR/cors) specification. CORS gives
+CORS middleware implements the [CORS](https://fetch.spec.whatwg.org/#http-cors-protocol) specification. CORS gives
 web servers cross-domain access controls, which enable secure cross-domain data transfers.
 
 ## Usage

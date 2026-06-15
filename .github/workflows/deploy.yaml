@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - master
-  # Daily rebuild so build-time data — e.g. the GitHub star count fetched in the
-  # Astro site's src/data/github.ts — stays fresh without a manual deploy.
+  # Daily rebuild + manual trigger. Once the deploy targets the Astro site (at
+  # cutover), this refreshes build-time data like the GitHub star count in
+  # site/src/data/github.ts; until then it just redeploys the current site.
   schedule:
     - cron: '0 6 * * *'
   # Allow manual runs from the Actions tab.
