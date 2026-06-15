@@ -66,9 +66,9 @@ func main() {
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript">
         var host_prefix = 'http://localhost:1323';
-        $(document).ready(function() {
+        $(function() {
             // JSONP version - add 'callback=?' to the URL - fetch the JSONP response to the request
-            $("#jsonp-button").click(function(e) {
+            $("#jsonp-button").on("click", function(e) {
                 e.preventDefault();
                 // The only difference on the client end is the addition of 'callback=?' to the URL
                 var url = host_prefix + '/jsonp?callback=?';
