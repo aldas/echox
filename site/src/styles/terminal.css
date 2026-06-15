@@ -1,0 +1,387 @@
+/* Echo Docs — "Terminal" theme over Astro Starlight.
+   DM Sans prose/headings · Fragment Mono code + UI chrome · warm near-black · Echo cyan. */
+
+:root {
+  --sl-font: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sl-font-mono: 'Fragment Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --echo-cyan: #00afd1;
+  --echo-cyan-2: #4ae1ff;
+  --echo-cyan-text: #33c9e6;   /* contrast-tuned for small text/links on dark */
+  --echo-soft: rgba(0, 175, 209, 0.12);
+}
+
+/* ---------- DARK (default) ---------- */
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #052b33;
+  --sl-color-accent: #00afd1;
+  --sl-color-accent-high: #8be4f4;
+  --sl-color-white: #f4f1ef;
+  --sl-color-gray-1: #ece9e7;
+  --sl-color-gray-2: #c7c0bb;
+  --sl-color-gray-3: #aaa19d;
+  --sl-color-gray-4: #817a76;
+  --sl-color-gray-5: #2d2724;
+  --sl-color-gray-6: #1a1614;
+  --sl-color-black: #0d0b0b;
+
+  --sl-color-bg: #0d0b0b;
+  --sl-color-bg-nav: rgba(13, 11, 11, 0.85);
+  --sl-color-bg-sidebar: #0d0b0b;
+  --sl-color-bg-inline-code: #1c1715;
+  --sl-color-hairline: #221e1c;
+  --sl-color-hairline-light: #2d2724;
+  --sl-color-hairline-shade: #161210;
+  --sl-color-text: #aaa19d;
+  --sl-color-text-accent: var(--echo-cyan-text);
+}
+
+/* ---------- LIGHT ---------- */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #c7eef5;
+  --sl-color-accent: #0089a4;
+  --sl-color-accent-high: #005566;
+  --sl-color-white: #1a1614;
+  --sl-color-gray-1: #221e1c;
+  --sl-color-gray-2: #4a4340;
+  --sl-color-gray-3: #6b6360;
+  --sl-color-gray-4: #908884;
+  --sl-color-gray-5: #e7e1dd;
+  --sl-color-gray-6: #f1ece9;
+  --sl-color-bg: #faf8f7;
+  --sl-color-bg-nav: rgba(250, 248, 247, 0.85);
+  --sl-color-bg-sidebar: #f6f3f1;
+  --sl-color-bg-inline-code: #efeae7;
+  --sl-color-hairline: #e7e1dd;
+  --sl-color-text: #4a4340;
+  --sl-color-text-accent: #0089a4;
+}
+
+/* atmosphere: warm cyan glow (dark, respects reduced motion) */
+:root[data-theme='dark'] body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(840px 460px at 84% -12%, rgba(0, 175, 209, 0.10), transparent 62%);
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+/* ---------- Type ---------- */
+.sl-markdown-content :is(h1, h2, h3, h4) { font-family: var(--sl-font); font-weight: 700; letter-spacing: -0.018em; }
+.sl-markdown-content h1, .content-panel h1 { letter-spacing: -0.03em; }
+.sl-markdown-content { font-size: 0.96rem; }
+
+/* UI chrome in Fragment Mono (terminal feel) */
+.sidebar-content, .sidebar a, nav.sidebar, .right-sidebar, starlight-toc, mobile-starlight-toc,
+.pagination-links, .breadcrumbs, site-search button, .sl-badge, .sl-link-button {
+  font-family: var(--sl-font-mono);
+}
+.sidebar-content a { font-size: 0.82rem; }
+/* sidebar group captions */
+.sidebar-content summary, .top-level > li > a, .sidebar-content > ul > li > details > summary {
+  text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.68rem;
+}
+/* active sidebar item: cyan pill + left bar */
+.sidebar a[aria-current='page'] {
+  color: var(--echo-cyan-text); background: var(--echo-soft);
+  box-shadow: inset 3px 0 0 var(--echo-cyan); border-radius: 0 7px 7px 0;
+}
+
+/* search box (chrome) */
+site-search button { border-radius: 8px !important; }
+
+/* code blocks — let Expressive Code round the whole frame as one unit
+   (title bar: rounded top, code body: rounded bottom). Don't force the inner
+   <pre> corners or it detaches from the title bar into a second box. */
+.expressive-code { --ec-brdRad: 11px; --ec-brdCol: var(--sl-color-hairline); }
+.sl-markdown-content code { font-size: 0.86em; }
+
+/* Retheme Expressive Code to our warm palette (dark) so code blocks match the
+   site instead of github-dark's cool gray, and remove the title-bar seam. */
+[data-theme='dark'] .expressive-code {
+  --ec-codeBg: #0a0908;
+  --ec-frm-edBg: #0a0908;
+  --ec-frm-trmBg: #0a0908;
+  --ec-frm-edTabBarBg: #100e0d;
+  --ec-frm-edTabBarBrdBtmCol: var(--sl-color-hairline);
+  --ec-frm-edActTabBg: #0a0908;
+  --ec-frm-edActTabIndTopCol: var(--echo-cyan);
+  --ec-frm-trmTtbBg: #100e0d;
+  --ec-frm-trmTtbBrdBtmCol: var(--sl-color-hairline);
+  --ec-frm-trmTtbDotsOpa: 0.55;
+  --ec-frm-trmTtbFg: var(--sl-color-gray-4);
+  --ec-brdCol: var(--sl-color-hairline);
+  --ec-frm-frameBoxShdCssVal: none;
+  --ec-frm-inlineBtnBrd: transparent;
+  --ec-frm-inlineBtnBrdHov: transparent;
+  /* "Copied!" success tooltip — on-brand cyan bubble with dark text */
+  --ec-frm-tooltipSuccessBg: var(--echo-cyan);
+  --ec-frm-tooltipSuccessFg: #0d0b0b;
+}
+/* Copy button: EC draws its boxed border on the button's ::before pseudo —
+   kill that, keep a subtle fill that warms to cyan, and tint the icon on hover. */
+.expressive-code .copy button {
+  border: none !important;
+  background: color-mix(in srgb, #fff 4%, transparent);
+  border-radius: 7px;
+}
+.expressive-code .copy button::before { border: none !important; background: transparent !important; }
+.expressive-code .copy button:hover { background: color-mix(in srgb, var(--echo-cyan) 16%, transparent); }
+.expressive-code .copy button:hover::after { background-color: var(--echo-cyan-2) !important; } /* icon glyph */
+
+/* ---------- Doc action toolbar ---------- */
+.doc-actions { display: flex; flex-wrap: wrap; gap: 7px; margin: 4px 0 4px; }
+.doc-act {
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--sl-font-mono);
+  font-size: 0.72rem; color: var(--sl-color-gray-3); border: 1px solid var(--sl-color-hairline-light);
+  background: var(--sl-color-bg-sidebar); border-radius: 7px; padding: 5px 11px; cursor: pointer;
+  line-height: 1; text-decoration: none; transition: all .15s;
+}
+.doc-act:hover { color: var(--sl-color-white); border-color: var(--echo-cyan); text-decoration: none; }
+.doc-act .ph { font-size: 14px; }
+.doc-act--primary { background: var(--echo-soft); border-color: transparent; color: var(--echo-cyan-text); }
+
+/* ---------- Ask Echo (island) ---------- */
+.ask-fab {
+  position: fixed; right: 22px; bottom: 22px; z-index: 999; display: inline-flex; align-items: center; gap: 8px;
+  background: var(--sl-color-bg-sidebar); border: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-white);
+  border-radius: 30px; padding: 9px 16px; font-family: var(--sl-font-mono); font-size: 0.78rem; cursor: pointer;
+  box-shadow: 0 14px 34px -12px rgba(0,0,0,.7);
+}
+.ask-fab:hover { border-color: var(--echo-cyan); }
+.ask-fab .ph { color: var(--echo-cyan-text); font-size: 16px; }
+.ask-fab kbd { background: var(--sl-color-hairline); border: 1px solid var(--sl-color-hairline-light); border-radius: 5px; padding: 1px 6px; font-size: 0.7rem; color: var(--sl-color-gray-4); }
+.ask-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(6,5,5,.66); backdrop-filter: blur(6px); display: flex; align-items: flex-start; justify-content: center; padding-top: 11vh; }
+.ask-overlay[hidden] { display: none; }
+.ask-fab[hidden] { display: none; }
+.ask-palette { width: min(660px, 92vw); background: var(--sl-color-bg-sidebar); border: 1px solid var(--sl-color-hairline-light); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 120px -30px rgba(0,0,0,.9); font-family: var(--sl-font-mono); }
+.ask-top { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--sl-color-hairline); }
+.ask-top .ph { color: var(--echo-cyan-text); font-size: 19px; }
+.ask-input { flex: 1; background: none; border: 0; outline: none; color: var(--sl-color-white); font-size: 15px; font-family: var(--sl-font-mono); }
+.ask-input::placeholder { color: var(--sl-color-gray-4); }
+.ask-esc { font-size: 0.7rem; color: var(--sl-color-gray-4); border: 1px solid var(--sl-color-hairline-light); border-radius: 6px; padding: 3px 7px; }
+.ask-body { max-height: 54vh; overflow-y: auto; padding: 12px 16px 16px; }
+.ask-s { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 10px 11px; border: 0; background: none; border-radius: 8px; color: var(--sl-color-gray-3); font-size: 13px; cursor: pointer; font-family: var(--sl-font-mono); }
+.ask-s:hover { background: var(--sl-color-hairline); color: var(--sl-color-white); }
+.ask-s .ph { font-size: 17px; color: var(--echo-cyan-text); }
+.ask-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; color: var(--echo-cyan-text); background: var(--echo-soft); border-radius: 20px; padding: 4px 11px; margin-bottom: 13px; }
+.ask-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--echo-cyan); animation: askb 1.2s infinite; }
+@keyframes askb { 50% { opacity: .3; } }
+.ask-answer { font-size: 13.5px; line-height: 1.7; color: var(--sl-color-text); }
+.ask-answer strong { color: var(--sl-color-white); }
+.ask-answer pre { margin: 12px 0; background: #0a0908; border: 1px solid var(--sl-color-hairline); border-radius: 9px; padding: 14px 16px; overflow-x: auto; font-size: 12.5px; }
+.ask-cursor { display: inline-block; width: 7px; height: 15px; background: var(--echo-cyan); vertical-align: -2px; animation: askb .9s infinite; }
+.ask-sources { margin-top: 16px; border-top: 1px solid var(--sl-color-hairline); padding-top: 12px; }
+.ask-sources h5 { font-size: 0.62rem; text-transform: uppercase; letter-spacing: .1em; color: var(--sl-color-gray-4); margin-bottom: 8px; }
+.ask-src { display: flex; gap: 9px; padding: 6px 8px; border-radius: 7px; color: var(--sl-color-gray-3); font-size: 12.5px; }
+.ask-n { font-size: 0.7rem; color: var(--echo-cyan-text); border: 1px solid var(--sl-color-hairline-light); border-radius: 5px; padding: 1px 6px; }
+
+/* ---------- Homepage ---------- */
+.hero { padding-block: 3rem 1rem; }
+.hero h1 { font-weight: 800; letter-spacing: -0.035em; }
+.hero .tagline { font-family: var(--sl-font-mono); font-size: 0.95rem; }
+.echo-cw { border: 1px solid var(--sl-color-hairline-light); border-radius: 13px; overflow: hidden; background: #0a0908; box-shadow: 0 30px 80px -40px rgba(0,0,0,.8); text-align: left; }
+.echo-cw .bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--sl-color-hairline); }
+.echo-cw .bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.echo-cw .bar .fn { margin-left: 8px; font-family: var(--sl-font-mono); font-size: 11.5px; color: var(--sl-color-gray-4); }
+.echo-cw pre { margin: 0; padding: 16px 18px; font-family: var(--sl-font-mono); font-size: 12.5px; line-height: 1.8; overflow: auto; color: var(--sl-color-text); }
+.echo-cw .kw { color: var(--echo-cyan-2); } .echo-cw .str { color: #c79a6b; } .echo-cw .cm { color: #5f5853; }
+.echo-cw .run { border-top: 1px solid var(--sl-color-hairline); padding: 11px 18px; font-family: var(--sl-font-mono); font-size: 12px; color: var(--sl-color-gray-4); }
+.echo-cw .run .ok { color: #28c840; }
+
+.echo-stats { display: flex; gap: 38px; flex-wrap: wrap; justify-content: center; padding: 26px 0; margin: 8px 0; border-block: 1px solid var(--sl-color-hairline); font-family: var(--sl-font-mono); }
+.echo-stats b { display: block; font-family: var(--sl-font); font-weight: 700; font-size: 1.6rem; color: var(--sl-color-white); letter-spacing: -0.02em; }
+.echo-stats span { font-size: 0.8rem; color: var(--sl-color-gray-4); }
+.echo-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+@media (max-width: 800px) { .echo-features { grid-template-columns: 1fr; } }
+.echo-card { border: 1px solid var(--sl-color-hairline); background: var(--sl-color-bg-sidebar); border-radius: 13px; padding: 20px; }
+.echo-card .ph { font-size: 22px; color: var(--echo-cyan-text); }
+.echo-card h3 { font-family: var(--sl-font); font-weight: 600; font-size: 1.05rem; margin: 12px 0 6px; color: var(--sl-color-white); }
+.echo-card p { font-size: 0.9rem; color: var(--sl-color-gray-3); margin: 0; line-height: 1.62; }
+
+/* install command pill */
+.echo-install { display: flex; justify-content: center; margin: -4px 0 4px; }
+.echo-install code {
+  font-family: var(--sl-font-mono); font-size: 13.5px; color: var(--sl-color-white);
+  background: #0a0908; border: 1px solid var(--sl-color-hairline-light); border-radius: 10px; padding: 11px 18px;
+}
+.echo-install .p { color: var(--echo-cyan-text); margin-right: 8px; }
+.echo-install .c { color: var(--sl-color-gray-4); margin-left: 10px; border-left: 1px solid var(--sl-color-hairline-light); padding-left: 12px; }
+
+/* section heading */
+.echo-h { text-align: center; margin: 56px 0 26px; }
+.echo-h .ey { font-family: var(--sl-font); font-weight: 600; font-size: 0.72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--echo-cyan-text); }
+.echo-h h2 { font-family: var(--sl-font); font-weight: 700; font-size: 1.7rem; letter-spacing: -0.02em; color: var(--sl-color-white); margin: 8px 0 0; border: 0; padding: 0; }
+
+/* get-started steps */
+.echo-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 800px) { .echo-steps { grid-template-columns: 1fr; } }
+.echo-step { position: relative; border: 1px solid var(--sl-color-hairline); border-radius: 12px; padding: 22px 22px 20px; background: var(--sl-color-bg-sidebar); transition: border-color .15s; }
+.echo-step:hover { border-color: rgba(0,175,209,.4); }
+.echo-step .n { display: block; font-family: var(--sl-font-mono); font-size: 1.9rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em; background: linear-gradient(180deg, var(--echo-cyan-2), var(--echo-cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 0 0 14px; }
+.echo-step h4 { font-family: var(--sl-font); font-weight: 600; font-size: 0.95rem; color: var(--sl-color-white); margin: 0 0 6px; }
+.echo-step p { font-size: 0.9rem; color: var(--sl-color-gray-3); margin: 0 0 12px; }
+.echo-step pre { margin: 0; background: #0a0908; border: 1px solid var(--sl-color-hairline); border-radius: 8px; padding: 10px 12px; font-family: var(--sl-font-mono); font-size: 11.5px; color: var(--sl-color-text); overflow-x: auto; }
+
+/* footer */
+.echo-foot { margin-top: 64px; border-top: 1px solid var(--sl-color-hairline); padding-top: 34px; display: flex; flex-wrap: wrap; gap: 30px 56px; }
+.echo-foot .brand { flex: 1 1 200px; }
+.echo-foot .brand .n { font-family: var(--sl-font); font-weight: 700; font-size: 1.05rem; color: var(--sl-color-white); }
+.echo-foot .brand p { font-family: var(--sl-font-mono); font-size: 0.74rem; color: var(--sl-color-gray-4); margin: 8px 0 0; max-width: 30ch; }
+.echo-foot .col h4 { font-family: var(--sl-font); font-size: 0.66rem; text-transform: uppercase; letter-spacing: .12em; color: var(--sl-color-gray-4); margin: 0 0 12px; }
+.echo-foot .col a { display: block; font-family: var(--sl-font-mono); font-size: 0.875rem; color: var(--sl-color-gray-3); padding: 4px 0; text-decoration: none; }
+.echo-foot .col a:hover { color: var(--echo-cyan-text); }
+.echo-copy { width: 100%; margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--sl-color-hairline); font-family: var(--sl-font-mono); font-size: 0.72rem; color: var(--sl-color-gray-4); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+
+/* social icon row — used in both homepage footer and the site-wide docs footer */
+.echo-social { display: inline-flex; align-items: center; gap: 16px; }
+.echo-social a { display: inline-flex; color: var(--sl-color-gray-3); font-size: 1.2rem; line-height: 1; text-decoration: none; transition: color .15s; }
+.echo-social a:hover { color: var(--echo-cyan-text); }
+
+/* site-wide footer on docs pages (homepage uses its own .echo-foot) */
+.echo-docfoot { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--sl-color-hairline); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-family: var(--sl-font-mono); font-size: 0.72rem; color: var(--sl-color-gray-4); }
+
+/* ===================== Asides / callouts ===================== */
+/* Starlight defaults (purple note, muddy yellow caution) clash with the warm
+   terminal palette. Re-theme: faint tinted bg, solid accent left-bar, mono
+   accent title. Each variant just sets --aside-accent / --aside-text. */
+.starlight-aside {
+  --aside-accent: var(--echo-cyan);
+  --aside-text: var(--echo-cyan-text);
+  border: 1px solid color-mix(in srgb, var(--aside-accent) 25%, transparent);
+  border-inline-start: 3px solid var(--aside-accent);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--aside-accent) 8%, var(--sl-color-bg));
+  padding: 14px 18px;
+}
+.starlight-aside__title {
+  color: var(--aside-text);
+  font-family: var(--sl-font-mono);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.starlight-aside__icon { color: var(--aside-accent); }
+.starlight-aside__content { color: var(--sl-color-gray-2); font-size: 0.92rem; }
+.starlight-aside__content a { color: var(--aside-text); text-underline-offset: 2px; }
+
+.starlight-aside--note    { --aside-accent: #00afd1; --aside-text: #5fd6ec; }
+.starlight-aside--tip     { --aside-accent: #3fb950; --aside-text: #6fdc82; }
+.starlight-aside--caution { --aside-accent: #d9a23b; --aside-text: #f0c674; }
+.starlight-aside--danger  { --aside-accent: #f06f6f; --aside-text: #ff9b9b; }
+
+/* ===================== Prev / next pager ===================== */
+/* Starlight's default title is ~h4; in mono it reads oversized. Tone down,
+   tighten padding, add a cyan hover border to match other interactive cards. */
+.pagination-links a { padding: 14px 18px; border-radius: 10px; transition: border-color .15s, background .15s; }
+.pagination-links a:hover { border-color: var(--echo-cyan); }
+.pagination-links a > span { font-size: 0.68rem; color: var(--sl-color-gray-4); }
+.pagination-links a .link-title { font-size: 1.02rem; font-weight: 600; margin-top: 2px; }
+
+/* ===================== Theme polish ===================== */
+
+/* Tables — mono accent headers, hairline rules, subtle row hover */
+.sl-markdown-content table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+.sl-markdown-content th, .sl-markdown-content td { border: 1px solid var(--sl-color-hairline); padding: 8px 13px; }
+.sl-markdown-content th {
+  font-family: var(--sl-font-mono); font-weight: 600; font-size: 0.74rem;
+  text-transform: uppercase; letter-spacing: 0.05em; text-align: start;
+  color: var(--echo-cyan-text); background: var(--sl-color-bg-sidebar);
+}
+.sl-markdown-content tbody tr:hover td { background: color-mix(in srgb, var(--echo-cyan) 5%, transparent); }
+
+/* Blockquotes — cyan accent + faint tint instead of the plain gray bar */
+.sl-markdown-content blockquote {
+  border-inline-start: 3px solid var(--echo-cyan);
+  background: color-mix(in srgb, var(--echo-cyan) 5%, transparent);
+  border-radius: 0 8px 8px 0; padding: 2px 18px; color: var(--sl-color-gray-2);
+}
+
+/* Sidebar + TOC current item in Echo cyan */
+.sidebar-content a[aria-current='page'] { color: var(--echo-cyan-text); font-weight: 600; }
+starlight-toc a[aria-current='true'] { color: var(--echo-cyan-text); border-inline-start-color: var(--echo-cyan); }
+
+/* Prose links — cyan with a softer underline that firms up on hover.
+   Scoped to text containers only so it never overrides component buttons/cards
+   (e.g. the homepage .hh-btn CTAs, footer links) that live in .sl-markdown-content. */
+.sl-markdown-content :is(p, li, td, dd) a {
+  color: var(--echo-cyan-text); text-underline-offset: 3px; text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, var(--echo-cyan) 45%, transparent);
+}
+.sl-markdown-content :is(p, li, td, dd) a:hover { text-decoration-color: var(--echo-cyan); }
+
+/* Thin, terminal-flavored scrollbar */
+* { scrollbar-width: thin; scrollbar-color: #3a3433 transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #3a3433; border-radius: 6px; border: 2px solid var(--sl-color-bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--echo-cyan); }
+
+/* ===================== Living Terminal hero ===================== */
+/* Home uses a custom <HomeHero/>; hide Starlight's own splash hero/title region. */
+.sl-markdown-content + .hero, .content-panel .hero, main > .hero { display: none; }
+:where(.hero) { display: none; }
+
+/* Starlight adds margin-top to every adjacent sibling inside .sl-markdown-content,
+   which knocks the 2nd+ item of each flex/grid row out of alignment. Our home rows
+   manage their own spacing via gap/explicit margins — neutralise the injected margin. */
+.hh > *, .hh-left > *, .hh-win .bar > *,
+.echo-stats > *, .echo-features > *, .echo-steps > *, .echo-eco > *,
+.sp-featured > *, .sp-card > *, .sp-grid > *,
+.echo-foot > .brand, .echo-foot > .col { margin-top: 0; }
+.hh-win .bar i { align-self: center; }
+
+.hh { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; padding: 28px 0 8px; }
+@media (max-width: 900px) { .hh { grid-template-columns: 1fr; gap: 28px; } }
+.hh-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-family: var(--sl-font-mono); font-size: 0.72rem; color: var(--echo-cyan-text); border: 1px solid rgba(0,175,209,.3); background: var(--echo-soft); border-radius: 30px; padding: 4px 12px; margin-bottom: 22px; }
+.hh h1 { font-family: var(--sl-font); font-weight: 800; font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height: 1.05; letter-spacing: -0.035em; color: var(--sl-color-white); margin: 0 0 18px; }
+.hh h1 .g { color: var(--echo-cyan-text); }
+.hh-sub { font-family: var(--sl-font-mono); font-size: 1rem; line-height: 1.72; color: var(--sl-color-text); max-width: 48ch; margin-bottom: 26px; }
+.hh-cta { display: flex; gap: 11px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+.hh-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sl-font); font-weight: 600; font-size: 0.92rem; border-radius: 10px; padding: 11px 20px; cursor: pointer; text-decoration: none; transition: all .16s; }
+.hh-btn.pri { background: linear-gradient(145deg, #00afd1, #4ae1ff); color: #04110c; }
+.hh-btn.pri:hover { box-shadow: 0 10px 26px -8px var(--echo-cyan); }
+.hh-btn.sec { border: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-white); background: var(--sl-color-bg-sidebar); }
+.hh-btn.sec:hover { border-color: var(--echo-cyan); }
+.hh-install { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sl-font-mono); font-size: 0.9rem; color: var(--sl-color-text); border: 1px solid var(--sl-color-hairline-light); background: #0a0908; border-radius: 9px; padding: 10px 15px; cursor: pointer; }
+.hh-install .p { color: var(--echo-cyan-text); }
+.hh-install .cp { margin-left: 4px; color: var(--sl-color-gray-4); }
+.hh-install:hover .cp { color: var(--echo-cyan-text); }
+
+/* terminal window */
+.hh-win { border: 1px solid var(--sl-color-hairline-light); border-radius: 13px; overflow: hidden; background: #0a0908; box-shadow: 0 30px 80px -40px rgba(0,0,0,.85); font-family: var(--sl-font-mono); }
+.hh-win .bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--sl-color-hairline); }
+.hh-win .bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.hh-win .bar .fn { margin-left: 8px; font-size: 11.5px; color: var(--sl-color-gray-4); }
+.hh-win pre { margin: 0; padding: 15px 18px; font-size: 12.3px; line-height: 1.75; color: var(--sl-color-text); overflow-x: auto; }
+.hh-win .kw { color: var(--echo-cyan-2); } .hh-win .str { color: #c79a6b; } .hh-win .cm { color: #5f5853; } .hh-win .fnn { color: #d6cfc9; }
+.hh-term { border-top: 1px solid var(--sl-color-hairline); background: #08100f; padding: 14px 18px; font-size: 12.3px; line-height: 1.85; min-height: 118px; }
+.hh-term .pr { color: var(--echo-cyan-text); }
+.hh-term .dim { color: var(--sl-color-gray-4); }
+.hh-term .ok { color: #28c840; }
+.hh-term .json { color: #9fd6cf; }
+.hh-cur { display: inline-block; width: 7px; height: 14px; background: var(--echo-cyan); vertical-align: -2px; animation: hhblink 1s steps(2,start) infinite; }
+@keyframes hhblink { 50% { opacity: 0; } }
+
+/* ===================== Sponsors ===================== */
+.sp-featured { display: flex; align-items: center; gap: 16px; justify-content: center; border: 1px solid var(--sl-color-hairline-light); background: var(--sl-color-bg-sidebar); border-radius: 14px; padding: 20px 26px; max-width: 560px; margin: 0 auto 18px; text-decoration: none; transition: border-color .15s; }
+.sp-featured:hover { border-color: var(--echo-cyan); }
+.sp-featured .t b, .sp-featured .t span { text-decoration: none; }
+.sp-featured img { width: 44px; height: 44px; border-radius: 10px; }
+.sp-featured .t b { font-family: var(--sl-font); font-weight: 700; color: var(--sl-color-white); font-size: 1rem; }
+.sp-featured .t span { display: block; font-family: var(--sl-font-mono); font-size: 0.86rem; color: var(--sl-color-gray-4); margin-top: 4px; }
+.sp-grid { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 22px; }
+.sp-card { display: flex; align-items: center; gap: 10px; border: 1px solid var(--sl-color-hairline); border-radius: 10px; padding: 10px 14px; text-decoration: none; transition: border-color .15s; }
+.sp-card:hover { border-color: var(--echo-cyan); }
+.sp-card img { width: 26px; height: 26px; border-radius: 50%; }
+.sp-card span { font-family: var(--sl-font-mono); font-size: 0.9rem; color: var(--sl-color-gray-3); }
+.sp-cta { text-align: center; }
+.sp-cta a { font-family: var(--sl-font-mono); font-size: 0.82rem; color: var(--echo-cyan-text); text-decoration: none; border: 1px solid rgba(0,175,209,.3); border-radius: 9px; padding: 8px 16px; }
+.sp-cta a:hover { background: var(--echo-soft); }
+
+/* ===================== Ecosystem ===================== */
+.echo-eco { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 800px) { .echo-eco { grid-template-columns: 1fr 1fr; } }
+.eco-card { border: 1px solid var(--sl-color-hairline); border-radius: 11px; padding: 16px; text-decoration: none; transition: border-color .15s, transform .15s; }
+.eco-card:hover { border-color: var(--echo-cyan); transform: translateY(-2px); }
+.eco-card h4 { font-family: var(--sl-font-mono); font-weight: 500; font-size: 0.92rem; color: var(--echo-cyan-text); margin: 0 0 6px; }
+.eco-card p { font-family: var(--sl-font); font-size: 0.86rem; color: var(--sl-color-gray-3); margin: 0; line-height: 1.55; }

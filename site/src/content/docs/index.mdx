@@ -1,0 +1,100 @@
+---
+title: Echo
+description: High performance, extensible, minimalist Go web framework — a zero-allocation router, batteries-included middleware, and an expressive API.
+template: splash
+# Homepage gets a descriptive, keyword-rich <title> instead of the bare
+# "Echo | Echo" Starlight would derive from title === site title.
+head:
+  - tag: title
+    content: Echo — High performance, minimalist Go web framework
+# Minimal hero so Starlight folds the page title into the (hidden) hero region
+# instead of rendering a separate title panel. Our real hero is <HomeHero/>.
+hero:
+  tagline: ' '
+tableOfContents: false
+---
+
+import HomeHero from '../../components/HomeHero.astro';
+
+<HomeHero />
+
+<div class="echo-stats">
+  <div><b>32.4k</b><span>GitHub stars</span></div>
+  <div><b>0 allocs</b><span>router, per request</span></div>
+  <div><b>25+</b><span>built-in middlewares</span></div>
+  <div><b>MIT</b><span>open source license</span></div>
+</div>
+
+<div class="echo-h"><span class="ey">Why Echo</span><h2>Everything you need. Nothing you don't.</h2></div>
+
+<div class="echo-features">
+  <div class="echo-card"><i class="ph ph-lightning"></i><h3>Optimized Router</h3><p>Radix-tree routing with zero dynamic allocation and smart route prioritization.</p></div>
+  <div class="echo-card"><i class="ph ph-stack"></i><h3>Batteries-included Middleware</h3><p>CORS, JWT, rate-limit, gzip, recover, request logging — 25+ built in.</p></div>
+  <div class="echo-card"><i class="ph ph-link"></i><h3>Data Binding</h3><p>Bind JSON, XML, form, query &amp; path params into typed structs, with validation.</p></div>
+  <div class="echo-card"><i class="ph ph-lock-key"></i><h3>Automatic TLS</h3><p>HTTPS out of the box via Let's Encrypt, plus HTTP/2 support.</p></div>
+  <div class="echo-card"><i class="ph ph-puzzle-piece"></i><h3>Extensible</h3><p>Composable middleware and a clean, minimal interface for total control.</p></div>
+  <div class="echo-card"><i class="ph ph-code"></i><h3>Templates</h3><p>Plug in any Go template engine for fast, flexible HTML rendering.</p></div>
+</div>
+
+<div class="echo-h"><span class="ey">Get Started</span><h2>A running server in three steps.</h2></div>
+
+<div class="echo-steps">
+  <div class="echo-step"><span class="n">01</span><h4>Install</h4><p>Add Echo to your module.</p><pre>go get github.com/labstack/echo/v5</pre></div>
+  <div class="echo-step"><span class="n">02</span><h4>Write</h4><p>Register a route.</p><pre>e := echo.New()
+e.GET("/", hello)
+e.Start(":1323")</pre></div>
+  <div class="echo-step"><span class="n">03</span><h4>Run</h4><p>Start serving.</p><pre>go run main.go
+⇨ :1323</pre></div>
+</div>
+
+<div class="echo-h"><span class="ey">Ecosystem</span><h2>Official packages, ready to plug in.</h2></div>
+
+<div class="echo-eco">
+  <a class="eco-card" href="https://github.com/labstack/echo-jwt"><h4>echo-jwt</h4><p>JWT authentication middleware backed by golang-jwt.</p></a>
+  <a class="eco-card" href="https://github.com/labstack/echo-contrib"><h4>echo-contrib</h4><p>Prometheus, Casbin, Jaeger, pprof, Zipkin &amp; session helpers.</p></a>
+  <a class="eco-card" href="https://github.com/swaggo/echo-swagger"><h4>echo-swagger</h4><p>Generate and serve interactive Swagger / OpenAPI docs.</p></a>
+  <a class="eco-card" href="https://pkg.go.dev/github.com/labstack/echo/v5"><h4>API Reference</h4><p>Full package documentation on pkg.go.dev.</p></a>
+</div>
+
+<div class="echo-h"><span class="ey">Sponsors</span><h2>Backed by teams who build on Echo.</h2></div>
+
+<a class="sp-featured" href="https://encore.dev">
+  <img src="https://github.com/encoredev.png?size=88" alt="Encore" />
+  <span class="t"><b>Encore</b><span>The platform for building Go-based cloud backends.</span></span>
+</a>
+
+<div class="sp-grid">
+  <a class="sp-card" href="https://github.com/customerio"><img src="https://github.com/customerio.png?size=52" alt="Customer.io" /><span>Customer.io</span></a>
+  <a class="sp-card" href="https://github.com/gravitycarbon"><img src="https://github.com/gravitycarbon.png?size=52" alt="Gravity Carbon" /><span>Gravity Carbon</span></a>
+  <a class="sp-card" href="https://github.com/mjslabs"><img src="https://github.com/mjslabs.png?size=52" alt="MJS Labs" /><span>MJS Labs</span></a>
+  <a class="sp-card" href="https://github.com/Codeerror"><img src="https://github.com/Codeerror.png?size=52" alt="Codeerror" /><span>Codeerror</span></a>
+</div>
+
+<div class="sp-cta"><a href="https://github.com/sponsors/labstack"><i class="ph ph-heart"></i> Become a sponsor</a></div>
+
+<div class="echo-foot">
+  <div class="brand">
+    <span class="n">echo</span>
+    <p>High performance, extensible, minimalist Go web framework.</p>
+  </div>
+  <div class="col">
+    <h4>Docs</h4>
+    <a href="/guide/quickstart/">Quickstart</a>
+    <a href="/guide/routing/">Routing</a>
+    <a href="/middleware/cors/">Middleware</a>
+    <a href="/cookbook/hello-world/">Cookbook</a>
+  </div>
+  <div class="col">
+    <h4>Project</h4>
+    <a href="https://github.com/labstack/echo">GitHub</a>
+    <a href="https://github.com/labstack/echo/releases">Releases</a>
+    <a href="https://github.com/labstack/echo/discussions">Discussions</a>
+    <a href="https://github.com/labstack/echo/blob/master/.github/CONTRIBUTING.md">Contributing</a>
+  </div>
+  <div class="col">
+    <h4>Resources</h4>
+    <a href="https://pkg.go.dev/github.com/labstack/echo/v5">API Reference</a>
+    <a href="https://github.com/sponsors/labstack">Sponsor</a>
+    <a href="https://github.com/labstack/echo/blob/master/LICENSE">MIT License</a>
+  </div>
+</div>
