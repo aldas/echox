@@ -1,0 +1,19 @@
+---
+import Default from '@astrojs/starlight/components/Footer.astro';
+import AskEcho from './AskEcho.astro';
+
+const year = new Date().getFullYear();
+---
+<Default><slot /></Default>
+<AskEcho />
+<footer class="echo-docfoot">
+  <span>© {year} LabStack LLC. Released under the MIT License.</span>
+  <div class="echo-social">
+    <a href="https://x.com/labstack" target="_blank" rel="noopener noreferrer" aria-label="LabStack on X">
+      <i class="ph ph-x-logo"></i>
+    </a>
+    <a href="https://github.com/labstack/echo" target="_blank" rel="noopener noreferrer" aria-label="Echo on GitHub">
+      <i class="ph ph-github-logo"></i>
+    </a>
+  </div>
+</footer>

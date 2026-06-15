@@ -1,0 +1,109 @@
+---
+// Living Terminal hero: code window + a terminal pane that types `curl`
+// and streams Echo's JSON response. Animation is client-side, with a
+// static final-state fallback for reduced-motion / no-JS.
+import { starsLabel } from '../data/github.ts';
+---
+
+<section class="hh">
+  <div class="hh-left">
+    <span class="hh-eyebrow"><i class="ph ph-sparkle"></i> Echo v5.2 — now released</span>
+    <h1>Build fast Go APIs.<br /><span class="g">Without the bloat.</span></h1>
+    <p class="hh-sub">
+      A high-performance, minimalist Go web framework — a zero-allocation
+      router, batteries-included middleware, and an expressive API. Ship
+      production services in minutes.
+    </p>
+    <div class="hh-cta">
+      <a class="hh-btn pri" href="/guide/quickstart/">Get Started <i class="ph ph-arrow-right"></i></a>
+      <a class="hh-btn sec" href="https://github.com/labstack/echo" target="_blank" rel="noopener noreferrer"><i class="ph ph-star"></i> {starsLabel} on GitHub</a>
+    </div>
+    <button class="hh-install" type="button" data-copy="go get github.com/labstack/echo/v5" aria-label="Copy install command">
+      <span class="p">$</span> go get github.com/labstack/echo/v5 <i class="ph ph-copy cp"></i>
+    </button>
+  </div>
+
+  <div class="hh-win" aria-hidden="true">
+    <div class="bar">
+      <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
+      <span class="fn">main.go</span>
+    </div>
+    <pre><span class="kw">package</span> main
+
+<span class="kw">import</span> <span class="str">"github.com/labstack/echo/v5"</span>
+
+<span class="kw">func</span> <span class="fnn">main</span>() &#123;
+    e := echo.<span class="fnn">New</span>()
+    e.<span class="fnn">GET</span>(<span class="str">"/"</span>, <span class="kw">func</span>(c *echo.Context) <span class="kw">error</span> &#123;
+        <span class="kw">return</span> c.<span class="fnn">JSON</span>(<span class="str">200</span>, echo.Map&#123;<span class="str">"message"</span>: <span class="str">"Hello, World!"</span>&#125;)
+    &#125;)
+    e.<span class="fnn">Start</span>(<span class="str">":1323"</span>)
+&#125;</pre>
+    <div class="hh-term" data-term>
+      <div><span class="pr">~/echo $</span> <span data-cmd></span><span class="hh-cur" data-cur></span></div>
+      <div data-out></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // --- install copy button ---
+  document.querySelectorAll<HTMLButtonElement>('.hh-install').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        const icon = btn.querySelector('.cp');
+        if (icon) {
+          icon.classList.remove('ph-copy');
+          icon.classList.add('ph-check');
+          setTimeout(() => {
+            icon.classList.remove('ph-check');
+            icon.classList.add('ph-copy');
+          }, 1400);
+        }
+      } catch {}
+    });
+  });
+
+  // --- terminal typing animation ---
+  const term = document.querySelector('[data-term]');
+  if (term) {
+    const cmdEl = term.querySelector('[data-cmd]') as HTMLElement;
+    const outEl = term.querySelector('[data-out]') as HTMLElement;
+    const curEl = term.querySelector('[data-cur]') as HTMLElement;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const response =
+      '<span class="dim">HTTP/1.1 200 OK · 0 allocations</span>\n' +
+      '<span class="json">{ "message": "Hello, World!" }</span>';
+    const cmd = 'curl localhost:1323';
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+    async function run() {
+      while (true) {
+        cmdEl.textContent = '';
+        outEl.innerHTML = '';
+        curEl.style.display = 'inline-block';
+        await sleep(900);
+        for (const ch of cmd) {
+          cmdEl.textContent += ch;
+          await sleep(55);
+        }
+        await sleep(450);
+        curEl.style.display = 'none';
+        outEl.innerHTML = '<pre style="margin:6px 0 0;padding:0;background:none;font:inherit">' + response + '</pre>';
+        await sleep(3600);
+      }
+    }
+
+    if (reduce) {
+      cmdEl.textContent = cmd;
+      curEl.style.display = 'none';
+      outEl.innerHTML = '<pre style="margin:6px 0 0;padding:0;background:none;font:inherit">' + response + '</pre>';
+    } else {
+      run();
+    }
+  }
+</script>
