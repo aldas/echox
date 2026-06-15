@@ -87,6 +87,34 @@
 /* search box (chrome) */
 site-search button { border-radius: 8px !important; }
 
+/* Empty search modal: a command-palette launchpad (quick links + shortcut
+   footer) injected by Search.astro, shown only before a query exists. Pagefind
+   marks the results drawer .pagefind-ui__hidden when empty. */
+.echo-search-empty { display: none; }
+.pagefind-ui:has(.pagefind-ui__drawer.pagefind-ui__hidden) .echo-search-empty { display: block; }
+.echo-search-empty { margin-top: 16px; }
+.ess-group + .ess-group { margin-top: 14px; }
+.ess-label {
+  font-family: var(--sl-font-mono); font-size: 0.66rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--sl-color-gray-4); padding: 0 4px 6px;
+}
+.ess-link {
+  display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: 9px;
+  text-decoration: none; color: var(--sl-color-white); font-size: 0.9rem; line-height: 1;
+}
+.ess-link i { font-size: 1.05rem; color: var(--echo-cyan-text); width: 1.2em; text-align: center; }
+.ess-link .ess-sec { margin-left: auto; font-family: var(--sl-font-mono); font-size: 0.7rem; color: var(--sl-color-gray-4); }
+.ess-link:hover, .ess-link:focus-visible { background: var(--echo-soft); outline: none; }
+.ess-foot {
+  display: flex; gap: 18px; justify-content: center; flex-wrap: wrap;
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--sl-color-hairline);
+  font-family: var(--sl-font-mono); font-size: 0.72rem; color: var(--sl-color-gray-4);
+}
+.ess-foot kbd {
+  font-family: var(--sl-font-mono); font-size: 0.72rem; background: var(--sl-color-bg-inline-code);
+  border: 1px solid var(--sl-color-hairline); border-radius: 5px; padding: 1px 6px; margin-right: 5px;
+}
+
 /* code blocks — let Expressive Code round the whole frame as one unit
    (title bar: rounded top, code body: rounded bottom). Don't force the inner
    <pre> corners or it detaches from the title bar into a second box. */

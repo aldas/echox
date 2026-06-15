@@ -29,3 +29,22 @@ export const stars = await fetchStars();
 
 /** e.g. 32412 -> "32.4k" */
 export const starsLabel = stars >= 1000 ? `${(stars / 1000).toFixed(1)}k` : String(stars);
+
+const FALLBACK_VERSION = 'v5';
+
+// Latest released echo/v5, via the Go module proxy — canonical and v5-only
+// (avoids GitHub "latest release" occasionally pointing at a v4 patch).
+async function fetchLatestVersion(): Promise<string> {
+  try {
+    const res = await fetch('https://proxy.golang.org/github.com/labstack/echo/v5/@latest');
+    if (!res.ok) throw new Error(`Go proxy responded ${res.status}`);
+    const data = await res.json();
+    return typeof data.Version === 'string' ? data.Version : FALLBACK_VERSION;
+  } catch (e) {
+    console.warn(`[github] version fetch failed; using fallback ${FALLBACK_VERSION}:`, e);
+    return FALLBACK_VERSION;
+  }
+}
+
+/** e.g. "v5.2.1" */
+export const echoVersion = await fetchLatestVersion();
