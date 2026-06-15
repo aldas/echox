@@ -1,0 +1,24 @@
+version: 2
+updates:
+  # Astro docs site (site/). Group everything into a single weekly PR so the
+  # advisory stream is one reviewed change, not nonstop noise. No auto-merge —
+  # updates are deliberate (see the supply-chain hardening discussion in #378).
+  - package-ecosystem: npm
+    directory: /site
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      site-dependencies:
+        patterns:
+          - "*"
+
+  # Keep the GitHub Actions used by the deploy workflow current.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
