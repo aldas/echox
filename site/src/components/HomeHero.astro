@@ -2,6 +2,7 @@
 // Living Terminal hero: code window + a terminal pane that types `curl`
 // and streams Echo's JSON response. Animation is client-side, with a
 // static final-state fallback for reduced-motion / no-JS.
+import { starsLabel } from '../data/github.ts';
 ---
 
 <section class="hh">
@@ -15,7 +16,7 @@
     </p>
     <div class="hh-cta">
       <a class="hh-btn pri" href="/guide/quickstart/">Get Started <i class="ph ph-arrow-right"></i></a>
-      <a class="hh-btn sec" href="https://github.com/labstack/echo"><i class="ph ph-star"></i> 32.4k on GitHub</a>
+      <a class="hh-btn sec" href="https://github.com/labstack/echo" target="_blank" rel="noopener noreferrer"><i class="ph ph-star"></i> {starsLabel} on GitHub</a>
     </div>
     <button class="hh-install" type="button" data-copy="go get github.com/labstack/echo/v5" aria-label="Copy install command">
       <span class="p">$</span> go get github.com/labstack/echo/v5 <i class="ph ph-copy cp"></i>

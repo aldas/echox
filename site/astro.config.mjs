@@ -17,7 +17,7 @@ export default defineConfig({
         { icon: 'github', label: 'GitHub', href: 'https://github.com/labstack/echo' },
       ],
       editLink: {
-        baseUrl: 'https://github.com/labstack/echox/edit/master/website/',
+        baseUrl: 'https://github.com/labstack/echox/edit/master/site/',
       },
       lastUpdated: true,
       // Echo "E" cube mark; .ico kept as legacy fallback, apple-touch-icon added in head.
@@ -31,7 +31,7 @@ export default defineConfig({
         // Dark-first: default new visitors to dark unless they've chosen otherwise.
         {
           tag: 'script',
-          content: "if(!localStorage.getItem('starlight-theme')){localStorage.setItem('starlight-theme','dark');document.documentElement.dataset.theme='dark';}",
+          content: "try{if(!localStorage.getItem('starlight-theme')){localStorage.setItem('starlight-theme','dark');document.documentElement.dataset.theme='dark';}}catch(e){document.documentElement.dataset.theme='dark';}",
         },
         { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' } },
         { tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true } },

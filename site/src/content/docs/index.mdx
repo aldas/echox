@@ -15,11 +15,12 @@ tableOfContents: false
 ---
 
 import HomeHero from '../../components/HomeHero.astro';
+import { starsLabel } from '../../data/github.ts';
 
 <HomeHero />
 
 <div class="echo-stats">
-  <div><b>32.4k</b><span>GitHub stars</span></div>
+  <div><b>{starsLabel}</b><span>GitHub stars</span></div>
   <div><b>0 allocs</b><span>router, per request</span></div>
   <div><b>25+</b><span>built-in middlewares</span></div>
   <div><b>MIT</b><span>open source license</span></div>
@@ -50,27 +51,27 @@ e.Start(":1323")</pre></div>
 <div class="echo-h"><span class="ey">Ecosystem</span><h2>Official packages, ready to plug in.</h2></div>
 
 <div class="echo-eco">
-  <a class="eco-card" href="https://github.com/labstack/echo-jwt"><h4>echo-jwt</h4><p>JWT authentication middleware backed by golang-jwt.</p></a>
-  <a class="eco-card" href="https://github.com/labstack/echo-contrib"><h4>echo-contrib</h4><p>Prometheus, Casbin, Jaeger, pprof, Zipkin &amp; session helpers.</p></a>
-  <a class="eco-card" href="https://github.com/swaggo/echo-swagger"><h4>echo-swagger</h4><p>Generate and serve interactive Swagger / OpenAPI docs.</p></a>
-  <a class="eco-card" href="https://pkg.go.dev/github.com/labstack/echo/v5"><h4>API Reference</h4><p>Full package documentation on pkg.go.dev.</p></a>
+  <a class="eco-card" href="https://github.com/labstack/echo-jwt" target="_blank" rel="noopener noreferrer"><h4>echo-jwt</h4><p>JWT authentication middleware backed by golang-jwt.</p></a>
+  <a class="eco-card" href="https://github.com/labstack/echo-contrib" target="_blank" rel="noopener noreferrer"><h4>echo-contrib</h4><p>Prometheus, Casbin, Jaeger, pprof, Zipkin &amp; session helpers.</p></a>
+  <a class="eco-card" href="https://github.com/swaggo/echo-swagger" target="_blank" rel="noopener noreferrer"><h4>echo-swagger</h4><p>Generate and serve interactive Swagger / OpenAPI docs.</p></a>
+  <a class="eco-card" href="https://pkg.go.dev/github.com/labstack/echo/v5" target="_blank" rel="noopener noreferrer"><h4>API Reference</h4><p>Full package documentation on pkg.go.dev.</p></a>
 </div>
 
 <div class="echo-h"><span class="ey">Sponsors</span><h2>Backed by teams who build on Echo.</h2></div>
 
-<a class="sp-featured" href="https://encore.dev">
+<a class="sp-featured" href="https://encore.dev" target="_blank" rel="noopener noreferrer">
   <img src="https://github.com/encoredev.png?size=88" alt="Encore" />
   <span class="t"><b>Encore</b><span>The platform for building Go-based cloud backends.</span></span>
 </a>
 
 <div class="sp-grid">
-  <a class="sp-card" href="https://github.com/customerio"><img src="https://github.com/customerio.png?size=52" alt="Customer.io" /><span>Customer.io</span></a>
-  <a class="sp-card" href="https://github.com/gravitycarbon"><img src="https://github.com/gravitycarbon.png?size=52" alt="Gravity Carbon" /><span>Gravity Carbon</span></a>
-  <a class="sp-card" href="https://github.com/mjslabs"><img src="https://github.com/mjslabs.png?size=52" alt="MJS Labs" /><span>MJS Labs</span></a>
-  <a class="sp-card" href="https://github.com/Codeerror"><img src="https://github.com/Codeerror.png?size=52" alt="Codeerror" /><span>Codeerror</span></a>
+  <a class="sp-card" href="https://github.com/customerio" target="_blank" rel="noopener noreferrer"><img src="https://github.com/customerio.png?size=52" alt="Customer.io" /><span>Customer.io</span></a>
+  <a class="sp-card" href="https://github.com/gravitycarbon" target="_blank" rel="noopener noreferrer"><img src="https://github.com/gravitycarbon.png?size=52" alt="Gravity Carbon" /><span>Gravity Carbon</span></a>
+  <a class="sp-card" href="https://github.com/mjslabs" target="_blank" rel="noopener noreferrer"><img src="https://github.com/mjslabs.png?size=52" alt="MJS Labs" /><span>MJS Labs</span></a>
+  <a class="sp-card" href="https://github.com/Codeerror" target="_blank" rel="noopener noreferrer"><img src="https://github.com/Codeerror.png?size=52" alt="Codeerror" /><span>Codeerror</span></a>
 </div>
 
-<div class="sp-cta"><a href="https://github.com/sponsors/labstack"><i class="ph ph-heart"></i> Become a sponsor</a></div>
+<div class="sp-cta"><a href="https://github.com/sponsors/labstack" target="_blank" rel="noopener noreferrer"><i class="ph ph-heart"></i> Become a sponsor</a></div>
 
 <div class="echo-foot">
   <div class="brand">
@@ -86,15 +87,15 @@ e.Start(":1323")</pre></div>
   </div>
   <div class="col">
     <h4>Project</h4>
-    <a href="https://github.com/labstack/echo">GitHub</a>
-    <a href="https://github.com/labstack/echo/releases">Releases</a>
-    <a href="https://github.com/labstack/echo/discussions">Discussions</a>
-    <a href="https://github.com/labstack/echo/blob/master/.github/CONTRIBUTING.md">Contributing</a>
+    <a href="https://github.com/labstack/echo" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://github.com/labstack/echo/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+    <a href="https://github.com/labstack/echo/discussions" target="_blank" rel="noopener noreferrer">Discussions</a>
+    <a href="https://github.com/labstack/echo/blob/master/.github/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contributing</a>
   </div>
   <div class="col">
     <h4>Resources</h4>
-    <a href="https://pkg.go.dev/github.com/labstack/echo/v5">API Reference</a>
-    <a href="https://github.com/sponsors/labstack">Sponsor</a>
-    <a href="https://github.com/labstack/echo/blob/master/LICENSE">MIT License</a>
+    <a href="https://pkg.go.dev/github.com/labstack/echo/v5" target="_blank" rel="noopener noreferrer">API Reference</a>
+    <a href="https://github.com/sponsors/labstack" target="_blank" rel="noopener noreferrer">Sponsor</a>
+    <a href="https://github.com/labstack/echo/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
   </div>
 </div>
