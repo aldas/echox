@@ -31,6 +31,13 @@ export default defineConfig({
         PageTitle: './src/components/PageTitle.astro',
       },
       head: [
+        // Google Analytics (carried over from the Docusaurus site, anonymized IP).
+        { tag: 'script', attrs: { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-H19TMZLQFN' } },
+        {
+          tag: 'script',
+          content:
+            "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-H19TMZLQFN',{anonymize_ip:true});",
+        },
         // Dark-first: default new visitors to dark unless they've chosen otherwise.
         {
           tag: 'script',
