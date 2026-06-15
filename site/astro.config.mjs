@@ -29,6 +29,7 @@ export default defineConfig({
       components: {
         Footer: './src/components/Footer.astro',
         PageTitle: './src/components/PageTitle.astro',
+        Search: './src/components/Search.astro',
       },
       head: [
         // Google Analytics (carried over from the Docusaurus site, anonymized IP).

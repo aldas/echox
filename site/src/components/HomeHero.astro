@@ -2,12 +2,12 @@
 // Living Terminal hero: code window + a terminal pane that types `curl`
 // and streams Echo's JSON response. Animation is client-side, with a
 // static final-state fallback for reduced-motion / no-JS.
-import { starsLabel } from '../data/github.ts';
+import { starsLabel, echoVersion } from '../data/github.ts';
 ---
 
 <section class="hh">
   <div class="hh-left">
-    <span class="hh-eyebrow"><i class="ph ph-sparkle"></i> Echo v5.2 — now released</span>
+    <span class="hh-eyebrow"><i class="ph ph-sparkle"></i> Echo {echoVersion} — now released</span>
     <h1>Build fast Go APIs.<br /><span class="g">Without the bloat.</span></h1>
     <p class="hh-sub">
       A high-performance, minimalist Go web framework — a zero-allocation
