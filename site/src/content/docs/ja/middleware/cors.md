@@ -117,8 +117,23 @@ CORSConfig{
 }
 ```
 
-:::caution[セキュリティ]
-`AllowCredentials = true` とワイルドカードの `AllowOrigins` を組み合わせてはいけません。
-動的な origin 検証が必要な場合は `UnsafeAllowOriginFunc` を使い、慎重に検証してください。
-攻撃者が悪意ある（サブ）ドメイン名を登録する可能性があります。
-:::
+## セキュリティ
+
+ワイルドカード origin（`AllowOrigins: []string{"*"}`）と `AllowCredentials: true` の組み合わせは危険です。
+**任意**のリクエストの `Origin` をそのまま `Access-Control-Allow-Origin` に反射してしまい、
+どのサイトのページからでも認証情報付きのクロスオリジンリクエストを API に送れてしまいます
+（[Exploiting CORS misconfigurations](https://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html) を参照）。
+
+Echo は安全でないミドルウェアを構築せず、この組み合わせを拒否します。`CORS` と `CORSWithConfig` は **panic** し、
+`CORSConfig.ToMiddleware()` はエラーを返します。認証情報付きのリクエストを許可するには、
+信頼する origin を明示的に列挙してください：
+
+```go
+e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	AllowOrigins:     []string{"https://example.com"},
+	AllowCredentials: true,
+}))
+```
+
+動的な origin 検証が必要な場合は `UnsafeAllowOriginFunc` を使い、各 origin を慎重に検証してください。
+攻撃者が偽装または悪意ある（サブ）ドメイン名を登録する可能性があります。

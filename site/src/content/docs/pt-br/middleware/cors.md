@@ -117,8 +117,23 @@ CORSConfig{
 }
 ```
 
-:::caution[Segurança]
-Nunca combine `AllowCredentials = true` com um wildcard `AllowOrigins`. Quando precisar
-de validação dinâmica de origem, use `UnsafeAllowOriginFunc` e valide cuidadosamente —
-atacantes podem registrar nomes de (sub)domínio hostis.
-:::
+## Segurança
+
+Um origin curinga (`AllowOrigins: []string{"*"}`) combinado com `AllowCredentials: true`
+é perigoso: ele refletiria o `Origin` de **qualquer** requisição em
+`Access-Control-Allow-Origin`, permitindo que uma página de qualquer site faça requisições
+cross-origin com credenciais à sua API (veja [Exploiting CORS misconfigurations](https://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html)).
+
+O Echo recusa essa combinação em vez de construir um middleware inseguro: `CORS` e
+`CORSWithConfig` causam **panic**, e `CORSConfig.ToMiddleware()` retorna um erro. Para permitir
+requisições com credenciais, liste explicitamente as origens confiáveis:
+
+```go
+e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	AllowOrigins:     []string{"https://example.com"},
+	AllowCredentials: true,
+}))
+```
+
+Para validação dinâmica de origem, use `UnsafeAllowOriginFunc` e valide cada origem com
+cuidado — atacantes podem registrar nomes de (sub)domínio falsos ou hostis.
