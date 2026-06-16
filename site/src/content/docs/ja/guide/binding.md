@@ -46,6 +46,24 @@ if err := c.Bind(&user); err != nil {
 JSON と XML はタグが省略された場合、標準ライブラリと同じように struct フィールド名へ
 フォールバックします。
 
+### スライス
+
+繰り返し指定されたクエリ・パス・フォーム・ヘッダーの値はスライスフィールドにバインドされ、
+すべての出現が収集されます：
+
+```go
+// GET /search?tag=go&tag=web&tag=api
+type Filter struct {
+	Tags []string `query:"tag"`
+}
+
+var f Filter
+if err := c.Bind(&f); err != nil {
+	return c.String(http.StatusBadRequest, "bad request")
+}
+// f.Tags == []string{"go", "web", "api"}
+```
+
 ### ボディのコンテンツタイプ
 
 リクエストボディをデコードするときは、`Content-Type` header によってデコーダーが選ばれます。

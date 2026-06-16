@@ -44,6 +44,24 @@ if err := c.Bind(&user); err != nil {
 Path, query, header, and form fields require an **explicit tag**. JSON and XML fall
 back to the struct field name when the tag is omitted, matching the standard library.
 
+### Slices
+
+Repeated query, path, form, or header values bind to a slice field — the field
+collects every occurrence:
+
+```go
+// GET /search?tag=go&tag=web&tag=api
+type Filter struct {
+	Tags []string `query:"tag"`
+}
+
+var f Filter
+if err := c.Bind(&f); err != nil {
+	return c.String(http.StatusBadRequest, "bad request")
+}
+// f.Tags == []string{"go", "web", "api"}
+```
+
 ### Body content types
 
 When decoding the request body, the `Content-Type` header selects the decoder:
