@@ -117,7 +117,21 @@ CORSConfig{
 }
 ```
 
-:::caution[安全]
-永远不要把 `AllowCredentials = true` 与通配符 `AllowOrigins` 组合使用。需要动态 origin
-验证时，请使用 `UnsafeAllowOriginFunc` 并仔细验证，攻击者可能注册恶意（子）域名。
-:::
+## 安全
+
+通配符 origin（`AllowOrigins: []string{"*"}`）与 `AllowCredentials: true` 组合使用非常危险：
+它会把**任意**请求的 `Origin` 原样反射到 `Access-Control-Allow-Origin` 中，使得任意网站上的页面
+都能向你的 API 发起携带凭证的跨域请求（参见 [Exploiting CORS misconfigurations](https://blog.portswigger.net/2016/10/exploiting-cors-misconfigurations-for.html)）。
+
+Echo 会拒绝这种组合，而不是构建不安全的中间件：`CORS` 和 `CORSWithConfig` 会 **panic**，
+`CORSConfig.ToMiddleware()` 会返回错误。要允许携带凭证的请求，请显式列出受信任的 origin：
+
+```go
+e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	AllowOrigins:     []string{"https://example.com"},
+	AllowCredentials: true,
+}))
+```
+
+需要动态 origin 验证时，请使用 `UnsafeAllowOriginFunc` 并仔细验证每个 origin——
+攻击者可能注册仿冒或恶意的（子）域名。
