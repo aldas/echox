@@ -87,6 +87,32 @@
 /* search box (chrome) */
 site-search button { border-radius: 8px !important; }
 
+/* "Ask AI" pill — opens the kapa.ai modal (Search.astro + astro.config). Sits
+   beside the search box and mirrors its chrome (40px, dark, 8px radius) so the
+   two read as one control group. Cyan sparkle marks it as the AI entrypoint. */
+.echo-search-row { display: flex; align-items: center; gap: 8px; flex: 1 1 auto; min-width: 0; }
+/* site-search is display:contents, so size its actual trigger button: let it grow
+   to fill the row (capped at Starlight's 352px max-width, restoring its old size). */
+.echo-search-row site-search button { flex: 1 1 auto; }
+.echo-ask-ai {
+  display: inline-flex; align-items: center; gap: 7px; flex: none;
+  height: 40px; padding: 0 14px; cursor: pointer; white-space: nowrap;
+  border: 1px solid var(--sl-color-gray-5); border-radius: 8px;
+  background: var(--sl-color-black); color: var(--sl-color-text);
+  font-family: var(--sl-font-mono); font-size: 0.8125rem; font-weight: 500; line-height: 1;
+  transition: border-color .15s, background .15s, color .15s;
+}
+.echo-ask-ai i { font-size: 1rem; color: var(--echo-cyan-text); transition: color .15s; }
+.echo-ask-ai:hover, .echo-ask-ai:focus-visible {
+  border-color: var(--echo-cyan); background: var(--echo-soft);
+  color: var(--sl-color-white); outline: none;
+}
+/* Tight headers (mobile): drop the label, keep the sparkle as an icon button. */
+@media (max-width: 50rem) {
+  .echo-ask-ai { padding: 0 11px; }
+  .echo-ask-ai__label { display: none; }
+}
+
 /* Empty search modal: a command-palette launchpad (quick links + shortcut
    footer) injected by Search.astro, shown only before a query exists. Pagefind
    marks the results drawer .pagefind-ui__hidden when empty. */
@@ -154,52 +180,6 @@ site-search button { border-radius: 8px !important; }
 .expressive-code .copy button:hover { background: color-mix(in srgb, var(--echo-cyan) 16%, transparent); }
 .expressive-code .copy button:hover::after { background-color: var(--echo-cyan-2) !important; } /* icon glyph */
 
-/* ---------- Doc action toolbar ---------- */
-.doc-actions { display: flex; flex-wrap: wrap; gap: 7px; margin: 4px 0 4px; }
-.doc-act {
-  display: inline-flex; align-items: center; gap: 6px; font-family: var(--sl-font-mono);
-  font-size: 0.72rem; color: var(--sl-color-gray-3); border: 1px solid var(--sl-color-hairline-light);
-  background: var(--sl-color-bg-sidebar); border-radius: 7px; padding: 5px 11px; cursor: pointer;
-  line-height: 1; text-decoration: none; transition: all .15s;
-}
-.doc-act:hover { color: var(--sl-color-white); border-color: var(--echo-cyan); text-decoration: none; }
-.doc-act .ph { font-size: 14px; }
-.doc-act--primary { background: var(--echo-soft); border-color: transparent; color: var(--echo-cyan-text); }
-
-/* ---------- Ask Echo (island) ---------- */
-.ask-fab {
-  position: fixed; right: 22px; bottom: 22px; z-index: 999; display: inline-flex; align-items: center; gap: 8px;
-  background: var(--sl-color-bg-sidebar); border: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-white);
-  border-radius: 30px; padding: 9px 16px; font-family: var(--sl-font-mono); font-size: 0.78rem; cursor: pointer;
-  box-shadow: 0 14px 34px -12px rgba(0,0,0,.7);
-}
-.ask-fab:hover { border-color: var(--echo-cyan); }
-.ask-fab .ph { color: var(--echo-cyan-text); font-size: 16px; }
-.ask-fab kbd { background: var(--sl-color-hairline); border: 1px solid var(--sl-color-hairline-light); border-radius: 5px; padding: 1px 6px; font-size: 0.7rem; color: var(--sl-color-gray-4); }
-.ask-overlay { position: fixed; inset: 0; z-index: 1000; background: rgba(6,5,5,.66); backdrop-filter: blur(6px); display: flex; align-items: flex-start; justify-content: center; padding-top: 11vh; }
-.ask-overlay[hidden] { display: none; }
-.ask-fab[hidden] { display: none; }
-.ask-palette { width: min(660px, 92vw); background: var(--sl-color-bg-sidebar); border: 1px solid var(--sl-color-hairline-light); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 120px -30px rgba(0,0,0,.9); font-family: var(--sl-font-mono); }
-.ask-top { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--sl-color-hairline); }
-.ask-top .ph { color: var(--echo-cyan-text); font-size: 19px; }
-.ask-input { flex: 1; background: none; border: 0; outline: none; color: var(--sl-color-white); font-size: 15px; font-family: var(--sl-font-mono); }
-.ask-input::placeholder { color: var(--sl-color-gray-4); }
-.ask-esc { font-size: 0.7rem; color: var(--sl-color-gray-4); border: 1px solid var(--sl-color-hairline-light); border-radius: 6px; padding: 3px 7px; }
-.ask-body { max-height: 54vh; overflow-y: auto; padding: 12px 16px 16px; }
-.ask-s { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 10px 11px; border: 0; background: none; border-radius: 8px; color: var(--sl-color-gray-3); font-size: 13px; cursor: pointer; font-family: var(--sl-font-mono); }
-.ask-s:hover { background: var(--sl-color-hairline); color: var(--sl-color-white); }
-.ask-s .ph { font-size: 17px; color: var(--echo-cyan-text); }
-.ask-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 0.7rem; color: var(--echo-cyan-text); background: var(--echo-soft); border-radius: 20px; padding: 4px 11px; margin-bottom: 13px; }
-.ask-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--echo-cyan); animation: askb 1.2s infinite; }
-@keyframes askb { 50% { opacity: .3; } }
-.ask-answer { font-size: 13.5px; line-height: 1.7; color: var(--sl-color-text); }
-.ask-answer strong { color: var(--sl-color-white); }
-.ask-answer pre { margin: 12px 0; background: #0a0908; border: 1px solid var(--sl-color-hairline); border-radius: 9px; padding: 14px 16px; overflow-x: auto; font-size: 12.5px; }
-.ask-cursor { display: inline-block; width: 7px; height: 15px; background: var(--echo-cyan); vertical-align: -2px; animation: askb .9s infinite; }
-.ask-sources { margin-top: 16px; border-top: 1px solid var(--sl-color-hairline); padding-top: 12px; }
-.ask-sources h5 { font-size: 0.62rem; text-transform: uppercase; letter-spacing: .1em; color: var(--sl-color-gray-4); margin-bottom: 8px; }
-.ask-src { display: flex; gap: 9px; padding: 6px 8px; border-radius: 7px; color: var(--sl-color-gray-3); font-size: 12.5px; }
-.ask-n { font-size: 0.7rem; color: var(--echo-cyan-text); border: 1px solid var(--sl-color-hairline-light); border-radius: 5px; padding: 1px 6px; }
 
 /* ---------- Homepage ---------- */
 .hero { padding-block: 3rem 1rem; }

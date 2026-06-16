@@ -32,10 +32,10 @@ export default defineConfig({
       lastUpdated: true,
       // Echo "E" cube mark; .ico kept as legacy fallback, apple-touch-icon added in head.
       favicon: '/favicon.svg',
-      // Keep Starlight's built-in Pagefind ⌘K search; add Ask Echo + DocActions via overrides.
+      // Keep Starlight's built-in Pagefind ⌘K search; Search override adds the
+      // empty-state launchpad. "Ask AI" is the kapa.ai widget (see head).
       components: {
         Footer: './src/components/Footer.astro',
-        PageTitle: './src/components/PageTitle.astro',
         Search: './src/components/Search.astro',
       },
       head: [
@@ -45,6 +45,30 @@ export default defineConfig({
           tag: 'script',
           content:
             "window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-H19TMZLQFN',{anonymize_ip:true});",
+        },
+        // kapa.ai "Ask AI" widget — real answers from the indexed Echo docs.
+        // We hide kapa's default floating launcher and open the modal from our
+        // own "Ask AI" pill in the header (see Search.astro) so the trigger
+        // matches the Terminal chrome instead of kapa's stock button.
+        {
+          tag: 'script',
+          attrs: {
+            async: true,
+            src: 'https://widget.kapa.ai/kapa-widget.bundle.js',
+            'data-website-id': '3ff47090-a571-4c4a-bec0-c0a377028db5',
+            'data-project-name': 'Echo',
+            // Modal header title (defaults to "Echo Docs AI" from the project name).
+            'data-modal-title': 'Ask AI',
+            'data-project-color': '#00afd1',
+            // Modal header logo — the same sparkle as the "Ask AI" header pill
+            // (not the Echo cube). The floating launcher that also used this is hidden.
+            'data-project-logo': '/ask-ai.svg',
+            // Sync the widget's light/dark with the site (we set data-theme on <html>).
+            'data-color-scheme-selector': "[data-theme='dark']",
+            // Hide the stock floating button; kapa wires clicks on our header pill.
+            'data-button-hide': 'true',
+            'data-modal-override-open-selector': '#echo-ask-ai',
+          },
         },
         // Dark-first: default new visitors to dark unless they've chosen otherwise.
         {
