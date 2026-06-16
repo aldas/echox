@@ -44,6 +44,24 @@ if err := c.Bind(&user); err != nil {
 Los campos de path, query, header y form requieren un **tag explícito**. JSON y XML usan
 el nombre del campo del struct cuando se omite el tag, igual que la biblioteca estándar.
 
+### Slices
+
+Los valores repetidos de query, path, formulario o header se enlazan a un campo
+slice, que recoge cada aparición:
+
+```go
+// GET /search?tag=go&tag=web&tag=api
+type Filter struct {
+	Tags []string `query:"tag"`
+}
+
+var f Filter
+if err := c.Bind(&f); err != nil {
+	return c.String(http.StatusBadRequest, "bad request")
+}
+// f.Tags == []string{"go", "web", "api"}
+```
+
 ### Content types del body
 
 Al decodificar el body del request, el header `Content-Type` selecciona el decoder:

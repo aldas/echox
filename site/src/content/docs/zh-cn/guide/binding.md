@@ -44,6 +44,23 @@ if err := c.Bind(&user); err != nil {
 路径、查询、header 和表单字段都需要**显式标签**。JSON 和 XML 在省略标签时会回退到
 struct 字段名，这与标准库的行为一致。
 
+### 切片
+
+重复的查询、路径、表单或请求头值会绑定到切片字段——该字段会收集每一个值：
+
+```go
+// GET /search?tag=go&tag=web&tag=api
+type Filter struct {
+	Tags []string `query:"tag"`
+}
+
+var f Filter
+if err := c.Bind(&f); err != nil {
+	return c.String(http.StatusBadRequest, "bad request")
+}
+// f.Tags == []string{"go", "web", "api"}
+```
+
 ### 请求体内容类型
 
 解码请求体时，`Content-Type` header 会选择对应的解码器：
