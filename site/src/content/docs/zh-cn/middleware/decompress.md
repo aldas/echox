@@ -11,6 +11,12 @@ sidebar:
 请求体会在内存中解压，并在请求生命周期内（直到垃圾回收）保留在那里。
 :::
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

@@ -12,6 +12,12 @@ en lugar del método original.
 Por razones de seguridad, solo se puede sobrescribir el método `POST`.
 :::
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

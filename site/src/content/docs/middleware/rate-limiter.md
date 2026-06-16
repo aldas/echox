@@ -12,6 +12,12 @@ By default, an in-memory store keeps track of requests. The default in-memory im
 is focused on correctness and may not be the best option for a high number of concurrent
 requests or a large number of distinct identifiers (>16k).
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 To add a rate limit to your application, add the `RateLimiter` middleware. The example below

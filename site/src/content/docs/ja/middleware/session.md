@@ -125,7 +125,7 @@ func main() {
 セッションを指定せずに `/read-session` をリクエストすると、`foo` の値は nil として出力されます。
 
 ```bash
-$ curl -v http://localhost:8080/read-session
+curl -v http://localhost:8080/read-session
 * processing: http://localhost:8080/read-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080
@@ -145,7 +145,7 @@ foo=<nil>
 `/create-session` をリクエストすると新しいセッションが作成されます。
 
 ```bash
-$ curl -v -c cookies.txt http://localhost:8080/create-session
+curl -v -c cookies.txt http://localhost:8080/create-session
 * processing: http://localhost:8080/create-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080
@@ -167,7 +167,7 @@ $ curl -v -c cookies.txt http://localhost:8080/create-session
 セッション内の `foo` 値が出力されます。
 
 ```bash
-$ curl -v -b cookies.txt http://localhost:8080/read-session
+curl -v -b cookies.txt http://localhost:8080/read-session
 * processing: http://localhost:8080/read-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080

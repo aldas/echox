@@ -11,6 +11,12 @@ Body Limit 中间件会设置请求体允许的最大大小。如果大小超过
 该限制会同时针对 `Content-Length` 请求 header 和实际读取内容执行，因此可抵御伪造 header。
 限制值以字节为单位指定。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

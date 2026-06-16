@@ -7,6 +7,12 @@ sidebar:
 
 Secure 中间件提供对跨站脚本（XSS）、内容类型嗅探、点击劫持、不安全连接和其他代码注入攻击的防护。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

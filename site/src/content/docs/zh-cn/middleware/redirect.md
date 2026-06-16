@@ -5,6 +5,12 @@ sidebar:
   order: 19
 ---
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## HTTPS 重定向
 
 HTTPS redirect 中间件会把 HTTP 请求重定向到 HTTPS。例如，`http://labstack.com`

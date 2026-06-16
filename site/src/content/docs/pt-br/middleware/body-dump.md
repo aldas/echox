@@ -13,6 +13,12 @@ Evite Body Dump para payloads grandes, como uploads ou downloads de arquivos. Se
 nessas rotas, adicione uma exceção na função skipper.
 :::
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

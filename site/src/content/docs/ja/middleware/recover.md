@@ -8,6 +8,12 @@ sidebar:
 Recover ミドルウェアは、チェーン内のどこで発生した panic からも復旧し、スタックトレースを出力して、
 一元化された [HTTPErrorHandler](/ja/guide/customization/#http-error-handler) に制御を渡します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

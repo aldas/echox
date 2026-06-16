@@ -8,6 +8,12 @@ sidebar:
 Context Timeout 中间件会在预定义时间内为请求上下文应用超时，
 使支持上下文的方法在超过截止时间后可以提前返回。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

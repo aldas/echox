@@ -12,6 +12,12 @@ The limit is enforced against both the `Content-Length` request header and the a
 content read, which makes it resilient against spoofed headers. The limit is specified
 in bytes.
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

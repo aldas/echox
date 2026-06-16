@@ -7,6 +7,12 @@ sidebar:
 
 Gzip ミドルウェアは gzip 圧縮方式を使って HTTP レスポンスを圧縮します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

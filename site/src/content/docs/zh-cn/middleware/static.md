@@ -7,6 +7,12 @@ sidebar:
 
 Static 中间件会从提供的根目录提供静态文件。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

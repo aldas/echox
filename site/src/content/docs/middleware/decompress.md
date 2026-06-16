@@ -13,6 +13,12 @@ The body is decompressed in memory and held there for the lifetime of the reques
 until garbage collection).
 :::
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

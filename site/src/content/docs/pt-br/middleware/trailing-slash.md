@@ -5,6 +5,12 @@ sidebar:
   order: 25
 ---
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Adicionar barra final
 
 O middleware Add trailing slash adiciona uma barra final à URI do request.

@@ -12,6 +12,12 @@ Por padrão, um store em memória acompanha os requests. A implementação em me
 é focada em correção e pode não ser a melhor opção para um alto número de requests
 concorrentes ou um grande número de identificadores distintos (>16k).
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 Para adicionar um limite de taxa à sua aplicação, adicione o middleware `RateLimiter`. O exemplo abaixo

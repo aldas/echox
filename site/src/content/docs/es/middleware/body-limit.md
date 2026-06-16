@@ -11,6 +11,12 @@ supera el límite configurado, envía una response `413 Request Entity Too Large
 El límite se aplica tanto al header de request `Content-Length` como al contenido real leído,
 lo que lo hace resistente a headers falsificados. El límite se especifica en bytes.
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

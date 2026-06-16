@@ -10,6 +10,12 @@ Basic Auth 中间件提供 HTTP Basic 认证。
 - 对于有效凭据，它会调用下一个处理函数。
 - 对于缺失或无效凭据，它会发送 `401 Unauthorized` 响应。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

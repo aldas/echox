@@ -8,6 +8,12 @@ sidebar:
 CORS 中间件实现了 [CORS](https://fetch.spec.whatwg.org/#http-cors-protocol) 规范。
 CORS 为 Web 服务器提供跨域访问控制，从而支持安全的跨域数据传输。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

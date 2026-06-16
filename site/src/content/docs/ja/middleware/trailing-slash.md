@@ -5,6 +5,12 @@ sidebar:
   order: 25
 ---
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 末尾スラッシュを追加する
 
 Add trailing slash ミドルウェアは、リクエスト URI に末尾スラッシュを追加します。

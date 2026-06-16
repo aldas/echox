@@ -8,6 +8,12 @@ sidebar:
 Cross-Site Request Forgery（CSRF，有时读作 "sea-surf"，也称 XSRF）是一类恶意利用，
 攻击者会从网站信任的用户那里传递未授权命令。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

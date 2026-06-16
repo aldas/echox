@@ -12,6 +12,12 @@ Por defecto, un store en memoria lleva la cuenta de los requests. La implementac
 defecto se centra en la corrección y puede no ser la mejor opción para un número alto de requests
 concurrentes o una gran cantidad de identificadores distintos (>16k).
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 Para agregar un rate limit a tu aplicación, agrega el middleware `RateLimiter`. El ejemplo siguiente

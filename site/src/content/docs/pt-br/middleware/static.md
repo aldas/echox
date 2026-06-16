@@ -7,6 +7,12 @@ sidebar:
 
 O middleware Static serve arquivos estáticos a partir do diretório raiz fornecido.
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

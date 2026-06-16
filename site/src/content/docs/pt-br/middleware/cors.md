@@ -8,6 +8,12 @@ sidebar:
 O middleware CORS implementa a especificação [CORS](https://fetch.spec.whatwg.org/#http-cors-protocol). CORS fornece
 controles de acesso entre domínios para servidores web, permitindo transferências de dados seguras entre domínios.
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

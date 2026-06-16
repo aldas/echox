@@ -11,6 +11,12 @@ Body Limit ミドルウェアはリクエストボディに許可される最大
 この制限は `Content-Length` リクエスト header と実際に読み取られた内容の両方に適用されるため、
 偽装された header に対しても耐性があります。制限値はバイト単位で指定します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

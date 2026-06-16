@@ -7,6 +7,12 @@ sidebar:
 
 El middleware Gzip comprime la response HTTP usando el esquema de compresión gzip.
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

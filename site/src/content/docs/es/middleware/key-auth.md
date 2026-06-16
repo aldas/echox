@@ -11,6 +11,12 @@ El middleware Key Auth proporciona autenticación basada en clave.
 - Para una clave inválida, envía una response `401 Unauthorized`.
 - Para una clave ausente, envía una response `400 Bad Request`.
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

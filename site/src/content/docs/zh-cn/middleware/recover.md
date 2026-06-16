@@ -8,6 +8,12 @@ sidebar:
 Recover 中间件会从链中任意位置的 panic 中恢复，打印堆栈跟踪，并把控制权传给集中式
 [HTTPErrorHandler](/zh-cn/guide/customization/#http-error-handler)。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

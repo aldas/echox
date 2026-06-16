@@ -9,6 +9,12 @@ Recover middleware recovers from panics anywhere in the chain, prints the stack 
 passes control to the centralized
 [HTTPErrorHandler](/guide/customization/#http-error-handler).
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

@@ -11,6 +11,12 @@ Key Auth 中间件提供基于 key 的认证。
 - 对于无效 key，它会发送 `401 Unauthorized` 响应。
 - 对于缺失 key，它会发送 `400 Bad Request` 响应。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 ```go

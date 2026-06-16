@@ -13,6 +13,12 @@ Avoid Body Dump for large payloads such as file uploads or downloads. If you mus
 on such routes, add an exception in the skipper function.
 :::
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go
