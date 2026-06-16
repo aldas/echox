@@ -1,11 +1,9 @@
 ---
 import Default from '@astrojs/starlight/components/Footer.astro';
-import AskEcho from './AskEcho.astro';
 
 const year = new Date().getFullYear();
 ---
 <Default><slot /></Default>
-<AskEcho />
 <footer class="echo-docfoot">
   <span>© {year} LabStack LLC. Released under the MIT License.</span>
   <div class="echo-social">

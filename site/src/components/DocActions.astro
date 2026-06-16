@@ -1,8 +1,0 @@
-<div class="doc-actions">
-  <button class="doc-act doc-act--primary" data-ask-echo type="button"><i class="ph ph-sparkle"></i> Ask Echo</button>
-</div>
-<script>
-  document.querySelectorAll('[data-ask-echo]').forEach((b) =>
-    b.addEventListener('click', () => window.dispatchEvent(new Event('ask-echo-open')))
-  );
-</script>

@@ -1,7 +1,14 @@
 ---
 import Default from '@astrojs/starlight/components/Search.astro';
 ---
-<Default />
+<div class="echo-search-row">
+  <Default />
+  {/* Opens the kapa.ai modal — wired via data-modal-override-open-selector in astro.config. */}
+  <button id="echo-ask-ai" class="echo-ask-ai" type="button" aria-label="Ask AI about Echo">
+    <i class="ph ph-sparkle" aria-hidden="true"></i>
+    <span class="echo-ask-ai__label">Ask AI</span>
+  </button>
+</div>
 
 <script>
   // Command-palette empty state: inject quick links + a shortcut footer into the
