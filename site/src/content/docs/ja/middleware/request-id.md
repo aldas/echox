@@ -7,6 +7,12 @@ sidebar:
 
 Request ID ミドルウェアはリクエストに一意の ID を生成します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

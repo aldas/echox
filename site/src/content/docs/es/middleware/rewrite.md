@@ -8,6 +8,12 @@ sidebar:
 El middleware Rewrite reescribe el path de la URL según las reglas proporcionadas. Es útil para
 compatibilidad hacia atrás o para crear enlaces más limpios y descriptivos.
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

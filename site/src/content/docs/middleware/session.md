@@ -127,7 +127,7 @@ func main() {
 Requesting `/read-session` without providing a session outputs nil as the `foo` value:
 
 ```bash
-$ curl -v http://localhost:8080/read-session
+curl -v http://localhost:8080/read-session
 * processing: http://localhost:8080/read-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080
@@ -147,7 +147,7 @@ foo=<nil>
 Requesting `/create-session` creates a new session:
 
 ```bash
-$ curl -v -c cookies.txt http://localhost:8080/create-session
+curl -v -c cookies.txt http://localhost:8080/create-session
 * processing: http://localhost:8080/create-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080
@@ -169,7 +169,7 @@ Using the session cookie from the previous response, requesting `/read-session` 
 `foo` value from the session:
 
 ```bash
-$ curl -v -b cookies.txt http://localhost:8080/read-session
+curl -v -b cookies.txt http://localhost:8080/read-session
 * processing: http://localhost:8080/read-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080

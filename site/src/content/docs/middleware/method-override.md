@@ -12,6 +12,12 @@ instead of the original method.
 For security reasons, only the `POST` method can be overridden.
 :::
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

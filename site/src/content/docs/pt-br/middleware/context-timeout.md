@@ -8,6 +8,12 @@ sidebar:
 O middleware Context Timeout aplica um timeout ao contexto do request dentro de um período
 predefinido, para que métodos context-aware possam retornar mais cedo quando o prazo for excedido.
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

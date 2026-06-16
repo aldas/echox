@@ -11,6 +11,12 @@ Key Auth ミドルウェアは key ベース認証を提供します。
 - 無効な key の場合、`401 Unauthorized` レスポンスを送信します。
 - key がない場合、`400 Bad Request` レスポンスを送信します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

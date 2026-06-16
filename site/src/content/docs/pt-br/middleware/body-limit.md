@@ -12,6 +12,12 @@ O limite é aplicado tanto ao header de request `Content-Length` quanto ao conte
 lido, o que o torna resistente a headers falsificados. O limite é especificado
 em bytes.
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

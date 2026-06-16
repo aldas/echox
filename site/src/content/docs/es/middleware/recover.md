@@ -9,6 +9,12 @@ El middleware Recover se recupera de panics en cualquier punto de la cadena, imp
 pasa el control al
 [HTTPErrorHandler](/es/guide/customization/#http-error-handler) centralizado.
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

@@ -7,6 +7,12 @@ sidebar:
 
 Static middleware serves static files from the provided root directory.
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

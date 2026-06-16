@@ -9,6 +9,12 @@ Cross-Site Request Forgery (CSRF, sometimes pronounced "sea-surf", or XSRF) is a
 malicious exploit where unauthorized commands are transmitted from a user that a website
 trusts.
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

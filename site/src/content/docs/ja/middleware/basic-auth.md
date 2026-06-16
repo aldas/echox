@@ -10,6 +10,12 @@ Basic Auth ミドルウェアは HTTP Basic 認証を提供します。
 - 有効な認証情報の場合、次のハンドラを呼び出します。
 - 認証情報がない、または無効な場合は `401 Unauthorized` レスポンスを送信します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

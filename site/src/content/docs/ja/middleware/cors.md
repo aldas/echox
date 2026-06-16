@@ -8,6 +8,12 @@ sidebar:
 CORS ミドルウェアは [CORS](https://fetch.spec.whatwg.org/#http-cors-protocol) 仕様を実装します。
 CORS は Web サーバーにクロスドメインアクセス制御を提供し、安全なクロスドメインデータ転送を可能にします。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

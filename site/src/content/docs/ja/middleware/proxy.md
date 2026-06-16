@@ -8,6 +8,12 @@ sidebar:
 Proxy は HTTP/WebSocket リバースプロキシミドルウェアを提供します。設定された負荷分散方式を使って、
 リクエストを上流サーバーへ転送します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

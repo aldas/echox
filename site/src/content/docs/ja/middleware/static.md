@@ -7,6 +7,12 @@ sidebar:
 
 Static ミドルウェアは、指定されたルートディレクトリから静的ファイルを配信します。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

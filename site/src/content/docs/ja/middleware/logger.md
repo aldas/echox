@@ -79,6 +79,12 @@ type RequestLoggerConfig struct {
 }
 ```
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 例
 
 ### fmt.Printf

@@ -7,6 +7,12 @@ sidebar:
 
 O middleware Request ID gera um ID único para um request.
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

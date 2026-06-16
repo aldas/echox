@@ -10,6 +10,12 @@ El middleware Basic Auth proporciona autenticación HTTP basic.
 - Para credenciales válidas llama al siguiente handler.
 - Para credenciales ausentes o inválidas, envía una response `401 Unauthorized`.
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

@@ -5,6 +5,12 @@ sidebar:
   order: 19
 ---
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## HTTPS Redirect
 
 El middleware HTTPS redirect redirige requests HTTP a HTTPS. Por ejemplo,

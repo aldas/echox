@@ -79,6 +79,12 @@ type RequestLoggerConfig struct {
 }
 ```
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Ejemplos
 
 ### fmt.Printf

@@ -5,6 +5,12 @@ sidebar:
   order: 19
 ---
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## HTTPS リダイレクト
 
 HTTPS redirect ミドルウェアは HTTP リクエストを HTTPS へリダイレクトします。

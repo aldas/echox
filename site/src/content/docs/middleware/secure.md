@@ -8,6 +8,12 @@ sidebar:
 Secure middleware provides protection against cross-site scripting (XSS), content type
 sniffing, clickjacking, insecure connections, and other code injection attacks.
 
+All core middleware lives in the `middleware` package:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Usage
 
 ```go

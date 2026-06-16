@@ -10,6 +10,12 @@ sidebar:
 默认情况下，请求记录保存在内存 store 中。默认内存实现专注于正确性，对于大量并发请求或大量不同标识符
 （>16k）可能不是最佳选择。
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 用法
 
 要为应用添加速率限制，请添加 `RateLimiter` 中间件。下面的示例使用默认内存 store，

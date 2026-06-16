@@ -124,7 +124,7 @@ func main() {
 在不提供会话的情况下请求 `/read-session`，输出的 `foo` 值为 nil：
 
 ```bash
-$ curl -v http://localhost:8080/read-session
+curl -v http://localhost:8080/read-session
 * processing: http://localhost:8080/read-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080
@@ -144,7 +144,7 @@ foo=<nil>
 请求 `/create-session` 会创建新会话：
 
 ```bash
-$ curl -v -c cookies.txt http://localhost:8080/create-session
+curl -v -c cookies.txt http://localhost:8080/create-session
 * processing: http://localhost:8080/create-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080
@@ -165,7 +165,7 @@ $ curl -v -c cookies.txt http://localhost:8080/create-session
 使用上一个响应中的会话 Cookie 请求 `/read-session`，会输出会话中的 `foo` 值：
 
 ```bash
-$ curl -v -b cookies.txt http://localhost:8080/read-session
+curl -v -b cookies.txt http://localhost:8080/read-session
 * processing: http://localhost:8080/read-session
 *   Trying [::1]:8080...
 * Connected to localhost (::1) port 8080

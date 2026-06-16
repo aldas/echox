@@ -8,6 +8,12 @@ sidebar:
 Proxy fornece um middleware de reverse proxy HTTP/WebSocket. Ele encaminha um request para um
 servidor upstream usando uma técnica de load balancing configurada.
 
+Todo o middleware principal fica no pacote `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

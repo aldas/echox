@@ -5,6 +5,12 @@ sidebar:
   order: 25
 ---
 
+所有核心中间件都位于 `middleware` 包中：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 添加尾随斜杠
 
 Add trailing slash 中间件会向请求 URI 添加尾随斜杠。

@@ -8,6 +8,12 @@ sidebar:
 Rewrite ミドルウェアは、指定されたルールに基づいて URL パスを書き換えます。
 後方互換性を保つ場合や、より短く分かりやすいリンクを作る場合に役立ちます。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go

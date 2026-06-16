@@ -13,6 +13,12 @@ El body se descomprime en memoria y permanece allí durante la vida del request 
 la garbage collection).
 :::
 
+Todo el middleware principal reside en el paquete `middleware`:
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## Uso
 
 ```go

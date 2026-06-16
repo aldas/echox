@@ -8,6 +8,12 @@ sidebar:
 Context Timeout ミドルウェアは、定義済みの期間内でリクエストコンテキストにタイムアウトを適用し、
 期限を超えたらコンテキスト対応メソッドが早期に返れるようにします。
 
+すべてのコアミドルウェアは `middleware` パッケージに含まれています：
+
+```go
+import "github.com/labstack/echo/v5/middleware"
+```
+
 ## 使い方
 
 ```go
